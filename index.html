@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M&F Courier | Premium Nationwide 3D Logistics & Delivery</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              900: '#052e16',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              amber: '#f59e0b',
+              purple: '#a855f7'
+            },
+            darkBg: '#060911',
+            cardBg: 'rgba(15, 23, 42, 0.75)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP & Three.js Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #060911;
+      color: #f3f4f6;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Active Theory Custom Glowing Cursor Follower */
+    #customCursor {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #22c55e;
+      border-radius: 50%;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease-out, border-color 0.2s, width 0.2s, height 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-panel {
+      background: rgba(13, 19, 33, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    .glass-card {
+      background: rgba(22, 30, 49, 0.55);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(34, 197, 94, 0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(34, 197, 94, 0.18);
+    }
+
+    .neon-text-green {
+      text-shadow: 0 0 14px rgba(34, 197, 94, 0.65);
+    }
+
+    .neon-glow-btn {
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
+    }
+    .neon-glow-btn:hover {
+      box-shadow: 0 0 35px rgba(34, 197, 94, 0.75);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060911;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #22c55e;
+    }
+
+    /* Floating 3D animation keyframes */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(18px) rotate(-6deg); }
+    }
+    .animate-float-1 { animation: floatSlow 6s ease-in-out infinite; }
+    .animate-float-2 { animation: floatReverse 7s ease-in-out infinite; }
+
+    /* Radar Pulse Animation */
+    @keyframes radarPulse {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+    .radar-ring {
+      animation: radarPulse 2.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+  </style>
+</head>
+<body class="bg-[#060911] text-gray-100 selection:bg-brand-500 selection:text-black">
+
+  <!-- Custom Cursor Glow Element -->
+  <div id="customCursor"></div>
+
+  <!-- Persistent Floating WhatsApp Button -->
+  <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20get%20an%20instant%20quote%20for%20my%20delivery." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-400 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center group border border-white/20">
+    <i class="fa-brands fa-whatsapp text-3xl"></i>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out group-hover:ml-3 text-xs font-mono font-extrabold uppercase">
+      Chat on WhatsApp
+    </span>
+  </a>
+
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 px-4 sm:px-8" id="navbar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between glass-panel rounded-full px-5 py-2.5 border border-white/10 shadow-2xl">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-600 to-accent-cyan flex items-center justify-center text-black font-black text-lg shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+          M&F
+        </div>
+        <div>
+          <span class="text-lg font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-brand-400">
+            MFT <span class="text-brand-400">COURIER</span>
+          </span>
+          <span class="block text-[9px] text-gray-400 font-mono tracking-widest uppercase">Greater Manchester Hub • All UK</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden lg:flex items-center space-x-6 text-xs font-mono tracking-wide uppercase font-semibold">
+        <a href="#3d-van" class="hover:text-brand-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-truck-fast text-brand-400"></i> 3D Van</a>
+        <a href="#uk-map" class="hover:text-brand-400 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-map-location-dot text-accent-cyan"></i> UK Coverage</a>
+        <a href="#quote" class="hover:text-brand-400 transition-colors">Instant Quote</a>
+        <a href="#fleet" class="hover:text-brand-400 transition-colors">Fleet Specs</a>
+        <a href="#tracking" class="hover:text-brand-400 transition-colors">Live Telemetry</a>
+        <a href="#loading-dispatch" class="text-brand-400 hover:text-white transition-colors border border-brand-500/30 px-3 py-1 rounded-full bg-brand-500/10"><i class="fa-solid fa-box-open mr-1"></i> 3D Cargo Load</a>
+      </nav>
+
+      <!-- Dispatch Call & WhatsApp Quick Buttons -->
+      <div class="hidden sm:flex items-center gap-2">
+        <a href="https://wa.me/447501419198" target="_blank" class="text-xs font-mono bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-2 rounded-xl flex items-center gap-1.5 transition-all">
+          <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </a>
+        <a href="tel:+447501419198" class="text-xs font-mono bg-white/5 hover:bg-white/10 px-3 py-2 rounded-xl border border-white/10 flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-phone text-brand-400"></i> +44 7501 419198
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" class="lg:hidden text-gray-300 hover:text-white text-2xl focus:outline-none">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden max-w-7xl mx-auto mt-2 glass-panel rounded-2xl p-6 border border-white/10 flex flex-col space-y-4 text-sm font-mono">
+      <a href="#3d-van" class="text-gray-200 hover:text-brand-400 py-2 border-b border-white/5"><i class="fa-solid fa-truck-fast text-brand-400 mr-2"></i> 3D Interactive Van</a>
+      <a href="#uk-map" class="text-gray-200 hover:text-brand-400 py-2 border-b border-white/5"><i class="fa-solid fa-map text-accent-cyan mr-2"></i> Greater Manchester Hub & All UK</a>
+      <a href="#quote" class="text-gray-200 hover:text-brand-400 py-2 border-b border-white/5"><i class="fa-solid fa-calculator text-brand-400 mr-2"></i> Instant Price Calculator</a>
+      <a href="#fleet" class="text-gray-200 hover:text-brand-400 py-2 border-b border-white/5"><i class="fa-solid fa-boxes-packing text-brand-400 mr-2"></i> Fleet Specifications</a>
+      <a href="#loading-dispatch" class="text-brand-400 hover:text-white py-2 border-b border-white/5"><i class="fa-solid fa-box-open text-brand-400 mr-2"></i> 3D Cargo Loader</a>
+      <div class="pt-2 flex flex-col gap-2">
+        <a href="tel:+447501419198" class="bg-brand-500 text-black text-center font-extrabold py-3 rounded-xl neon-glow-btn uppercase">
+          <i class="fa-solid fa-phone mr-1"></i> Call +44 7501 419198
+        </a>
+        <a href="https://wa.me/447501419198" target="_blank" class="bg-emerald-600 text-white text-center font-extrabold py-3 rounded-xl uppercase flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section id="3d-van" class="relative min-h-screen pt-32 sm:pt-36 pb-16 flex items-center justify-center overflow-hidden">
+    
+    <!-- 3D HERO BACKGROUND CANVAS (Three.js Holographic Particle Field) -->
+    <canvas id="heroBgCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Ambient Background Glow Effects -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-accent-cyan/10 rounded-full blur-[130px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      
+      <!-- Left Hero Content -->
+      <div class="lg:col-span-5 z-10 text-center lg:text-left space-y-6">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-mono font-semibold tracking-wide uppercase">
+          <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
+          Greater Manchester OL8 Hub • All UK 24/7
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+          Next-Gen <br>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-emerald-300 to-accent-cyan neon-text-green">
+            MFT Courier
+          </span> <br>
+          Logistics.
+        </h1>
+
+        <p class="text-gray-300 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+          Based at Greater Manchester Hub (OL8 1ER), serving 100% of Great Britain & Northern Ireland with dedicated same-day express transport.
+        </p>
+
+        <!-- Direct Hub Contact Badge -->
+        <div class="glass-card p-3 rounded-2xl border border-white/10 font-mono text-xs flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-brand-400 text-base"></i>
+            <div>
+              <span class="block text-white font-bold">Greater Manchester OL8 Hub</span>
+              <span class="text-[10px] text-gray-400">Postcode: OL8 1ER, United Kingdom</span>
+            </div>
+          </div>
+          <a href="tel:+447501419198" class="text-brand-400 hover:text-white font-bold flex items-center gap-1">
+            <i class="fa-solid fa-phone-volume"></i> 24/7 Ops
+          </a>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+          <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20book%20a%20delivery." target="_blank" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold px-6 py-4 rounded-xl text-center shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Quick WhatsApp Inquiry
+          </a>
+          <a href="#loading-dispatch" class="w-full sm:w-auto border border-brand-500/40 bg-brand-500/10 hover:bg-brand-500 hover:text-black text-brand-400 px-6 py-4 rounded-xl text-center font-bold transition-all flex items-center justify-center gap-2">
+            <i class="fa-solid fa-box-open"></i> 3D Cargo Load
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right 3D Interactive Hero Canvas -->
+      <div class="lg:col-span-7 relative flex flex-col items-center justify-center">
+        
+        <div class="relative w-full h-[380px] sm:h-[480px] lg:h-[520px] rounded-3xl glass-panel border border-white/10 overflow-hidden shadow-2xl group cursor-grab active:cursor-grabbing">
+          
+          <canvas id="van3dCanvas" class="w-full h-full block"></canvas>
+
+          <!-- Canvas Drag Hint Overlay -->
+          <div class="absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs font-mono text-gray-300 pointer-events-none">
+            <i class="fa-solid fa-rotate text-brand-400 animate-spin"></i> Drag to Orbit 3D Van
+          </div>
+
+          <!-- Controls Overlay -->
+          <div class="absolute bottom-4 right-4 z-20 flex items-center gap-2">
+            <button id="btnHeadlights" class="bg-black/70 hover:bg-brand-500/20 text-white hover:text-brand-400 border border-white/20 px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-yellow-400"></i> Headlights
+            </button>
+            <button id="btnVanColor" class="bg-black/70 hover:bg-brand-500/20 text-white hover:text-brand-400 border border-white/20 px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-2">
+              <i class="fa-solid fa-palette text-accent-cyan"></i> Body Color
+            </button>
+          </div>
+
+          <!-- HUD Telemetry -->
+          <div class="absolute bottom-4 left-4 z-20 hidden sm:block bg-black/70 backdrop-blur-md p-3 rounded-xl border border-white/10 text-left font-mono text-[11px] space-y-1">
+            <div class="text-brand-400 font-bold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span> HUB OPERATIONAL: OL8 1ER
+            </div>
+            <div class="text-gray-300">HQ Desk: <a href="tel:+447501419198" class="text-white hover:underline">+44 7501 419198</a></div>
+            <div class="text-gray-300">Coverage: <span class="text-brand-400">All UK Towns & Cities 24/7</span></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="uk-map" class="py-20 relative bg-gradient-to-b from-[#060911] via-[#0a0f1d] to-[#060911] border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <span class="text-brand-400 font-mono text-xs uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+          <i class="fa-solid fa-map-pin mr-1"></i> Greater Manchester HQ & UK Network
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold">
+          Dispatched Direct From Greater Manchester Hub <span class="text-brand-400">Across the Entire UK</span>
+        </h2>
+        <p class="text-gray-400 text-sm sm:text-base">
+          Our hub at Greater Manchester OL8 Hub (OL8 1ER) links directly to the M60, M62, M6, and M1 motorway networks for fast express dispatch to all postcodes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Interactive 3D UK Terrain & Van Simulation -->
+        <div class="lg:col-span-8 relative h-[420px] sm:h-[500px] rounded-3xl glass-panel border border-white/10 overflow-hidden shadow-2xl">
+          
+          <canvas id="ukMapCanvas" class="w-full h-full block"></canvas>
+
+          <!-- Live Dynamic Speed Telemetry -->
+          <div class="absolute top-4 left-4 z-20 bg-black/75 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 font-mono text-xs space-y-1">
+            <div class="text-brand-400 font-bold flex items-center gap-2">
+              <i class="fa-solid fa-truck-moving animate-bounce"></i> MFT Manchester HQ Fleet
+            </div>
+            <div class="text-gray-300">Active Motorway: <span class="text-white" id="currentMapRoute">Greater Manchester OL8 ➔ London ➔ UK Wide</span></div>
+            <div class="text-gray-400 text-[10px]">Hub Hotline: <a href="tel:+447501419198" class="text-brand-400 font-bold hover:underline">+44 7501 419198</a></div>
+          </div>
+
+          <!-- Interactive Route Toggles -->
+          <div class="absolute bottom-4 left-4 right-4 z-20 flex flex-wrap gap-2 justify-center sm:justify-start">
+            <button onclick="setVanRoute('manchester-london')" class="bg-black/80 hover:bg-brand-500 hover:text-black text-xs font-mono px-3.5 py-2 rounded-lg border border-white/10 transition-all">
+              Manchester Hub ➔ London
+            </button>
+            <button onclick="setVanRoute('manchester-scotland')" class="bg-black/80 hover:bg-brand-500 hover:text-black text-xs font-mono px-3.5 py-2 rounded-lg border border-white/10 transition-all">
+              Manchester Hub ➔ Scotland & NI
+            </button>
+            <button onclick="setVanRoute('manchester-wales')" class="bg-black/80 hover:bg-brand-500 hover:text-black text-xs font-mono px-3.5 py-2 rounded-lg border border-white/10 transition-all">
+              Manchester Hub ➔ Midlands & Wales
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Major Hubs List -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass-card p-6 rounded-2xl border border-white/10 space-y-4">
+            <h3 class="text-lg font-bold flex items-center gap-2 text-white">
+              <i class="fa-solid fa-city text-brand-400"></i> Key Hub Telemetry
+            </h3>
+            
+            <div class="p-3 bg-brand-500/10 border border-brand-500/30 rounded-xl space-y-1">
+              <span class="block text-xs font-mono text-brand-400 font-bold uppercase">Main UK Operations Desk</span>
+              <p class="text-sm font-bold text-white">Greater Manchester OL8 Hub, UK</p>
+              <p class="text-xs text-gray-300 font-mono">Postcode: OL8 1ER</p>
+              <p class="text-xs text-emerald-400 font-mono pt-1">
+                <i class="fa-brands fa-whatsapp mr-1"></i> +44 7501 419198
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 font-mono text-xs">
+              <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                <span>📍 M/cr HQ</span>
+                <span class="text-brand-400 font-bold">15m Pickup</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                <span>📍 London</span>
+                <span class="text-brand-400 font-bold">30m Pickup</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                <span>📍 Birmingham</span>
+                <span class="text-brand-400 font-bold">25m Pickup</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                <span>📍 Leeds</span>
+                <span class="text-brand-400 font-bold">20m Pickup</span>
+              </div>
+            </div>
+
+            <a href="https://wa.me/447501419198" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-xl flex items-center justify-center gap-2 text-xs uppercase font-mono">
+              <i class="fa-brands fa-whatsapp text-base"></i> Direct Dispatch WhatsApp
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="quote" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-accent-cyan font-mono text-xs uppercase tracking-widest bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20">
+            Instant UK Rate Estimator
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-black leading-tight">
+            Calculate Nationwide Delivery Rates <span class="text-brand-400">Instantly</span>
+          </h2>
+          <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Enter any pickup UK postcode or town. Direct express vans dispatched from our Greater Manchester OL8 Hub or nearest local driver.
+          </p>
+
+          <div class="space-y-3 pt-2">
+            <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm">Instant WhatsApp Booking Desk</h4>
+                <p class="text-xs text-gray-400">Chat directly with dispatch at +44 7501 419198 for immediate vehicle assignment.</p>
+              </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold">
+                <i class="fa-solid fa-location-arrow"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm">Hub Origin: OL8 1ER</h4>
+                <p class="text-xs text-gray-400">Direct non-stop door-to-door delivery across England, Wales, Scotland, & NI.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 relative shadow-2xl">
+          
+          <form id="quoteForm" onsubmit="calculateQuote(event)" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-gray-300 uppercase mb-2">
+                  <i class="fa-solid fa-circle-dot text-brand-400 mr-1"></i> Pickup Location / Postcode
+                </label>
+                <input type="text" id="pickupLocation" required placeholder="e.g. Manchester OL8 1ER, London, Leeds" class="w-full bg-black/50 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-gray-300 uppercase mb-2">
+                  <i class="fa-solid fa-location-dot text-accent-cyan mr-1"></i> Delivery Location / Postcode
+                </label>
+                <input type="text" id="dropoffLocation" required placeholder="e.g. Birmingham, Glasgow, Belfast" class="w-full bg-black/50 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-colors">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-gray-300 uppercase mb-2">Select Vehicle Type</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                
+                <label class="cursor-pointer">
+                  <input type="radio" name="vanType" value="small" checked class="peer hidden">
+                  <div class="glass-card p-3 rounded-xl text-center border peer-checked:border-brand-400 peer-checked:bg-brand-500/20 transition-all">
+                    <i class="fa-solid fa-van-shuttle text-xl text-brand-400 mb-1"></i>
+                    <div class="font-bold text-xs">Small Van</div>
+                    <div class="text-[10px] text-gray-400">Up to 400 kg</div>
+                  </div>
+                </label>
+
+                <label class="cursor-pointer">
+                  <input type="radio" name="vanType" value="medium" class="peer hidden">
+                  <div class="glass-card p-3 rounded-xl text-center border peer-checked:border-brand-400 peer-checked:bg-brand-500/20 transition-all">
+                    <i class="fa-solid fa-truck text-xl text-brand-400 mb-1"></i>
+                    <div class="font-bold text-xs">Medium Van</div>
+                    <div class="text-[10px] text-gray-400">Up to 900 kg</div>
+                  </div>
+                </label>
+
+                <label class="cursor-pointer">
+                  <input type="radio" name="vanType" value="large" class="peer hidden">
+                  <div class="glass-card p-3 rounded-xl text-center border peer-checked:border-brand-400 peer-checked:bg-brand-500/20 transition-all">
+                    <i class="fa-solid fa-truck-front text-xl text-brand-400 mb-1"></i>
+                    <div class="font-bold text-xs">Large Van</div>
+                    <div class="text-[10px] text-gray-400">Up to 1,300 kg</div>
+                  </div>
+                </label>
+
+                <label class="cursor-pointer">
+                  <input type="radio" name="vanType" value="luton" class="peer hidden">
+                  <div class="glass-card p-3 rounded-xl text-center border peer-checked:border-brand-400 peer-checked:bg-brand-500/20 transition-all">
+                    <i class="fa-solid fa-truck-moving text-xl text-brand-400 mb-1"></i>
+                    <div class="font-bold text-xs">Luton Box</div>
+                    <div class="text-[10px] text-gray-400">Tail Lift (1,000 kg)</div>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- Quote Display Box -->
+            <div id="quoteResult" class="hidden p-5 rounded-2xl bg-brand-900/60 border border-brand-500/50 space-y-3">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <span class="text-xs font-mono text-gray-300">ESTIMATED DIRECT FARE:</span>
+                <span id="priceDisplay" class="text-3xl font-black text-brand-400 font-mono">£145.00</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs text-gray-300">
+                <div>Distance Est: <span id="distDisplay" class="text-white font-mono">180 miles</span></div>
+                <div>Transit Est: <span id="timeDisplay" class="text-white font-mono">3 hrs 15 mins</span></div>
+              </div>
+              <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20confirm%20my%20booking." target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Confirm via WhatsApp (+44 7501 419198)
+              </a>
+            </div>
+
+            <button type="submit" id="btnCalc" class="w-full bg-gradient-to-r from-brand-500 to-accent-cyan text-black font-black py-4 rounded-xl text-sm uppercase tracking-wider shadow-lg hover:opacity-90 transition-all">
+              <i class="fa-solid fa-calculator mr-2"></i> Calculate Instant Rate
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="fleet" class="py-20 relative bg-black/40 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-brand-400 font-mono text-xs uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+          MFT Courier Fleet
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold">
+          Dedicated Fleet For <span class="text-brand-400">Every Requirement</span>
+        </h2>
+        <p class="text-gray-400 text-sm sm:text-base">
+          Maintained to strict safety standards with full telematics and GPS tracking across all UK roads.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Small Express Van Card -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Small Courier Van" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060911] via-transparent to-transparent"></div>
+            <span class="absolute top-3 right-3 bg-brand-500 text-black font-extrabold text-[10px] font-mono px-2.5 py-1 rounded-md">
+              Fastest Urban Courier
+            </span>
+          </div>
+          <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">Small Express Van</h3>
+              <p class="text-xs text-gray-400">Ideal for urgent document parcels, tech items, medical supplies, and single standard pallets.</p>
+            </div>
+            <div class="border-t border-white/10 pt-4 space-y-2 font-mono text-xs text-gray-300">
+              <div class="flex justify-between"><span>Max Payload:</span> <span class="text-brand-400">400 kg</span></div>
+              <div class="flex justify-between"><span>Cargo Length:</span> <span class="text-white">1.6 meters</span></div>
+              <div class="flex justify-between"><span>Pallet Capacity:</span> <span class="text-white">1 Euro Pallet</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medium Panel Van Card -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=800&q=80" alt="Medium Delivery Van" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060911] via-transparent to-transparent"></div>
+            <span class="absolute top-3 right-3 bg-accent-cyan text-black font-extrabold text-[10px] font-mono px-2.5 py-1 rounded-md">
+              Most Popular
+            </span>
+          </div>
+          <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">Medium Sprinter Van</h3>
+              <p class="text-xs text-gray-400">Perfect for multi-box commercial goods, retail stock, and dual standard pallets.</p>
+            </div>
+            <div class="border-t border-white/10 pt-4 space-y-2 font-mono text-xs text-gray-300">
+              <div class="flex justify-between"><span>Max Payload:</span> <span class="text-brand-400">900 kg</span></div>
+              <div class="flex justify-between"><span>Cargo Length:</span> <span class="text-white">2.4 meters</span></div>
+              <div class="flex justify-between"><span>Pallet Capacity:</span> <span class="text-white">2 Euro Pallets</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Large Luton Box Van Card -->
+        <div class="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col group">
+          <div class="h-52 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80" alt="Large Luton Van" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060911] via-transparent to-transparent"></div>
+            <span class="absolute top-3 right-3 bg-accent-amber text-black font-extrabold text-[10px] font-mono px-2.5 py-1 rounded-md">
+              Heavy Freight & Tail-Lift
+            </span>
+          </div>
+          <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">Large Luton Box Van</h3>
+              <p class="text-xs text-gray-400">Equipped with 500kg hydraulic tail-lift for easy loading of high volume industrial cargo.</p>
+            </div>
+            <div class="border-t border-white/10 pt-4 space-y-2 font-mono text-xs text-gray-300">
+              <div class="flex justify-between"><span>Max Payload:</span> <span class="text-brand-400">1,100 kg</span></div>
+              <div class="flex justify-between"><span>Cargo Length:</span> <span class="text-white">4.2 meters</span></div>
+              <div class="flex justify-between"><span>Pallet Capacity:</span> <span class="text-white">4 Euro Pallets</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="tracking" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="glass-panel rounded-3xl p-8 border border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-2xl">
+        
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-brand-400 font-mono text-xs uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+            <i class="fa-solid fa-radar mr-1"></i> Live Satellite Telemetry
+          </span>
+          <h2 class="text-3xl font-extrabold">Track Any Consignment</h2>
+          <p class="text-gray-300 text-xs sm:text-base leading-relaxed">
+            Enter your consignment code to monitor real-time vehicle GPS coordinates, driver speed, and temperature metrics.
+          </p>
+
+          <form onsubmit="simulateTrack(event)" class="flex gap-2 pt-2">
+            <input type="text" id="trackInput" value="MFT-OL8-9923" placeholder="Consignment No. (e.g. MFT-OL8-9923)" class="flex-1 bg-black/60 border border-white/20 focus:border-brand-400 rounded-xl px-4 py-3 text-sm font-mono text-white focus:outline-none">
+            <button type="submit" class="bg-brand-500 hover:bg-brand-400 text-black font-extrabold px-5 py-3 rounded-xl transition-all">
+              Track
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-7 bg-black/80 rounded-2xl border border-brand-500/30 p-6 relative overflow-hidden font-mono">
+          
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-64 h-64 rounded-full border border-brand-500/20 relative">
+              <div class="w-full h-full rounded-full border border-brand-500/30 radar-ring absolute"></div>
+            </div>
+          </div>
+
+          <div class="relative z-10 space-y-3 text-xs">
+            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+              <span class="text-gray-400">Consignment: <span class="text-white font-bold" id="resCode">MFT-OL8-9923</span></span>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-bold">IN TRANSIT</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-gray-300">
+              <div>
+                <span class="block text-[10px] text-gray-500">ASSIGNED VEHICLE</span>
+                <span class="text-white font-bold">MFT Luton Sprinter #08</span>
+              </div>
+              <div>
+                <span class="block text-[10px] text-gray-500">ORIGIN HUB</span>
+                <span class="text-white font-bold">Greater Manchester OL8</span>
+              </div>
+              <div>
+                <span class="block text-[10px] text-gray-500">DESTINATION</span>
+                <span class="text-white font-bold">London Express Hub</span>
+              </div>
+              <div>
+                <span class="block text-[10px] text-gray-500">ESTIMATED ARRIVAL</span>
+                <span class="text-brand-400 font-bold" id="resEta">14:42 GMT (On Time)</span>
+              </div>
+              <div>
+                <span class="block text-[10px] text-gray-500">HOTLINE SUPPORT</span>
+                <span class="text-white font-bold">+44 7501 419198</span>
+              </div>
+              <div>
+                <span class="block text-[10px] text-gray-500">CARGO TEMP</span>
+                <span class="text-accent-cyan font-bold">18°C Controlled</span>
+              </div>
+            </div>
+
+            <div class="pt-3">
+              <div class="flex justify-between text-[10px] text-gray-400 mb-1">
+                <span>Manchester OL8</span>
+                <span class="text-brand-400 font-bold">72% Completed</span>
+                <span>London</span>
+              </div>
+              <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-brand-500 to-accent-cyan h-full w-[72%] rounded-full animate-pulse"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="loading-dispatch" class="py-24 relative bg-gradient-to-b from-[#060911] via-[#091122] to-[#060911] border-t border-white/10 overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-brand-400 font-mono text-xs uppercase tracking-widest bg-brand-500/10 px-3.5 py-1.5 rounded-full border border-brand-500/30">
+          <i class="fa-solid fa-cubes-stacked mr-1.5"></i> Interactive 3D Cargo Loading Simulator
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black">
+          Load Your Cargo & <span class="text-brand-400">Dispatch Across UK</span>
+        </h2>
+        <p class="text-gray-300 text-sm sm:text-base">
+          Experience our interactive 3D loading simulator! Click to open van doors, stack cargo pallets into the van, rev the engine, and send your direct courier booking inquiry.
+        </p>
+      </div>
+
+      <!-- Grid: 3D Cargo Canvas Left + Contact Dispatch Form Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Interactive 3D Cargo Loading Canvas Box -->
+        <div class="lg:col-span-7 relative h-[480px] sm:h-[560px] rounded-3xl glass-panel border border-brand-500/30 overflow-hidden shadow-2xl flex flex-col justify-between p-4">
+          
+          <!-- WebGL 3D Canvas -->
+          <canvas id="cargo3dCanvas" class="w-full h-full absolute inset-0 block cursor-grab active:cursor-grabbing"></canvas>
+
+          <!-- Top Interactive Control Overlay -->
+          <div class="relative z-10 flex flex-wrap items-center justify-between gap-2 bg-black/75 backdrop-blur-md p-3 rounded-2xl border border-white/10 font-mono text-xs">
+            <div class="flex items-center gap-2 text-brand-400 font-bold">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-400 animate-ping"></span>
+              CARGO CAPACITY: <span id="cargoCountText" class="text-white">0 / 4 Pallets Loaded</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button id="btnToggleDoors" onclick="toggleVanDoors()" class="bg-brand-500/20 hover:bg-brand-500 text-brand-400 hover:text-black font-bold px-3 py-1.5 rounded-xl border border-brand-500/40 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-door-open"></i> Rear Doors
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons for Cargo Interaction -->
+          <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 bg-black/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 font-mono">
+            <div class="flex items-center gap-2">
+              <button id="btnAddCargo" onclick="addCargoPallet()" class="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-black px-4 py-2.5 rounded-xl shadow-lg transition-all flex items-center gap-2 text-xs">
+                <i class="fa-solid fa-box-archive"></i> + Load Cargo Pallet
+              </button>
+              <button id="btnClearCargo" onclick="resetCargo()" class="bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-2.5 rounded-xl transition-all text-xs">
+                <i class="fa-solid fa-rotate-left"></i> Unload All
+              </button>
+            </div>
+
+            <div class="text-[11px] text-gray-400 font-mono">
+              Status: <span id="vanStatusBadge" class="text-accent-amber font-bold">Awaiting Cargo</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Contact & Dispatch Booking Form -->
+        <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6 shadow-2xl">
+          <div class="space-y-1">
+            <span class="text-xs font-mono text-brand-400 uppercase tracking-widest">24/7 Operations Desk</span>
+            <h3 class="text-2xl font-black text-white">Contact MFT Courier</h3>
+            <p class="text-xs text-gray-400">Direct Greater Manchester Hub dispatch team available 24/7.</p>
+          </div>
+
+          <!-- Hub Address Box -->
+          <div class="p-3 bg-white/5 border border-white/10 rounded-xl space-y-1 font-mono text-xs">
+            <div class="text-brand-400 font-bold flex items-center gap-1.5">
+              <i class="fa-solid fa-warehouse"></i> Greater Manchester OL8 Hub, UK
+            </div>
+            <div class="text-gray-300">Postcode: <span class="text-white font-bold">OL8 1ER</span></div>
+            <div class="text-gray-300">Operations Desk: <a href="tel:+447501419198" class="text-brand-400 font-bold hover:underline">+44 7501 419198</a></div>
+            <div class="text-gray-300">Email: <a href="mailto:info@mftcourier.co.uk" class="text-brand-400 font-bold hover:underline">info@mftcourier.co.uk</a></div>
+          </div>
+
+          <form id="contactDispatchForm" onsubmit="submitContact(event)" class="space-y-3 text-xs font-mono">
+            
+            <div>
+              <label class="block text-gray-300 uppercase mb-1">Your Full Name / Company</label>
+              <input type="text" required placeholder="e.g. John Smith (Logistics Ltd)" class="w-full bg-black/60 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-white focus:outline-none font-sans text-sm">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-gray-300 uppercase mb-1">Phone Number</label>
+                <input type="tel" required placeholder="+44 7501 419198" class="w-full bg-black/60 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-white focus:outline-none font-sans text-sm">
+              </div>
+              <div>
+                <label class="block text-gray-300 uppercase mb-1">Email Address</label>
+                <input type="email" required placeholder="info@mftcourier.co.uk" class="w-full bg-black/60 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-white focus:outline-none font-sans text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-300 uppercase mb-1">Pickup & Destination Details</label>
+              <textarea rows="3" required placeholder="e.g. Pickup from OL8 1ER Manchester, deliver to London EC1. 2 Pallets 600kg." class="w-full bg-black/60 border border-white/10 focus:border-brand-400 rounded-xl px-4 py-3 text-white focus:outline-none font-sans text-sm"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-brand-500 to-accent-cyan text-black font-extrabold py-3.5 rounded-xl text-sm uppercase tracking-wider shadow-lg hover:opacity-90 transition-all neon-glow-btn flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> Send Direct Query
+            </button>
+
+          </form>
+
+          <!-- WhatsApp Direct Link -->
+          <a href="https://wa.me/447501419198" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-xl flex items-center justify-center gap-2 text-xs uppercase font-mono transition-all">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Fast WhatsApp Dispatch (+44 7501 419198)
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="relative py-16 bg-[#04060d] overflow-hidden border-t border-brand-500/20">
+    
+    <div class="text-center mb-8 px-4">
+      <span class="text-xs font-mono text-brand-400 uppercase tracking-widest bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/30">
+        <i class="fa-solid fa-road mr-1"></i> Continuous Express Highway Transit
+      </span>
+      <h3 class="text-2xl sm:text-3xl font-black text-white mt-2">MFT Courier In Active Motion</h3>
+    </div>
+
+    <!-- Highway Asphalt Road Container -->
+    <div class="relative w-full h-48 bg-[#0b0e17] border-y-4 border-dashed border-yellow-500/40 flex items-center overflow-hidden">
+      
+      <div class="absolute inset-0 flex items-center justify-around pointer-events-none opacity-40">
+        <div class="w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
+      </div>
+
+      <!-- Travelling MFT Courier Luton Van Group -->
+      <div id="travellingHighwayVan" class="absolute left-[-20%] flex items-center gap-4 z-20 transition-all">
+        
+        <div class="relative w-64 h-28 flex items-center">
+          
+          <!-- Headlight Beams -->
+          <div class="absolute right-[-90px] top-4 w-28 h-16 bg-gradient-to-r from-yellow-200/80 via-yellow-400/20 to-transparent blur-md pointer-events-none transform rotate-3"></div>
+
+          <!-- Van Main Body Representation -->
+          <div class="relative w-full h-20 bg-gradient-to-r from-emerald-600 via-brand-500 to-emerald-400 rounded-xl border-2 border-brand-400 shadow-2xl flex items-center justify-between px-4 overflow-hidden">
+            
+            <div class="z-10 text-black font-black text-sm tracking-wider font-mono uppercase bg-white/80 px-2 py-1 rounded border border-black/20 shadow">
+              MFT COURIER
+            </div>
+
+            <div class="w-10 h-12 bg-black/80 rounded-r-lg border-r-2 border-brand-300"></div>
+          </div>
+
+          <div class="absolute right-0 top-8 w-3 h-4 bg-yellow-300 rounded-full shadow-[0_0_15px_#fde047] animate-pulse"></div>
+          <div class="absolute left-0 top-8 w-2 h-5 bg-red-600 rounded-l shadow-[0_0_12px_#ef4444]"></div>
+
+          <div class="absolute left-6 -bottom-2 w-7 h-7 bg-black rounded-full border-2 border-gray-400 animate-spin flex items-center justify-center">
+            <div class="w-2 h-2 bg-white rounded-full"></div>
+          </div>
+          <div class="absolute right-8 -bottom-2 w-7 h-7 bg-black rounded-full border-2 border-gray-400 animate-spin flex items-center justify-center">
+            <div class="w-2 h-2 bg-white rounded-full"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER SECTION WITH 3D FLOATING LOGISTICS ICONS -->
+  <footer class="relative border-t border-white/10 py-16 bg-[#03050a] text-gray-400 text-xs overflow-hidden">
+    
+    <div class="absolute inset-0 pointer-events-none opacity-25 z-0 overflow-hidden">
+      <div class="absolute top-10 left-10 text-brand-400 text-5xl animate-float-1">
+        <i class="fa-solid fa-box-open"></i>
+      </div>
+      <div class="absolute top-20 right-16 text-accent-cyan text-6xl animate-float-2">
+        <i class="fa-solid fa-location-dot"></i>
+      </div>
+      <div class="absolute bottom-12 left-1/3 text-emerald-400 text-5xl animate-float-1">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div class="absolute bottom-20 right-1/4 text-yellow-400 text-6xl animate-float-2">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <div class="absolute top-1/2 left-3/4 text-brand-500 text-7xl opacity-20 animate-float-1">
+        <i class="fa-solid fa-truck-moving"></i>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+      
+      <div class="space-y-3">
+        <a href="#" class="text-xl font-black text-white flex items-center gap-2">
+          <span class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-black font-extrabold text-xs">MFT</span>
+          MFT COURIER
+        </a>
+        <p class="leading-relaxed">
+          The UK's premier 3D logistics & same-day express courier service. Dispatched directly from our Greater Manchester OL8 Hub across all nation postcodes.
+        </p>
+        <div class="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-[11px] text-brand-300 font-mono">
+          <i class="fa-solid fa-warehouse mr-1 text-brand-400"></i> Hub Postcode: OL8 1ER
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold mb-3 uppercase tracking-wider font-mono">UK Fleet Services</h4>
+        <ul class="space-y-2 font-mono">
+          <li><a href="#quote" class="hover:text-brand-400 transition-colors">Same-Day Dedicated Courier</a></li>
+          <li><a href="#quote" class="hover:text-brand-400 transition-colors">Overnight Priority UK</a></li>
+          <li><a href="#quote" class="hover:text-brand-400 transition-colors">Heavy Luton Freight Transport</a></li>
+          <li><a href="#loading-dispatch" class="hover:text-brand-400 transition-colors">3D Cargo Loading Simulator</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-2 font-mono">
+        <h4 class="text-white font-bold mb-3 uppercase tracking-wider">Direct Contacts</h4>
+        <p class="text-gray-300">
+          <i class="fa-solid fa-location-dot text-brand-400 mr-2"></i> Greater Manchester OL8 Hub, UK (OL8 1ER)
+        </p>
+        <p>
+          <i class="fa-solid fa-phone text-brand-400 mr-2"></i> Phone: 
+          <a href="tel:+447501419198" class="text-white font-bold hover:text-brand-400">+44 7501 419198</a>
+        </p>
+        <p>
+          <i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> WhatsApp: 
+          <a href="https://wa.me/447501419198" target="_blank" class="text-emerald-400 font-bold hover:underline">+44 7501 419198</a>
+        </p>
+        <p>
+          <i class="fa-solid fa-envelope text-brand-400 mr-2"></i> Email: 
+          <a href="mailto:info@mftcourier.co.uk" class="text-brand-400 hover:underline">info@mftcourier.co.uk</a>
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="text-white font-bold uppercase tracking-wider font-mono">24/7 Dispatch Desk</h4>
+        <p class="text-xs text-gray-400">Available 365 days a year across England, Scotland, Wales, and Northern Ireland.</p>
+        
+        <a href="https://wa.me/447501419198" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 font-mono uppercase text-xs transition-all shadow-lg">
+          <i class="fa-brands fa-whatsapp text-base"></i> Open WhatsApp Chat
+        </a>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] relative z-10">
+      <div>© 2026 MFT Courier (mftcourier.co.uk). All Rights Reserved. Greater Manchester OL8 Hub, UK.</div>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Transport</a>
+        <a href="#" class="hover:text-white">GIT Insurance Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Custom Glowing Cursor Follower ---
+    const cursor = document.getElementById('customCursor');
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // --- Mobile Menu Toggle ---
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // --- Pre-Footer Highway Van Animation ---
+    function animateHighwayVan() {
+      const van = document.getElementById('travellingHighwayVan');
+      gsap.to(van, {
+        left: '110%',
+        duration: 9,
+        ease: 'none',
+        repeat: -1,
+        onRepeat: () => {
+          gsap.set(van, { left: '-30%' });
+        }
+      });
+    }
+    animateHighwayVan();
+
+    // =========================================================================
+    // 0. THREE.JS: HERO BACKGROUND DYNAMIC HOLOGRAPHIC PARTICLE FIELD GRID
+    // =========================================================================
+    let heroBgScene, heroBgCamera, heroBgRenderer, particleSystem;
+
+    function initHeroBg3D() {
+      const container = document.getElementById('heroBgCanvas');
+      if (!container) return;
+
+      const width = container.parentElement.clientWidth;
+      const height = container.parentElement.clientHeight;
+
+      heroBgScene = new THREE.Scene();
+      heroBgCamera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+      heroBgCamera.position.z = 30;
+
+      heroBgRenderer = new THREE.WebGLRenderer({ canvas: container, alpha: true, antialias: true });
+      heroBgRenderer.setSize(width, height);
+      heroBgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Create Particle Grid Geometry
+      const particleCount = 700;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 80;
+        positions[i + 1] = (Math.random() - 0.5) * 50;
+        positions[i + 2] = (Math.random() - 0.5) * 40;
+
+        colors[i] = 0.13; // R
+        colors[i + 1] = 0.77; // G (Emerald #22c55e)
+        colors[i + 2] = 0.36; // B
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.35,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.65
+      });
+
+      particleSystem = new THREE.Points(geometry, material);
+      heroBgScene.add(particleSystem);
+
+      // Add Mouse Movement Reactivity
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.05;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.05;
+      });
+
+      function animateHeroBg() {
+        requestAnimationFrame(animateHeroBg);
+        if (particleSystem) {
+          particleSystem.rotation.y += 0.001;
+          particleSystem.rotation.x += (mouseY - particleSystem.rotation.x) * 0.05;
+          particleSystem.rotation.y += (mouseX - particleSystem.rotation.y) * 0.05;
+        }
+        heroBgRenderer.render(heroBgScene, heroBgCamera);
+      }
+      animateHeroBg();
+    }
+
+    // =========================================================================
+    // 1. THREE.JS: HERO 3D ROTATING COURIER VAN
+    // =========================================================================
+    let vanScene, vanCamera, vanRenderer, vanGroup;
+    let wheelMeshList = [];
+    let headlightsOn = true;
+    let headlightLights = [];
+    let customColorIndex = 0;
+    const vanColors = [0x16a34a, 0x0284c7, 0xd97706, 0x4f46e5];
+
+    function init3DVan() {
+      const container = document.getElementById('van3dCanvas');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      vanScene = new THREE.Scene();
+      vanScene.fog = new THREE.FogExp2(0x060911, 0.03);
+
+      vanCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      vanCamera.position.set(5, 3, 7);
+
+      vanRenderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: true });
+      vanRenderer.setSize(width, height);
+      vanRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      vanScene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+      dirLight.position.set(10, 15, 10);
+      vanScene.add(dirLight);
+
+      vanGroup = new THREE.Group();
+
+      // Body Material
+      const bodyMat = new THREE.MeshStandardMaterial({ color: vanColors[0], metalness: 0.6, roughness: 0.2 });
+
+      // Cabin Box
+      const bodyGeo = new THREE.BoxGeometry(2.2, 1.3, 4.2);
+      const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+      bodyMesh.position.y = 1.1;
+      vanGroup.add(bodyMesh);
+
+      // Hood
+      const hoodGeo = new THREE.BoxGeometry(2.1, 0.8, 1.2);
+      const hoodMesh = new THREE.Mesh(hoodGeo, bodyMat);
+      hoodMesh.position.set(0, 0.8, 2.2);
+      vanGroup.add(hoodMesh);
+
+      // Windshield
+      const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x111111, transparent: true, opacity: 0.8 });
+      const glassGeo = new THREE.BoxGeometry(2.0, 0.6, 0.8);
+      const glassMesh = new THREE.Mesh(glassGeo, glassMat);
+      glassMesh.position.set(0, 1.25, 1.8);
+      vanGroup.add(glassMesh);
+
+      // Wheels
+      const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 24);
+      const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.8 });
+      wheelGeo.rotateZ(Math.PI / 2);
+
+      [[-1.15, 0.4, 1.5], [1.15, 0.4, 1.5], [-1.15, 0.4, -1.5], [1.15, 0.4, -1.5]].forEach(pos => {
+        const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+        wheel.position.set(pos[0], pos[1], pos[2]);
+        vanGroup.add(wheel);
+        wheelMeshList.push(wheel);
+      });
+
+      // Headlights
+      const hlMat = new THREE.MeshBasicMaterial({ color: 0xffffaa });
+      const hlGeo = new THREE.SphereGeometry(0.12, 16, 16);
+
+      [-0.7, 0.7].forEach(x => {
+        const hlMesh = new THREE.Mesh(hlGeo, hlMat);
+        hlMesh.position.set(x, 0.8, 2.8);
+        vanGroup.add(hlMesh);
+
+        const spotLight = new THREE.SpotLight(0xffffaa, 3, 10, Math.PI / 6, 0.5);
+        spotLight.position.set(x, 0.8, 2.8);
+        spotLight.target.position.set(x, 0, 8);
+        vanGroup.add(spotLight);
+        vanGroup.add(spotLight.target);
+        headlightLights.push(spotLight);
+      });
+
+      // Ground Grid
+      const grid = new THREE.GridHelper(30, 30, 0x22c55e, 0x1f293d);
+      vanScene.add(grid);
+
+      vanScene.add(vanGroup);
+      vanCamera.lookAt(0, 0.8, 0);
+
+      // Mouse Orbit
+      let isDragging = false;
+      let previousMouseX = 0;
+      container.addEventListener('mousedown', (e) => { isDragging = true; previousMouseX = e.clientX; });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - previousMouseX;
+        vanGroup.rotation.y += deltaX * 0.01;
+        previousMouseX = e.clientX;
+      });
+
+      document.getElementById('btnHeadlights').addEventListener('click', () => {
+        headlightsOn = !headlightsOn;
+        headlightLights.forEach(l => l.intensity = headlightsOn ? 3 : 0);
+      });
+
+      document.getElementById('btnVanColor').addEventListener('click', () => {
+        customColorIndex = (customColorIndex + 1) % vanColors.length;
+        bodyMat.color.setHex(vanColors[customColorIndex]);
+      });
+
+      function animateVan() {
+        requestAnimationFrame(animateVan);
+        if (!isDragging) vanGroup.rotation.y += 0.005;
+        wheelMeshList.forEach(w => w.rotation.x += 0.05);
+        vanRenderer.render(vanScene, vanCamera);
+      }
+      animateVan();
+    }
+
+    // =========================================================================
+    // 2. THREE.JS: TRAVELING VAN ON UK MAP
+    // =========================================================================
+    let mapScene, mapCamera, mapRenderer, travelingVan;
+    let routeProgress = 0;
+
+    function init3DUKMap() {
+      const container = document.getElementById('ukMapCanvas');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      mapScene = new THREE.Scene();
+      mapCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      mapCamera.position.set(0, 12, 12);
+      mapCamera.lookAt(0, 0, 0);
+
+      mapRenderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: true });
+      mapRenderer.setSize(width, height);
+      mapRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.9);
+      mapScene.add(ambLight);
+
+      const planeGeo = new THREE.PlaneGeometry(12, 14, 32, 32);
+      const planeMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, wireframe: true, transparent: true, opacity: 0.4 });
+      const terrain = new THREE.Mesh(planeGeo, planeMat);
+      terrain.rotation.x = -Math.PI / 2;
+      mapScene.add(terrain);
+
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-1, 0.1, 4),
+        new THREE.Vector3(0, 0.1, 1),
+        new THREE.Vector3(-1.2, 0.1, -1),
+        new THREE.Vector3(-0.8, 0.1, -2.5),
+        new THREE.Vector3(-2, 0.1, -5)
+      ]);
+
+      const points = curve.getPoints(50);
+      const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x22c55e });
+      mapScene.add(new THREE.Line(lineGeo, lineMat));
+
+      const lutonMat = new THREE.MeshStandardMaterial({ color: 0x22c55e });
+      travelingVan = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.5, 1.2), lutonMat);
+      mapScene.add(travelingVan);
+
+      function animateUKMap() {
+        requestAnimationFrame(animateUKMap);
+        routeProgress += 0.003;
+        if (routeProgress > 1) routeProgress = 0;
+
+        const p = curve.getPointAt(routeProgress);
+        const t = curve.getTangentAt(routeProgress);
+        travelingVan.position.copy(p);
+        travelingVan.position.y += 0.25;
+        travelingVan.rotation.y = Math.atan2(t.x, t.z);
+
+        mapRenderer.render(mapScene, mapCamera);
+      }
+      animateUKMap();
+    }
+
+    function setVanRoute(routeName) {
+      const label = document.getElementById('currentMapRoute');
+      if (routeName === 'manchester-london') label.innerText = 'Greater Manchester OL8 ➔ London';
+      if (routeName === 'manchester-scotland') label.innerText = 'Greater Manchester OL8 ➔ Glasgow & Belfast';
+      if (routeName === 'manchester-wales') label.innerText = 'Greater Manchester OL8 ➔ Birmingham & Cardiff';
+      routeProgress = 0;
+    }
+
+    // =========================================================================
+    // 3. THREE.JS: PRE-FOOTER INTERACTIVE 3D CARGO LOADING SIMULATOR
+    // =========================================================================
+    let cargoScene, cargoCamera, cargoRenderer, cargoVanGroup;
+    let doorLeft, doorRight;
+    let doorsOpen = false;
+    let loadedCargoPallets = [];
+    let cargoHeadlights = [];
+
+    function init3DCargoLoader() {
+      const container = document.getElementById('cargo3dCanvas');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      cargoScene = new THREE.Scene();
+      cargoCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      cargoCamera.position.set(-5, 3, 6);
+
+      cargoRenderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: true });
+      cargoRenderer.setSize(width, height);
+      cargoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const amb = new THREE.AmbientLight(0xffffff, 0.9);
+      cargoScene.add(amb);
+
+      const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+      dir.position.set(5, 10, 5);
+      cargoScene.add(dir);
+
+      cargoVanGroup = new THREE.Group();
+
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x16a34a, metalness: 0.5, roughness: 0.3 });
+      const vanBody = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.8, 4.0), bodyMat);
+      vanBody.position.y = 1.4;
+      cargoVanGroup.add(vanBody);
+
+      const cabMesh = new THREE.Mesh(new THREE.BoxGeometry(2.3, 1.1, 1.3), bodyMat);
+      cabMesh.position.set(0, 1.05, 2.55);
+      cargoVanGroup.add(cabMesh);
+
+      const doorMat = new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.8 });
+
+      doorLeft = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.7, 0.1), doorMat);
+      doorLeft.position.set(-0.575, 1.4, -2.0);
+      cargoVanGroup.add(doorLeft);
+
+      doorRight = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.7, 0.1), doorMat);
+      doorRight.position.set(0.575, 1.4, -2.0);
+      cargoVanGroup.add(doorRight);
+
+      const hlMat = new THREE.MeshBasicMaterial({ color: 0xffffaa });
+      [-0.8, 0.8].forEach(x => {
+        const hl = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), hlMat);
+        hl.position.set(x, 1.0, 3.2);
+        cargoVanGroup.add(hl);
+
+        const spot = new THREE.SpotLight(0xffffaa, 0, 12, Math.PI / 5);
+        spot.position.set(x, 1.0, 3.2);
+        spot.target.position.set(x, 0, 10);
+        cargoVanGroup.add(spot);
+        cargoVanGroup.add(spot.target);
+        cargoHeadlights.push(spot);
+      });
+
+      const grid = new THREE.GridHelper(20, 20, 0x22c55e, 0x1f293d);
+      cargoScene.add(grid);
+
+      cargoScene.add(cargoVanGroup);
+      cargoCamera.lookAt(0, 1.2, 0);
+
+      let isDragging = false, prevX = 0;
+      container.addEventListener('mousedown', e => { isDragging = true; prevX = e.clientX; });
+      window.addEventListener('mouseup', () => isDragging = false);
+      window.addEventListener('mousemove', e => {
+        if(!isDragging) return;
+        cargoVanGroup.rotation.y += (e.clientX - prevX) * 0.01;
+        prevX = e.clientX;
+      });
+
+      function animateCargoScene() {
+        requestAnimationFrame(animateCargoScene);
+        cargoRenderer.render(cargoScene, cargoCamera);
+      }
+      animateCargoScene();
+    }
+
+    function toggleVanDoors() {
+      doorsOpen = !doorsOpen;
+      gsap.to(doorLeft.rotation, { y: doorsOpen ? Math.PI * 0.75 : 0, duration: 1, ease: "power2.inOut" });
+      gsap.to(doorRight.rotation, { y: doorsOpen ? -Math.PI * 0.75 : 0, duration: 1, ease: "power2.inOut" });
+    }
+
+    function addCargoPallet() {
+      if (!doorsOpen) {
+        toggleVanDoors();
+      }
+
+      if (loadedCargoPallets.length >= 4) {
+        alert("Van is fully loaded at 4 Euro Pallets capacity! Dispatched from Greater Manchester Hub OL8 1ER.");
+        return;
+      }
+
+      const palletGroup = new THREE.Group();
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.8 });
+      const boxMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, metalness: 0.2 });
+
+      const woodBase = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.15, 0.9), woodMat);
+      palletGroup.add(woodBase);
+
+      const cargoBox = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), boxMat);
+      cargoBox.position.y = 0.38;
+      palletGroup.add(cargoBox);
+
+      const slotIndex = loadedCargoPallets.length;
+      const xPos = (slotIndex % 2 === 0) ? -0.5 : 0.5;
+      const zPos = (slotIndex < 2) ? -1.2 : -0.3;
+
+      palletGroup.position.set(xPos, 0.2, -4.5);
+      cargoVanGroup.add(palletGroup);
+
+      gsap.to(palletGroup.position, {
+        z: zPos,
+        y: 0.6,
+        duration: 1.2,
+        ease: "back.out(1.2)",
+        onComplete: () => {
+          loadedCargoPallets.push(palletGroup);
+          document.getElementById('cargoCountText').innerText = `${loadedCargoPallets.length} / 4 Pallets Loaded`;
+          
+          if (loadedCargoPallets.length === 4) {
+            document.getElementById('vanStatusBadge').innerText = "FULL & READY FOR DISPATCH!";
+            document.getElementById('vanStatusBadge').className = "text-brand-400 font-bold animate-pulse";
+            
+            cargoHeadlights.forEach(l => l.intensity = 4);
+            gsap.to(cargoVanGroup.position, { y: "+=0.03", duration: 0.08, repeat: 9, yoyo: true });
+          } else {
+            document.getElementById('vanStatusBadge').innerText = "Loading In Progress...";
+          }
+        }
+      });
+    }
+
+    function resetCargo() {
+      loadedCargoPallets.forEach(p => cargoVanGroup.remove(p));
+      loadedCargoPallets = [];
+      document.getElementById('cargoCountText').innerText = "0 / 4 Pallets Loaded";
+      document.getElementById('vanStatusBadge').innerText = "Awaiting Cargo";
+      document.getElementById('vanStatusBadge').className = "text-accent-amber font-bold";
+      cargoHeadlights.forEach(l => l.intensity = 0);
+      if (doorsOpen) toggleVanDoors();
+    }
+
+    function submitContact(e) {
+      e.preventDefault();
+      alert("Dispatch Query Sent! An MFT Courier transport controller at Greater Manchester OL8 Hub (+44 7501 419198) will contact you immediately.");
+    }
+
+    function calculateQuote(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('btnCalc');
+      btn.innerText = "Calculating Highway Route & Rates...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        let baseFare = 65;
+        let dist = Math.floor(Math.random() * 190) + 40;
+        
+        const vanType = document.querySelector('input[name="vanType"]:checked').value;
+        if (vanType === 'medium') baseFare += 35;
+        if (vanType === 'large') baseFare += 65;
+        if (vanType === 'luton') baseFare += 95;
+
+        const totalFare = baseFare + Math.floor(dist * 1.15);
+        const hrs = Math.floor(dist / 45);
+        const mins = Math.floor((dist % 45) * 1.2);
+
+        document.getElementById('priceDisplay').innerText = `£${totalFare}.00 + VAT`;
+        document.getElementById('distDisplay').innerText = `${dist} miles`;
+        document.getElementById('timeDisplay').innerText = `${hrs} hrs ${mins} mins`;
+
+        document.getElementById('quoteResult').classList.remove('hidden');
+        btn.innerText = "Recalculate Rate";
+        btn.disabled = false;
+      }, 700);
+    }
+
+    function simulateTrack(e) {
+      e.preventDefault();
+      const code = document.getElementById('trackInput').value || 'MFT-OL8-9923';
+      document.getElementById('resCode').innerText = code.toUpperCase();
+    }
+
+    // Handle Window Resizing for Canvas aspect ratios
+    window.addEventListener('resize', () => {
+      [
+        { camera: heroBgCamera, renderer: heroBgRenderer, id: 'heroBgCanvas' },
+        { camera: vanCamera, renderer: vanRenderer, id: 'van3dCanvas' },
+        { camera: mapCamera, renderer: mapRenderer, id: 'ukMapCanvas' },
+        { camera: cargoCamera, renderer: cargoRenderer, id: 'cargo3dCanvas' }
+      ].forEach(item => {
+        if (item.camera && item.renderer) {
+          const container = document.getElementById(item.id);
+          if (container) {
+            const parent = container.parentElement;
+            item.camera.aspect = parent.clientWidth / parent.clientHeight;
+            item.camera.updateProjectionMatrix();
+            item.renderer.setSize(parent.clientWidth, parent.clientHeight);
+          }
+        }
+      });
+    });
+
+    // Window Load Trigger
+    window.onload = function() {
+      initHeroBg3D();
+      init3DVan();
+      init3DUKMap();
+      init3DCargoLoader();
+    };
+  </script>
+</body>
+</html>
