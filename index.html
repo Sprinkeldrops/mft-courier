@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>M&F Courier | Premium Nationwide 3D Logistics & Delivery</title>
+  <meta name="description" content="Premium Nationwide 3D Logistics & Delivery service platform based at Greater Manchester Hub (OL8 1ER), serving Great Britain & Northern Ireland with dedicated same-day express transport.">
+  <meta property="og:title" content="M&F Courier | Premium Nationwide 3D Logistics & Delivery">
+  <meta property="og:description" content="Premium Nationwide 3D Logistics & Delivery service platform based at Greater Manchester Hub (OL8 1ER), serving Great Britain & Northern Ireland with dedicated same-day express transport.">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -146,6 +149,17 @@
 
   <!-- Custom Cursor Glow Element -->
   <div id="customCursor"></div>
+
+  <!-- In-App Notification Toast (Replaces blocking window.alert) -->
+  <div id="toastNotification" class="fixed top-20 right-4 sm:right-8 z-[10000] max-w-md w-full bg-[#0d1321]/95 border border-brand-500/40 text-gray-100 rounded-2xl p-4 shadow-2xl backdrop-blur-xl transition-all duration-500 transform -translate-y-40 opacity-0 pointer-events-none flex items-start gap-3.5">
+    <div id="toastIconWrap" class="mt-0.5 shrink-0">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-brand-400 text-xl"></i>
+    </div>
+    <div class="flex-1">
+      <h4 id="toastTitle" class="text-sm font-bold font-mono tracking-wide text-white">Notification</h4>
+      <p id="toastMsg" class="text-xs text-gray-300 mt-1 leading-relaxed"></p>
+    </div>
+  </div>
 
   <!-- Persistent Floating WhatsApp Button -->
   <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20get%20an%20instant%20quote%20for%20my%20delivery." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-400 text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center group border border-white/20">
@@ -1342,13 +1356,37 @@
       gsap.to(doorRight.rotation, { y: doorsOpen ? -Math.PI * 0.75 : 0, duration: 1, ease: "power2.inOut" });
     }
 
+    let toastTimer = null;
+    function showToast(title, message, isWarning = false) {
+      const toast = document.getElementById('toastNotification');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      if (!toast) return;
+
+      toastTitle.innerText = title;
+      toastMsg.innerText = message;
+      toastIcon.className = isWarning 
+        ? "fa-solid fa-triangle-exclamation text-accent-amber text-xl" 
+        : "fa-solid fa-circle-check text-brand-400 text-xl";
+
+      toast.classList.remove('-translate-y-40', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('-translate-y-40', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 5000);
+    }
+
     function addCargoPallet() {
       if (!doorsOpen) {
         toggleVanDoors();
       }
 
       if (loadedCargoPallets.length >= 4) {
-        alert("Van is fully loaded at 4 Euro Pallets capacity! Dispatched from Greater Manchester Hub OL8 1ER.");
+        showToast("Capacity Reached", "Van is fully loaded at 4 Euro Pallets capacity! Ready for dispatch from Greater Manchester Hub OL8 1ER.", true);
         return;
       }
 
@@ -1404,7 +1442,7 @@
 
     function submitContact(e) {
       e.preventDefault();
-      alert("Dispatch Query Sent! An MFT Courier transport controller at Greater Manchester OL8 Hub (+44 7501 419198) will contact you immediately.");
+      showToast("Dispatch Query Sent", "An MFT Courier transport controller at Greater Manchester OL8 Hub (+44 7501 419198) will contact you immediately.", false);
     }
 
     function calculateQuote(e) {
