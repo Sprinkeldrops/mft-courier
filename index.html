@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MFT Courier | Same Day Courier Manchester & UK Express Transport</title>
+  <title>MFT Courier | Same Day Courier Manchester &amp; UK Express Transport</title>
   <meta name="description" content="Same-day, next-day and dedicated courier transport from our Manchester OL8 base to destinations across the UK. Direct, dependable collection and delivery.">
   <link rel="canonical" href="https://mftcourier.co.uk/">
 
   <!-- OpenGraph Metadata -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="MFT Courier | Same Day Courier Manchester & UK Express Transport">
+  <meta property="og:title" content="MFT Courier | Same Day Courier Manchester &amp; UK Express Transport">
   <meta property="og:description" content="Same-day, next-day and dedicated courier transport from our Manchester OL8 base to destinations across the UK. Direct, dependable collection and delivery.">
   <meta property="og:url" content="https://mftcourier.co.uk/">
   <meta property="og:site_name" content="MFT Courier">
@@ -17,7 +17,7 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MFT Courier | Same Day Courier Manchester & UK Express Transport">
+  <meta name="twitter:title" content="MFT Courier | Same Day Courier Manchester &amp; UK Express Transport">
   <meta name="twitter:description" content="Same-day, next-day and dedicated courier transport from our Manchester OL8 base to destinations across the UK. Direct, dependable collection and delivery.">
   <meta name="twitter:image" content="/src/assets/images/hero_british_courier_road_1790543302361.jpg">
 
@@ -34,18 +34,17 @@
         extend: {
           colors: {
             brandDark: '#111820',
-            brandDarker: '#0C1117',
+            brandDarker: '#0B1015',
             surfaceDark: '#18222C',
             cardDark: '#1D2A37',
             borderDark: '#283747',
             borderDarkSubtle: 'rgba(255, 255, 255, 0.08)',
             steel: '#2F6F8F',
-            steelLight: '#418AAةD',
+            steelLight: '#4B8AA8',
             steelHover: '#387D9F',
-            steelMuted: 'rgba(47, 111, 143, 0.15)',
-            warmWhite: '#F5F3EE',
+            warmWhite: '#F4F1EA',
             neutralLight: '#E9E6DF',
-            neutralMuted: '#848E97',
+            neutralMuted: '#7D858C',
             amberMuted: '#C28B38'
           },
           fontFamily: {
@@ -56,6 +55,9 @@
       }
     };
   </script>
+
+  <!-- Custom Editorial Styles -->
+  <link rel="stylesheet" href="/src/css/style.css">
 
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -83,115 +85,49 @@
       "addressLocality": "Oldham, Greater Manchester",
       "postalCode": "OL8",
       "addressCountry": "GB"
-    },
-    "serviceType": [
-      "Same Day Courier",
-      "Next Day Delivery",
-      "Dedicated Courier Transport",
-      "Business Freight Logistics",
-      "Pallet Transport",
-      "Urgent Direct Transport"
-    ]
+    }
   }
   </script>
-
-  <style>
-    /* Base Reset & Typography */
-    html {
-      background-color: #111820;
-      color: #F5F3EE;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-    }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Hero Spotlight Cursor Reveal Mask (Desktop) */
-    .hero-reveal-container {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      mask-image: radial-gradient(circle 180px at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
-      -webkit-mask-image: radial-gradient(circle 180px at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
-    }
-    .hero-reveal-container.active {
-      opacity: 1;
-    }
-
-    /* Route corridor SVG pulse & dash animation */
-    @keyframes dashTravel {
-      to {
-        stroke-dashoffset: -40;
-      }
-    }
-    .route-animated {
-      stroke-dasharray: 6 6;
-      animation: dashTravel 1.8s linear infinite;
-    }
-
-    /* Subdued Hairline Borders */
-    .hairline-border {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .hairline-b {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .hairline-t {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    /* Reduced Motion Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      *, ::before, ::after {
-        animation-delay: -1ms !important;
-        animation-duration: 1ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0s !important;
-        scroll-behavior: auto !important;
-      }
-      .hero-reveal-container {
-        display: none !important;
-      }
-    }
-  </style>
 </head>
-<body class="bg-brandDark text-warmWhite min-h-screen flex flex-col selection:bg-steel selection:text-white">
+<body class="bg-brandDark text-warmWhite min-h-screen flex flex-col font-sans selection:bg-steel selection:text-white">
 
   <!-- Accessible Skip Link -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-steel focus:text-white focus:rounded focus:outline-none font-medium text-sm">
     Skip to primary content
   </a>
 
-  <!-- Notification Toast (Non-blocking replacement for window.alert) -->
+  <!-- In-App Notification Toast (Iframe-safe) -->
   <div id="appToast" role="status" aria-live="polite" class="fixed top-24 right-4 sm:right-8 z-50 max-w-sm w-full bg-surfaceDark border border-borderDark text-warmWhite rounded-xl p-4 shadow-2xl transition-all duration-300 transform -translate-y-24 opacity-0 pointer-events-none flex items-start gap-3">
-    <div id="toastIconContainer" class="shrink-0 mt-0.5 text-steel">
-      <i id="toastIcon" class="fa-solid fa-circle-check text-lg"></i>
+    <div class="shrink-0 mt-0.5 text-steel">
+      <i class="fa-solid fa-circle-check text-lg"></i>
     </div>
     <div class="flex-1">
       <h4 id="toastTitle" class="text-sm font-semibold tracking-tight text-white">Notification</h4>
       <p id="toastMessage" class="text-xs text-neutralMuted mt-0.5 leading-relaxed"></p>
     </div>
-    <button onclick="dismissToast()" class="text-neutralMuted hover:text-white transition-colors p-1" aria-label="Dismiss message">
+    <button onclick="dismissToast()" class="text-neutralMuted hover:text-white p-1" aria-label="Dismiss message">
       <i class="fa-solid fa-xmark text-sm"></i>
     </button>
   </div>
 
-  <!-- Persistent Floating WhatsApp Action -->
-  <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20inquire%20about%20a%20delivery%20quote." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#20ba59] text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center gap-2.5 group" aria-label="Contact MFT Courier on WhatsApp">
+  <!-- Service Hover Image Cursor Floating Preview -->
+  <div id="serviceHoverPreview" class="hidden md:block rounded-xl border border-white/10 bg-brandDarker">
+    <img id="servicePreviewImg" src="" alt="Service preview" class="w-full h-full object-cover">
+    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brandDarker via-brandDarker/70 to-transparent p-3">
+      <span id="servicePreviewTitle" class="text-xs font-mono text-white tracking-wider block"></span>
+    </div>
+  </div>
+
+  <!-- Refined Subtle WhatsApp Button (Non-intrusive) -->
+  <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20inquire%20about%20a%20delivery%20quote." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-[#25D366]/90 hover:bg-[#25D366] text-white p-3 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center border border-white/20" aria-label="WhatsApp Dispatch">
     <i class="fa-brands fa-whatsapp text-2xl"></i>
-    <span class="hidden sm:inline text-xs font-semibold tracking-wide uppercase">WhatsApp Dispatch</span>
   </a>
 
-  <!-- Top Navigation Bar (Strict 3-zone Top Bar Contract) -->
+  <!-- 1. NAVIGATION -->
   <header id="siteHeader" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 hairline-b bg-brandDark/85 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Zone 1: Single element brand wordmark (No attached badges or subtitles) -->
+      <!-- Brand Wordmark -->
       <a href="/" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-steel rounded-md">
         <div class="w-8 h-8 rounded bg-steel flex items-center justify-center text-white font-bold text-sm tracking-wider">
           MFT
@@ -201,104 +137,100 @@
         </span>
       </a>
 
-      <!-- Zone 2: 5 clean text navigation links -->
+      <!-- Desktop Links -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-neutralMuted" aria-label="Primary navigation">
+        <a href="#journeySection" class="hover:text-white transition-colors">Journey</a>
         <a href="#services" class="hover:text-white transition-colors">Services</a>
         <a href="#how-it-works" class="hover:text-white transition-colors">How We Deliver</a>
-        <a href="#coverage" class="hover:text-white transition-colors">UK Coverage</a>
         <a href="#tracking-preview" class="hover:text-white transition-colors">Tracking</a>
-        <a href="#industries" class="hover:text-white transition-colors">Industries</a>
+        <a href="#coverage" class="hover:text-white transition-colors">Coverage</a>
         <a href="/pages/about.html" class="hover:text-white transition-colors">About</a>
         <a href="/pages/contact.html" class="hover:text-white transition-colors">Contact</a>
       </nav>
 
-      <!-- Zone 3: Primary action + direct dispatch phone -->
+      <!-- Primary Action + Direct Dispatch Desk -->
       <div class="flex items-center gap-4 sm:gap-6">
-        <a href="tel:+447501419198" class="hidden sm:flex items-center gap-2 text-xs font-mono tracking-wider text-neutralLight hover:text-white transition-colors" title="Call MFT Courier Dispatch Desk">
+        <a href="tel:+447501419198" class="hidden sm:flex items-center gap-2 text-xs font-mono tracking-wider text-neutralLight hover:text-white transition-colors">
           <i class="fa-solid fa-phone text-steel text-xs"></i>
           <span>07501 419198</span>
         </a>
         <a href="#quote-section" class="px-4 py-2 sm:px-5 sm:py-2.5 bg-steel hover:bg-steelHover text-white text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-white whitespace-nowrap">
           Get a Quote
         </a>
-        <!-- Mobile Navigation Toggle -->
-        <button id="mobileNavToggle" type="button" class="lg:hidden text-neutralLight hover:text-white p-2 focus:outline-none" aria-label="Open navigation menu" aria-expanded="false">
+        <button id="mobileNavToggle" type="button" class="lg:hidden text-neutralLight hover:text-white p-2" aria-label="Open navigation menu" aria-expanded="false">
           <i class="fa-solid fa-bars-staggered text-xl"></i>
         </button>
       </div>
 
     </div>
 
-    <!-- Mobile Navigation Drawer -->
+    <!-- Mobile Drawer -->
     <div id="mobileNavDrawer" class="hidden lg:hidden bg-surfaceDark hairline-t px-6 py-6 space-y-4">
       <nav class="flex flex-col space-y-3 text-base font-medium">
+        <a href="#journeySection" class="mobile-nav-link text-neutralLight hover:text-white py-1">Journey</a>
         <a href="#services" class="mobile-nav-link text-neutralLight hover:text-white py-1">Services</a>
         <a href="#how-it-works" class="mobile-nav-link text-neutralLight hover:text-white py-1">How We Deliver</a>
+        <a href="#tracking-preview" class="mobile-nav-link text-neutralLight hover:text-white py-1">Tracking Demo</a>
         <a href="#coverage" class="mobile-nav-link text-neutralLight hover:text-white py-1">UK Coverage</a>
-        <a href="#tracking-preview" class="mobile-nav-link text-neutralLight hover:text-white py-1">Tracking Demonstration</a>
-        <a href="#industries" class="mobile-nav-link text-neutralLight hover:text-white py-1">Industries</a>
         <a href="/pages/about.html" class="mobile-nav-link text-neutralLight hover:text-white py-1">About MFT</a>
         <a href="/pages/contact.html" class="mobile-nav-link text-neutralLight hover:text-white py-1">Contact Dispatch</a>
       </nav>
       <div class="pt-4 hairline-t flex flex-col gap-3 font-mono text-xs">
         <a href="tel:+447501419198" class="flex items-center gap-2 text-white bg-cardDark p-3 rounded border border-borderDark">
-          <i class="fa-solid fa-phone text-steel"></i> Call +44 7501 419198
-        </a>
-        <a href="mailto:info@mftcourier.co.uk" class="flex items-center gap-2 text-neutralMuted p-2">
-          <i class="fa-solid fa-envelope text-steel"></i> info@mftcourier.co.uk
+          <i class="fa-solid fa-phone text-steel"></i> Call 07501 419198
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Primary Main Content -->
+  <!-- PRIMARY MAIN CONTENT -->
   <main id="main-content" class="flex-grow pt-20">
 
-    <!-- HERO SECTION (Cinematic Editorial British Transport & Desktop Cursor Reveal) -->
-    <section id="heroSection" class="relative min-h-[90vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden bg-brandDarker border-b border-borderDarkSubtle">
+    <!-- 2. CINEMATIC HERO (With Lerp Cursor Reveal & Layered Visual Depth) -->
+    <section id="heroSection" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-brandDarker border-b border-borderDarkSubtle">
       
-      <!-- Base Photographic Layer (Realistic UK Road at Twilight) -->
+      <!-- Layer 1: Base Photographic Layer (Realistic UK Road at Twilight) -->
       <div class="absolute inset-0 z-0">
-        <img src="/src/assets/images/hero_british_courier_road_1790543302361.jpg" alt="MFT Courier commercial delivery vehicle in transit along British highway near Manchester" class="w-full h-full object-cover object-center opacity-45 scale-100 filter brightness-95" loading="eager" fetchpriority="high">
-        <!-- Film Contrast Scrim -->
-        <div class="absolute inset-0 bg-gradient-to-t from-brandDarker via-brandDarker/75 to-brandDarker/40"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-brandDarker via-brandDarker/80 to-transparent"></div>
+        <img id="heroBgImg" src="/src/assets/images/hero_british_courier_road_1790543302361.jpg" alt="MFT Courier commercial delivery vehicle on British road at dusk" class="w-full h-full object-cover object-center opacity-40 scale-100 filter brightness-95" loading="eager" fetchpriority="high">
+        <!-- Layer 2: Film Contrast Scrim -->
+        <div class="absolute inset-0 bg-gradient-to-t from-brandDarker via-brandDarker/80 to-brandDarker/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-brandDarker via-brandDarker/85 to-transparent"></div>
       </div>
 
-      <!-- Reveal Photographic Layer (Driver & Secure Cargo - Revealed on Desktop Cursor Hover) -->
+      <!-- Layer 3: Second Photographic Layer (Revealed smoothly on Desktop Cursor Hover via Lerp mask) -->
       <div id="heroCursorMask" class="hero-reveal-container hidden md:block">
         <img src="/src/assets/images/hero_reveal_courier_cargo_1790543312550.jpg" alt="MFT courier driver securing priority cargo inside transport hold" class="w-full h-full object-cover object-center opacity-90 filter brightness-105">
       </div>
 
-      <!-- Hero Content Container -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Layer 4: Foreground Typography & Editorial Layout -->
+      <div id="heroForegroundContent" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <div class="lg:col-span-8 space-y-6">
           
-          <!-- Unboxed Clean Editorial Eyebrow -->
+          <!-- Editorial Eyebrow -->
           <div class="flex items-center gap-2 text-xs font-mono text-neutralMuted tracking-wider uppercase">
-            <span>MFT Courier</span>
+            <span>MFT COURIER</span>
             <span aria-hidden="true">·</span>
-            <span>Manchester OL8 Hub</span>
+            <span class="text-white">OL8</span>
             <span aria-hidden="true">·</span>
-            <span class="text-steel">All UK Destinations</span>
+            <span class="text-steel">UK</span>
           </div>
 
-          <!-- Hero Headline (Controlled Editorial Typography, No Orphans) -->
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] max-w-3xl" style="text-wrap: balance;">
-            Moving what matters. <br class="hidden sm:inline">
-            <span class="text-neutralLight font-normal">Across the United Kingdom.</span>
+          <!-- Hero Headline (Contrasting Hierarchy: Bold top, Lighter bottom) -->
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.08] max-w-3xl" style="text-wrap: balance;">
+            <span class="font-extrabold text-white block">Moving what matters.</span>
+            <span class="font-light text-neutralLight block">Across the UK.</span>
           </h1>
 
-          <!-- Concrete Supporting Prose -->
+          <!-- Concise Supporting Copy -->
           <p class="text-base sm:text-lg text-neutralMuted max-w-2xl font-normal leading-relaxed">
-            Same-day, next-day and dedicated courier transport for businesses, manufacturers, and private consignments. Managed directly from our Manchester OL8 operational base to any UK destination with zero hub-depot double handling.
+            Same-day, next-day and dedicated courier transport for businesses and private customers, from our OL8 base to destinations across the UK.
           </p>
 
-          <!-- Primary & Secondary CTA Block -->
+          <!-- CTA Buttons -->
           <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <a href="#quote-section" class="px-7 py-3.5 bg-steel hover:bg-steelHover text-white font-semibold text-sm rounded-md transition-all duration-200 text-center tracking-wide shadow-lg shadow-steel/10 flex items-center justify-center gap-2 group">
-              <span>Get an Instant Quote</span>
+              <span>Get a Quote</span>
               <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
             </a>
             <a href="#how-it-works" class="px-6 py-3.5 bg-surfaceDark/80 hover:bg-surfaceDark text-neutralLight hover:text-white font-medium text-sm rounded-md transition-all duration-200 text-center hairline-border flex items-center justify-center gap-2">
@@ -309,58 +241,38 @@
             </a>
           </div>
 
-          <!-- Operational Proof Adjacency -->
-          <div class="pt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutralMuted font-mono">
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span>Direct dedicated vehicles</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-steel"></span>
-              <span>Fully insured transit</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-amberMuted"></span>
-              <span>Digital proof of delivery (POD)</span>
-            </div>
-          </div>
-
         </div>
 
-        <!-- Hero Aside: Rapid Dispatch Dispatcher Card -->
+        <!-- Layer 5: Operational Quick Card -->
         <div class="lg:col-span-4">
-          <div class="bg-surfaceDark/90 backdrop-blur-md rounded-xl p-6 hairline-border space-y-5 shadow-2xl">
-            <div class="flex items-center justify-between hairline-b pb-4">
+          <div class="bg-surfaceDark/90 backdrop-blur-md rounded-xl p-6 hairline-border space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between hairline-b pb-3">
               <div>
-                <span class="text-xs font-mono text-neutralMuted uppercase tracking-wider block">Operational Hub</span>
+                <span class="text-xs font-mono text-neutralMuted uppercase tracking-wider block">Operational Base</span>
                 <span class="text-sm font-semibold text-white">Greater Manchester · OL8</span>
               </div>
-              <span class="px-2.5 py-1 text-[11px] font-mono rounded bg-emerald-950/80 text-emerald-300 border border-emerald-800/40">
-                Active 24/7
+              <span class="px-2.5 py-0.5 text-[11px] font-mono rounded bg-emerald-950/80 text-emerald-300 border border-emerald-800/40">
+                Active
               </span>
             </div>
 
-            <div class="space-y-3 text-xs text-neutralMuted">
+            <div class="space-y-2 text-xs text-neutralMuted font-mono">
               <div class="flex justify-between py-1 hairline-b">
-                <span>Direct Collection Radius:</span>
-                <span class="font-medium text-white">All Greater Manchester</span>
+                <span>Direct Transit:</span>
+                <span class="font-medium text-white">Point-to-point only</span>
               </div>
               <div class="flex justify-between py-1 hairline-b">
-                <span>Transit Guarantee:</span>
-                <span class="font-medium text-white">Direct point-to-point</span>
-              </div>
-              <div class="flex justify-between py-1 hairline-b">
-                <span>Typical Mobilisation:</span>
-                <span class="font-medium text-white font-mono">30–60 mins from booking</span>
+                <span>Direct Reach:</span>
+                <span class="font-medium text-white">Mainland UK postcodes</span>
               </div>
               <div class="flex justify-between py-1">
-                <span>Emergency Inquiries:</span>
-                <a href="tel:+447501419198" class="font-medium text-steel hover:underline font-mono">+44 7501 419198</a>
+                <span>Dispatch Contact:</span>
+                <a href="tel:+447501419198" class="font-medium text-steel hover:underline">07501 419198</a>
               </div>
             </div>
 
-            <a href="#quote-section" class="w-full block py-2.5 text-center text-xs font-semibold font-mono uppercase bg-cardDark hover:bg-borderDark text-white rounded transition-colors hairline-border">
-              Request Collection Time
+            <a href="#journeySection" class="w-full block py-2.5 text-center text-xs font-semibold font-mono uppercase bg-cardDark hover:bg-borderDark text-white rounded transition-colors hairline-border">
+              Follow The Journey ↓
             </a>
           </div>
         </div>
@@ -368,462 +280,132 @@
       </div>
     </section>
 
-    <!-- SECTION 1: CREDIBILITY & SERVICE STRIP -->
-    <section class="bg-surfaceDark hairline-b py-10">
+    <!-- 3. TRUST / SERVICE STRIP -->
+    <section class="bg-surfaceDark hairline-b py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          
-          <div class="space-y-1">
-            <h3 class="text-sm font-bold text-white tracking-tight">Same-Day Express</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Urgent collections across Manchester and direct highway transit to any UK destination.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-mono">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-steel"></span>
+            <div>
+              <span class="block text-white font-bold uppercase">Same Day</span>
+              <span class="text-neutralMuted">Urgent UK delivery</span>
+            </div>
           </div>
-
-          <div class="space-y-1">
-            <h3 class="text-sm font-bold text-white tracking-tight">Dedicated Transport</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">A vehicle reserved exclusively for your consignment with no co-loading or cross-dock transfers.</p>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-steel"></span>
+            <div>
+              <span class="block text-white font-bold uppercase">Next Day</span>
+              <span class="text-neutralMuted">Reliable scheduled delivery</span>
+            </div>
           </div>
-
-          <div class="space-y-1">
-            <h3 class="text-sm font-bold text-white tracking-tight">Manchester OL8 Base</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Strategically situated with immediate access to the M60, M62, and nationwide motorways.</p>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-steel"></span>
+            <div>
+              <span class="block text-white font-bold uppercase">Dedicated Vehicles</span>
+              <span class="text-neutralMuted">Direct transport</span>
+            </div>
           </div>
-
-          <div class="space-y-1">
-            <h3 class="text-sm font-bold text-white tracking-tight">Nationwide Reach</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Delivering commercial freight, urgent parcels, and private loads to every UK postcode.</p>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-steel"></span>
+            <div>
+              <span class="block text-white font-bold uppercase">UK Coverage</span>
+              <span class="text-neutralMuted">From OL8 across the UK</span>
+            </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: SERVICES SECTION (Interactive Editorial Rows with Real Capabilities) -->
-    <section id="services" class="py-24 bg-brandDark relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <!-- 4. OL8 → UK JOURNEY (Animated Vector Route with ScrollTrigger) -->
+    <section id="journeySection" class="py-24 bg-brandDarker hairline-b relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        <!-- Section Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
-          <div class="space-y-2">
-            <span class="text-xs font-mono text-steel uppercase tracking-widest block">Transport Capabilities</span>
-            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Courier services built around your schedule.
-            </h2>
-          </div>
-          <p class="text-sm text-neutralMuted max-w-md leading-relaxed">
-            From single documents and sensitive samples to multi-pallet manufacturing freight, we provide direct, secure UK road transport.
-          </p>
-        </div>
-
-        <!-- Services Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <!-- Service 1: Same-Day Courier -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">01. Urgent Dispatch</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Same-Day Courier</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                When timing is critical. Your goods are collected within 60 minutes of booking across Greater Manchester and driven directly to their destination without intermediate stops.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Immediate vehicle allocation</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Direct door-to-door transit</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Real-time transit confirmation</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="/pages/same-day-courier.html" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>View same-day details</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service 2: Next-Day Delivery -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">02. Scheduled Network</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Next-Day Delivery</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                Dependable planned UK transport for businesses and regular commercial dispatches. Cost-effective regional and nationwide distribution with agreed delivery timeframes.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Pre-booked collection windows</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Secure overnight handling</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Electronic signature capture</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="/pages/next-day-courier.html" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>View next-day details</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service 3: Dedicated Courier -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">03. Exclusive Vehicle</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Dedicated Courier</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                An entire vehicle reserved exclusively for your payload. Ideal for high-value items, confidential documents, fragile assemblies, and bespoke consignment specifications.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Zero mixed loads or co-loading</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Complete chain-of-custody control</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Direct driver communication</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="/pages/dedicated-courier.html" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>View dedicated transit details</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service 4: Business Transport -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">04. Commercial B2B</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Business Courier Services</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                Contract logistics and scheduled shuttle runs between factories, depots, and customer sites. Account management and flexible billing for regular commercial shippers.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Scheduled daily or weekly collections</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Consistent driver allocation</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Simplified monthly billing</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="/pages/business-courier.html" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>View business accounts</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service 5: Pallet & Heavy Freight -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">05. Commercial Cargo</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Pallet & Heavy Freight</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                Standard UK and Euro pallet transport for industrial, manufacturing, and wholesale distribution. Tail-lift capacity for facilities without dedicated loading bays.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Standard and Euro pallet sizes</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Heavy commercial payload capacity</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Secure strap and bar load retention</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="/pages/pallet-delivery.html" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>View pallet freight specs</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Service 6: Private & Awkward Loads -->
-          <article class="bg-surfaceDark/70 hover:bg-surfaceDark rounded-xl p-8 hairline-border transition-all duration-300 flex flex-col justify-between group">
-            <div class="space-y-4">
-              <span class="text-xs font-mono text-neutralMuted block">06. Bespoke Loads</span>
-              <h3 class="text-xl font-bold text-white group-hover:text-steel transition-colors">Private & Awkward Consignments</h3>
-              <p class="text-sm text-neutralMuted leading-relaxed">
-                Direct transport for individuals and non-standard cargo that exceeds parcel network constraints. Careful, respectful handling for furniture, machinery, or fragile private items.
-              </p>
-              <ul class="text-xs text-neutralLight font-mono space-y-2 pt-2">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Protective blanket and strap wrapping</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Direct door-to-door transit</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-steel text-[10px]"></i> Polite, professional driver service</li>
-              </ul>
-            </div>
-            <div class="pt-8">
-              <a href="#quote-section" class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-steel transition-colors">
-                <span>Request bespoke quote</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-              </a>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- Photographic Feature Banner (Authentic UK Transport) -->
-        <div class="rounded-xl overflow-hidden hairline-border relative">
-          <div class="grid grid-cols-1 md:grid-cols-2">
-            <div class="p-8 sm:p-12 flex flex-col justify-between space-y-6 bg-surfaceDark">
-              <div class="space-y-3">
-                <span class="text-xs font-mono text-steel uppercase tracking-wider block">Operational Integrity</span>
-                <h3 class="text-2xl font-bold text-white tracking-tight">Direct transit. No depot transfers.</h3>
-                <p class="text-sm text-neutralMuted leading-relaxed">
-                  Most national parcel networks send your consignment through 3 to 5 regional sorting hubs, multiplying the risk of loss, damage, and delays. MFT Courier operates differently: your consignment stays in the same vehicle from collection until delivery.
-                </p>
-              </div>
-              <div class="flex items-center gap-6 text-xs font-mono text-neutralLight">
-                <div>
-                  <span class="block text-white font-bold text-base">100%</span>
-                  <span class="text-neutralMuted">Direct Vehicle Guarantee</span>
-                </div>
-                <div class="h-8 w-px bg-borderDark"></div>
-                <div>
-                  <span class="block text-white font-bold text-base">OL8 Base</span>
-                  <span class="text-neutralMuted">Greater Manchester</span>
-                </div>
-              </div>
-            </div>
-            <div class="h-64 md:h-auto relative bg-brandDarker">
-              <img src="/src/assets/images/service_dedicated_transit_1790543334017.jpg" alt="MFT commercial courier van ready for dispatch in Greater Manchester" class="w-full h-full object-cover object-center" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 3: HOW IT WORKS (5-Stage Scroll Story) -->
-    <section id="how-it-works" class="py-24 bg-brandDarker hairline-t hairline-b">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
-        <div class="max-w-2xl space-y-2">
-          <span class="text-xs font-mono text-steel uppercase tracking-widest block">The Process</span>
-          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            From your request to confirmed arrival.
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-mono text-steel uppercase tracking-widest block">01. The Origin</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+            From OL8 to wherever it needs to go.
           </h2>
-          <p class="text-sm text-neutralMuted leading-relaxed">
-            A clear, straightforward logistics journey designed to give you complete visibility and confidence at every step.
+          <p class="text-sm sm:text-base text-neutralMuted leading-relaxed">
+            Every delivery starts at a clear point. Located in Greater Manchester (OL8), MFT Courier sits minutes from arterial motorway connections, dispatching consignments along major UK transport corridors without unnecessary delays.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
-
-          <!-- Stage 1 -->
-          <div class="bg-surfaceDark/60 p-6 rounded-xl hairline-border flex flex-col justify-between space-y-4 relative group hover:bg-surfaceDark transition-colors">
-            <span class="text-xs font-mono text-steel block">Stage 01</span>
+        <!-- UK SVG Map Journey Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-surfaceDark/60 rounded-2xl p-6 sm:p-10 hairline-border">
+          
+          <div class="lg:col-span-5 space-y-6">
             <div class="space-y-2">
-              <h3 class="text-base font-bold text-white">Tell us what needs moving</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">Provide collection postcode, delivery address, consignment specifications, and timing requirements.</p>
-            </div>
-            <div class="text-[11px] font-mono text-neutralMuted pt-4 hairline-t">Instant price quote</div>
-          </div>
-
-          <!-- Stage 2 -->
-          <div class="bg-surfaceDark/60 p-6 rounded-xl hairline-border flex flex-col justify-between space-y-4 relative group hover:bg-surfaceDark transition-colors">
-            <span class="text-xs font-mono text-steel block">Stage 02</span>
-            <div class="space-y-2">
-              <h3 class="text-base font-bold text-white">We plan the collection</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">Our transport desk allocates the appropriate vehicle and provides confirmed driver dispatch details.</p>
-            </div>
-            <div class="text-[11px] font-mono text-neutralMuted pt-4 hairline-t">Dedicated vehicle assigned</div>
-          </div>
-
-          <!-- Stage 3 -->
-          <div class="bg-surfaceDark/60 p-6 rounded-xl hairline-border flex flex-col justify-between space-y-4 relative group hover:bg-surfaceDark transition-colors">
-            <span class="text-xs font-mono text-steel block">Stage 03</span>
-            <div class="space-y-2">
-              <h3 class="text-base font-bold text-white">We collect your goods</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">Prompt arrival at the collection address with careful inspection, secure lashing, and collection sign-off.</p>
-            </div>
-            <div class="text-[11px] font-mono text-neutralMuted pt-4 hairline-t">Collection scan &amp; receipt</div>
-          </div>
-
-          <!-- Stage 4 -->
-          <div class="bg-surfaceDark/60 p-6 rounded-xl hairline-border flex flex-col justify-between space-y-4 relative group hover:bg-surfaceDark transition-colors">
-            <span class="text-xs font-mono text-steel block">Stage 04</span>
-            <div class="space-y-2">
-              <h3 class="text-base font-bold text-white">Direct UK highway transit</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">Direct point-to-point journey along major UK corridors with continuous driver telemetry and milestone tracking.</p>
-            </div>
-            <div class="text-[11px] font-mono text-neutralMuted pt-4 hairline-t">Zero depot double handling</div>
-          </div>
-
-          <!-- Stage 5 -->
-          <div class="bg-surfaceDark/60 p-6 rounded-xl hairline-border flex flex-col justify-between space-y-4 relative group hover:bg-surfaceDark transition-colors">
-            <span class="text-xs font-mono text-steel block">Stage 05</span>
-            <div class="space-y-2">
-              <h3 class="text-base font-bold text-white">Delivery confirmed</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">Safe arrival at the destination address with digital recipient signature and photographic proof of delivery.</p>
-            </div>
-            <div class="text-[11px] font-mono text-neutralMuted pt-4 hairline-t">Instant electronic POD</div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 4: UK COVERAGE INTERACTIVE MAP (Originating from OL8 Manchester) -->
-    <section id="coverage" class="py-24 bg-brandDark">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
-          <div class="space-y-2">
-            <span class="text-xs font-mono text-steel uppercase tracking-widest block">Geographic Reach</span>
-            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              From our Manchester OL8 base to across the UK.
-            </h2>
-          </div>
-          <p class="text-sm text-neutralMuted max-w-md leading-relaxed">
-            Our operational hub in Greater Manchester gives us immediate direct arterial access to the M60, M62, M6, and M1 corridors.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-          <!-- Left Interactive Corridor Selector -->
-          <div class="lg:col-span-5 space-y-4">
-            <div class="bg-surfaceDark rounded-xl p-6 hairline-border space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-neutralMuted uppercase">Select Highway Corridor</span>
-                <span class="text-xs font-mono text-steel font-medium">Origin: OL8 Hub</span>
-              </div>
-              <p class="text-xs text-neutralMuted">
-                Click any key UK destination corridor to preview typical highway mileage and direct transit drive times from our Manchester OL8 hub:
+              <span class="text-xs font-mono text-neutralMuted uppercase">Active Origin Hub</span>
+              <h3 class="text-xl font-bold text-white">Manchester OL8 Transport Hub</h3>
+              <p class="text-xs text-neutralMuted leading-relaxed">
+                Direct highway access via the M60 ring road and the M62 trans-Pennine corridor. Point-to-point journeys driven directly to customer destinations with confirmed digital POD.
               </p>
+            </div>
 
-              <!-- Route Buttons -->
-              <div class="space-y-2 font-mono text-xs">
-                <button type="button" onclick="selectCorridor('leeds')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white active-corridor" data-id="leeds">
-                  <span class="font-sans font-medium">OL8 → Leeds &amp; West Yorkshire</span>
-                  <span class="text-neutralMuted text-[11px]">42 miles · ~55m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('liverpool')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="liverpool">
-                  <span class="font-sans font-medium">OL8 → Liverpool &amp; Merseyside</span>
-                  <span class="text-neutralMuted text-[11px]">38 miles · ~50m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('birmingham')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="birmingham">
-                  <span class="font-sans font-medium">OL8 → Birmingham &amp; West Midlands</span>
-                  <span class="text-neutralMuted text-[11px]">88 miles · ~1h 45m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('sheffield')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="sheffield">
-                  <span class="font-sans font-medium">OL8 → Sheffield &amp; South Yorkshire</span>
-                  <span class="text-neutralMuted text-[11px]">44 miles · ~1h 10m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('london')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="london">
-                  <span class="font-sans font-medium">OL8 → Greater London &amp; South East</span>
-                  <span class="text-neutralMuted text-[11px]">205 miles · ~3h 50m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('newcastle')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="newcastle">
-                  <span class="font-sans font-medium">OL8 → Newcastle &amp; North East</span>
-                  <span class="text-neutralMuted text-[11px]">135 miles · ~2h 30m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('glasgow')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="glasgow">
-                  <span class="font-sans font-medium">OL8 → Glasgow &amp; Central Scotland</span>
-                  <span class="text-neutralMuted text-[11px]">218 miles · ~3h 55m</span>
-                </button>
-                <button type="button" onclick="selectCorridor('bristol')" class="corridor-btn w-full text-left p-3 rounded bg-cardDark hover:bg-borderDark transition-colors flex items-center justify-between text-white" data-id="bristol">
-                  <span class="font-sans font-medium">OL8 → Bristol &amp; South West</span>
-                  <span class="text-neutralMuted text-[11px]">168 miles · ~3h 15m</span>
-                </button>
+            <!-- Route Waypoint Markers List -->
+            <div class="space-y-3 text-xs font-mono">
+              <div class="flex items-center justify-between p-3 rounded bg-cardDark hairline-border">
+                <span class="text-white font-bold">Origin: Manchester (OL8)</span>
+                <span class="text-steel">Departure Hub</span>
               </div>
-
-              <!-- Selected Corridor Live Details -->
-              <div id="corridorInfoBox" class="p-4 rounded bg-brandDark hairline-border space-y-2 text-xs">
-                <div class="flex justify-between font-mono text-neutralMuted">
-                  <span>Corridor:</span>
-                  <span id="infoRoute" class="text-white font-medium">OL8 Hub → Leeds</span>
-                </div>
-                <div class="flex justify-between font-mono text-neutralMuted">
-                  <span>Direct Distance:</span>
-                  <span id="infoDist" class="text-white font-medium font-mono">42 highway miles</span>
-                </div>
-                <div class="flex justify-between font-mono text-neutralMuted">
-                  <span>Typical Highway Drive:</span>
-                  <span id="infoTime" class="text-steel font-medium font-mono">55 minutes</span>
-                </div>
-                <div class="flex justify-between font-mono text-neutralMuted">
-                  <span>Primary Motorway:</span>
-                  <span id="infoHighway" class="text-white font-medium">M62 Eastbound</span>
-                </div>
+              <div class="flex items-center justify-between p-3 rounded bg-cardDark/50">
+                <span class="text-neutralLight">Route 1: West Yorkshire</span>
+                <span class="text-neutralMuted">Leeds · Bradford · M62</span>
               </div>
-
+              <div class="flex items-center justify-between p-3 rounded bg-cardDark/50">
+                <span class="text-neutralLight">Route 2: Midlands Arterial</span>
+                <span class="text-neutralMuted">Birmingham · Coventry · M6</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded bg-cardDark/50">
+                <span class="text-neutralLight">Route 3: South East Corridor</span>
+                <span class="text-neutralMuted">London · Home Counties · M1</span>
+              </div>
+              <div class="flex items-center justify-between p-3 rounded bg-cardDark/50">
+                <span class="text-neutralLight">Route 4: Northern &amp; Scotland</span>
+                <span class="text-neutralMuted">Newcastle · Glasgow · M6</span>
+              </div>
             </div>
           </div>
 
-          <!-- Right: Vector UK Map Visualization -->
-          <div class="lg:col-span-7 bg-surfaceDark rounded-xl p-6 sm:p-8 hairline-border flex flex-col items-center justify-center relative min-h-[460px]">
-            
-            <div class="w-full flex items-center justify-between text-xs font-mono text-neutralMuted mb-4">
-              <span>UK Transit Topography</span>
-              <span class="text-steel flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-steel animate-ping"></span>
-                <span>Manchester OL8 Base</span>
-              </span>
-            </div>
-
-            <!-- Stylized British Isles SVG Map with Route Corridors -->
-            <svg id="ukMapSvg" viewBox="0 0 500 620" class="w-full max-w-[420px] h-auto text-neutralMuted select-none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#2F6F8F" />
-                  <stop offset="100%" stop-color="#93C5FD" />
-                </linearGradient>
-              </defs>
-
-              <!-- British Mainland Outline (Simplified Geometric Contours) -->
+          <!-- Stylized UK Vector Map -->
+          <div class="lg:col-span-7 flex items-center justify-center p-4">
+            <svg id="ukJourneySvg" viewBox="0 0 500 620" class="w-full max-w-[420px] h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+              <!-- British Mainland Outline -->
               <path d="M 230,20 L 255,40 L 290,30 L 310,70 L 290,120 L 260,140 L 270,180 L 295,210 L 285,270 L 320,320 L 375,340 L 380,390 L 340,430 L 370,470 L 350,510 L 300,520 L 250,535 L 200,530 L 150,570 L 130,550 L 170,520 L 180,480 L 140,470 L 150,420 L 175,400 L 195,350 L 180,320 L 200,280 L 190,230 L 170,180 L 200,140 L 190,90 L 220,50 Z" 
                     fill="#15202B" stroke="#283849" stroke-width="1.5" />
               <!-- Northern Ireland Contour -->
               <path d="M 90,260 L 130,250 L 145,280 L 125,320 L 85,310 L 80,280 Z" 
                     fill="#15202B" stroke="#283849" stroke-width="1.2" />
 
-              <!-- Route Lines radiating from Manchester (245, 340) -->
-              <!-- Route to Leeds (280, 315) -->
-              <path id="path-leeds" d="M 245,340 Q 262,328 280,315" fill="none" stroke="#2F6F8F" stroke-width="2.5" class="route-animated" />
-              <!-- Route to Liverpool (210, 345) -->
-              <path id="path-liverpool" d="M 245,340 Q 228,342 210,345" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to Sheffield (270, 355) -->
-              <path id="path-sheffield" d="M 245,340 Q 258,348 270,355" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to Birmingham (240, 400) -->
-              <path id="path-birmingham" d="M 245,340 Q 242,370 240,400" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to London (310, 470) -->
-              <path id="path-london" d="M 245,340 Q 275,410 310,470" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to Newcastle (275, 230) -->
-              <path id="path-newcastle" d="M 245,340 Q 260,285 275,230" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to Glasgow (210, 190) -->
-              <path id="path-glasgow" d="M 245,340 Q 228,260 210,190" fill="none" stroke="#283849" stroke-width="1.5" />
-              <!-- Route to Bristol (210, 480) -->
-              <path id="path-bristol" d="M 245,340 Q 228,410 210,480" fill="none" stroke="#283849" stroke-width="1.5" />
+              <!-- Progressive Drawing Journey Path (OL8 to London via Birmingham) -->
+              <path id="mainJourneyPath" d="M 245,340 Q 255,370 240,400 T 310,470" fill="none" stroke="#2F6F8F" stroke-width="3" stroke-linecap="round" />
 
-              <!-- City Markers -->
-              <!-- Origin: Manchester OL8 -->
-              <circle cx="245" cy="340" r="6" fill="#2F6F8F" stroke="#ffffff" stroke-width="2" />
-              <text x="245" y="332" fill="#ffffff" font-size="11" font-family="'Plus Jakarta Sans', sans-serif" font-weight="bold" text-anchor="middle">MANCHESTER (OL8)</text>
+              <!-- Additional Radiating Paths -->
+              <path d="M 245,340 Q 262,328 280,315" fill="none" stroke="#283849" stroke-width="1.5" class="route-dash-animated" />
+              <path d="M 245,340 Q 228,342 210,345" fill="none" stroke="#283849" stroke-width="1.5" />
+              <path d="M 245,340 Q 260,285 275,230" fill="none" stroke="#283849" stroke-width="1.5" />
+              <path d="M 245,340 Q 228,260 210,190" fill="none" stroke="#283849" stroke-width="1.5" />
 
-              <!-- Destinations -->
+              <!-- Origin Marker: Manchester OL8 -->
+              <circle cx="245" cy="340" r="7" fill="#2F6F8F" stroke="#ffffff" stroke-width="2.5" />
+              <text x="245" y="328" fill="#ffffff" font-size="12" font-family="'Plus Jakarta Sans', sans-serif" font-weight="bold" text-anchor="middle">OL8 (MANCHESTER)</text>
+
+              <!-- Destination City Nodes -->
               <circle cx="280" cy="315" r="3.5" fill="#848E97" />
               <text x="290" y="318" fill="#848E97" font-size="9" font-family="monospace">Leeds</text>
 
               <circle cx="210" cy="345" r="3.5" fill="#848E97" />
               <text x="165" y="348" fill="#848E97" font-size="9" font-family="monospace">Liverpool</text>
 
-              <circle cx="270" cy="355" r="3.5" fill="#848E97" />
-              <text x="280" y="358" fill="#848E97" font-size="9" font-family="monospace">Sheffield</text>
-
               <circle cx="240" cy="400" r="3.5" fill="#848E97" />
-              <text x="250" y="403" fill="#848E97" font-size="9" font-family="monospace">Birmingham</text>
+              <text x="180" y="403" fill="#848E97" font-size="9" font-family="monospace">Birmingham</text>
 
-              <circle cx="310" cy="470" r="4" fill="#848E97" />
-              <text x="320" y="473" fill="#848E97" font-size="9" font-family="monospace">London</text>
-
-              <circle cx="275" cy="230" r="3.5" fill="#848E97" />
-              <text x="285" y="233" fill="#848E97" font-size="9" font-family="monospace">Newcastle</text>
+              <circle cx="310" cy="470" r="4.5" fill="#2F6F8F" stroke="#ffffff" stroke-width="1.5" />
+              <text x="322" y="473" fill="#ffffff" font-size="10" font-family="monospace" font-weight="bold">London</text>
 
               <circle cx="210" cy="190" r="3.5" fill="#848E97" />
               <text x="165" y="193" fill="#848E97" font-size="9" font-family="monospace">Glasgow</text>
-
-              <circle cx="210" cy="480" r="3.5" fill="#848E97" />
-              <text x="175" y="483" fill="#848E97" font-size="9" font-family="monospace">Bristol</text>
             </svg>
-
-            <div class="mt-4 text-center">
-              <span class="text-[11px] font-mono text-neutralMuted">
-                Dedicated direct road journeys originating from OL8 serving Great Britain &amp; Northern Ireland.
-              </span>
-            </div>
-
           </div>
 
         </div>
@@ -831,402 +413,573 @@
       </div>
     </section>
 
-    <!-- SECTION 5: TRACKING PREVIEW (Clearly labeled demonstration, rotates on load) -->
-    <section id="tracking-preview" class="py-24 bg-surfaceDark hairline-t hairline-b">
+    <!-- 5. SERVICES (EDITORIAL INTERACTIVE ROWS WITH CURSOR IMAGE HOVER) -->
+    <section id="services" class="py-24 bg-brandDark hairline-b relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
           <div class="space-y-2">
-            <!-- Explicit Honest Demonstration Label (Strictly Compliant with Prompt) -->
-            <div class="inline-flex items-center gap-2 text-xs font-mono text-neutralMuted uppercase tracking-wider">
-              <span class="w-1.5 h-1.5 rounded-full bg-steel"></span>
-              <span>Tracking Demonstration · Example Journey Preview</span>
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Real-time driver telemetry &amp; delivery milestones.
+            <span class="text-xs font-mono text-steel uppercase tracking-widest block">02. Collection</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+              What needs moving?
             </h2>
           </div>
           <p class="text-sm text-neutralMuted max-w-md leading-relaxed">
-            This preview illustrates the milestone updates, driver telemetry, and electronic proof of delivery (POD) provided during active MFT consignments.
+            Hover each service row to reveal dispatch specifications and authentic transport operations.
           </p>
         </div>
 
-        <!-- Simulated Consignment Milestone Card -->
-        <div class="bg-brandDark rounded-xl p-6 sm:p-8 hairline-border space-y-8 shadow-xl">
+        <!-- Editorial Service Rows -->
+        <div class="divide-y divide-white/10 hairline-b">
           
-          <!-- Tracking Header -->
+          <!-- 01 Same Day -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/service_same_day_urgency_1790544913995.jpg" 
+               data-title="Same-Day Courier · Urgent Point-to-Point Dispatch">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">01</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  SAME-DAY COURIER
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">Urgent goods collected within 60 minutes across Greater Manchester and delivered directly.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Direct highway transit</span>
+              <a href="/pages/same-day-courier.html" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 02 Next Day -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/service_next_day_scheduled_1790544925795.jpg" 
+               data-title="Next-Day Delivery · Scheduled UK Distribution">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">02</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  NEXT-DAY DELIVERY
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">Dependable planned UK transport for businesses and regular commercial distribution.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Pre-booked windows</span>
+              <a href="/pages/next-day-courier.html" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 03 Dedicated -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/service_dedicated_transit_1790543334017.jpg" 
+               data-title="Dedicated Courier · Sole Exclusive Vehicle Charter">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">03</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  DEDICATED COURIER
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">A vehicle reserved exclusively for your consignment with complete chain of custody.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Zero co-loading</span>
+              <a href="/pages/dedicated-courier.html" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 04 Business Transport -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/journey_highway_motion_1790544939721.jpg" 
+               data-title="Business Courier · Contract Transport &amp; Shuttle Logistics">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">04</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  BUSINESS COURIER
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">Regular contract collection and shuttle runs between factories, offices, and depots.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Account billing</span>
+              <a href="/pages/business-courier.html" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 05 Pallet & Freight -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/service_pallets_freight_1790543323503.jpg" 
+               data-title="Pallet &amp; Heavy Freight · Commercial Cargo Transport">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">05</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  PALLET &amp; FREIGHT
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">Standard UK and Euro pallets transport for industrial manufacturing and wholesale supply.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Tail-lift available</span>
+              <a href="/pages/pallet-delivery.html" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 06 Private Loads -->
+          <div class="service-editorial-row py-8 group transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer" 
+               data-image="/src/assets/images/journey_delivery_handover_1790544950590.jpg" 
+               data-title="Private &amp; Awkward Loads · Careful Individual Transport">
+            <div class="flex items-baseline gap-6 md:gap-10">
+              <span class="text-sm font-mono text-neutralMuted group-hover:text-steel transition-colors">06</span>
+              <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-neutralLight transition-colors">
+                  PRIVATE &amp; AWKWARD LOADS
+                </h3>
+                <p class="text-xs text-neutralMuted mt-1">Direct transport for items exceeding parcel network limits, handled with bespoke care.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono text-neutralMuted group-hover:text-white transition-colors">
+              <span class="hidden sm:inline">Door-to-door</span>
+              <a href="#quote-section" class="p-2 rounded bg-cardDark hover:bg-steel transition-colors text-white">
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. LARGE EDITORIAL TYPOGRAPHIC STATEMENT -->
+    <section class="py-24 sm:py-32 bg-brandDarker hairline-b relative">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <span class="text-xs font-mono text-steel uppercase tracking-widest block">The MFT Promise</span>
+        <blockquote class="editorial-statement-text text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto" style="text-wrap: balance;">
+          Wherever it needs to go, <br class="hidden sm:inline">
+          <span class="text-neutralMuted font-light">we'll handle the journey.</span>
+        </blockquote>
+        <p class="text-xs font-mono text-neutralMuted pt-4">Direct dispatch from Manchester OL8 Hub · Nationwide Transport</p>
+      </div>
+    </section>
+
+    <!-- 7. SCROLL-DRIVEN DELIVERY JOURNEY (Canvas Sequence) -->
+    <section id="journeyCanvasContainer" class="py-24 bg-brandDark hairline-b relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
+          <div class="space-y-2">
+            <span class="text-xs font-mono text-steel uppercase tracking-widest block">03. The Highway</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Direct movement across the UK.
+            </h2>
+          </div>
+          <div class="font-mono text-xs text-neutralMuted flex items-center gap-4">
+            <span id="canvasStagePct" class="text-steel font-bold">0% Complete</span>
+            <span>·</span>
+            <span>Point-to-Point Telemetry</span>
+          </div>
+        </div>
+
+        <!-- Canvas Visual Sequence Card -->
+        <div class="bg-surfaceDark rounded-2xl p-6 sm:p-8 hairline-border space-y-6">
+          <div class="flex items-center justify-between text-xs font-mono text-neutralMuted">
+            <span id="canvasStageLabel" class="text-white font-bold">01. MANCHESTER OL8 HUB</span>
+            <span id="canvasStageNote" class="text-steel">Goods inspected &amp; secured in transport hold</span>
+          </div>
+
+          <div class="w-full h-36 sm:h-44 rounded-xl bg-brandDarker hairline-border overflow-hidden relative">
+            <canvas id="journeyCanvas" class="w-full h-full block"></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono pt-2">
+            <div class="p-3 rounded bg-cardDark hairline-border">
+              <span class="text-neutralMuted block text-[10px]">CORRIDOR ORIGIN</span>
+              <span class="text-white font-bold">Manchester OL8</span>
+            </div>
+            <div class="p-3 rounded bg-cardDark hairline-border">
+              <span class="text-neutralMuted block text-[10px]">TRANSIT MODE</span>
+              <span class="text-white font-bold">Direct Exclusive</span>
+            </div>
+            <div class="p-3 rounded bg-cardDark hairline-border">
+              <span class="text-neutralMuted block text-[10px]">CUSTODY CHAIN</span>
+              <span class="text-white font-bold">Single Assigned Driver</span>
+            </div>
+            <div class="p-3 rounded bg-cardDark hairline-border">
+              <span class="text-neutralMuted block text-[10px]">POD ARRIVAL</span>
+              <span class="text-white font-bold">Electronic Signature</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. HOW WE DELIVER (4 Animated Scroll Stages) -->
+    <section id="how-it-works" class="py-24 bg-brandDarker hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        <div class="max-w-2xl space-y-2">
+          <span class="text-xs font-mono text-steel uppercase tracking-widest block">04. The Method</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            How we deliver.
+          </h2>
+          <p class="text-sm text-neutralMuted leading-relaxed">
+            Four disciplined operational stages ensuring total visibility and care from initial inquiry to final handover.
+          </p>
+        </div>
+
+        <!-- Horizontal Progress Bar -->
+        <div class="w-full h-1 bg-cardDark rounded-full overflow-hidden">
+          <div id="deliverProgressBar" class="h-full bg-steel transition-all duration-300 w-1/4"></div>
+        </div>
+
+        <!-- 4 Stages Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <div class="deliver-stage-card p-6 rounded-xl bg-surfaceDark/40 hairline-border space-y-4 transition-all duration-300">
+            <span class="text-xs font-mono text-steel block">STAGE 01</span>
+            <h3 class="text-lg font-bold text-white">Request &amp; Plan</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">You submit collection postcodes and cargo specifications. Our Manchester dispatch desk confirms routing and pricing immediately.</p>
+          </div>
+
+          <div class="deliver-stage-card p-6 rounded-xl bg-surfaceDark/40 hairline-border space-y-4 transition-all duration-300">
+            <span class="text-xs font-mono text-steel block">STAGE 02</span>
+            <h3 class="text-lg font-bold text-white">Direct Collection</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">A dedicated vehicle mobilises swiftly to your location. Goods are inspected, secured with cargo straps, and signed into custody.</p>
+          </div>
+
+          <div class="deliver-stage-card p-6 rounded-xl bg-surfaceDark/40 hairline-border space-y-4 transition-all duration-300">
+            <span class="text-xs font-mono text-steel block">STAGE 03</span>
+            <h3 class="text-lg font-bold text-white">Highway Transit</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Your consignment travels straight down the motorway network with zero hub sorting or secondary van transfers.</p>
+          </div>
+
+          <div class="deliver-stage-card p-6 rounded-xl bg-surfaceDark/40 hairline-border space-y-4 transition-all duration-300">
+            <span class="text-xs font-mono text-steel block">STAGE 04</span>
+            <h3 class="text-lg font-bold text-white">Confirmed Arrival</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Recipient signs directly upon delivery. Instant digital Proof of Delivery (POD) transmitted to your inbox.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. TRACKING PREVIEW (Clearly Labeled Demonstration) -->
+    <section id="tracking-preview" class="py-24 bg-brandDark hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
+          <div class="space-y-2">
+            <span class="text-xs font-mono text-steel uppercase tracking-widest block">05. Progress</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Your delivery, moving.
+            </h2>
+          </div>
+          <!-- Clear Honest Labeling per Specification -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amberMuted/10 border border-amberMuted/30 text-amberMuted text-xs font-mono">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>TRACKING PREVIEW · Demonstration Journey</span>
+          </div>
+        </div>
+
+        <!-- Tracking Visual Card with Shuffler -->
+        <div class="bg-surfaceDark rounded-2xl p-6 sm:p-10 hairline-border space-y-8 max-w-4xl mx-auto">
+          
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 hairline-b pb-6">
             <div>
-              <span class="text-xs font-mono text-neutralMuted uppercase">Consignment Reference (Demonstration)</span>
-              <div class="flex items-center gap-3 mt-1">
-                <span id="demoTrackingId" class="text-lg font-bold font-mono text-white tracking-wider">MFT-8821-OL8</span>
-                <span id="demoStatusBadge" class="px-2.5 py-0.5 text-xs font-mono rounded bg-steel/20 text-steel border border-steel/30">
-                  In Direct Transit
-                </span>
-              </div>
+              <span class="text-xs font-mono text-neutralMuted uppercase block">Demo Shipment Reference</span>
+              <span id="demoTrackRef" class="text-xl sm:text-2xl font-bold font-mono text-white tracking-wider">MFT-DEMO-7842</span>
             </div>
-            <div class="text-right sm:text-right font-mono text-xs text-neutralMuted">
-              <div>Route: <span id="demoRouteLabel" class="text-white font-medium">Manchester OL8 → West Yorkshire</span></div>
-              <div class="mt-0.5">Vehicle: <span class="text-white">Mercedes Sprinter LWB (Direct)</span></div>
-            </div>
-          </div>
-
-          <!-- 4-Milestone Progress Track -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-
-            <div class="space-y-2 p-4 rounded bg-surfaceDark/50 hairline-border">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400 font-bold">01. Booked</span>
-                <i class="fa-solid fa-check text-emerald-400"></i>
-              </div>
-              <h4 class="text-sm font-bold text-white">Consignment Logged</h4>
-              <p class="text-xs text-neutralMuted leading-relaxed">Direct vehicle reserved at Manchester OL8 transport desk.</p>
-              <span id="demoTime1" class="text-[11px] font-mono text-neutralMuted block pt-2">08:15 BST</span>
-            </div>
-
-            <div class="space-y-2 p-4 rounded bg-surfaceDark/50 hairline-border">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="text-emerald-400 font-bold">02. Collected</span>
-                <i class="fa-solid fa-check text-emerald-400"></i>
-              </div>
-              <h4 class="text-sm font-bold text-white">Loaded &amp; Secured</h4>
-              <p class="text-xs text-neutralMuted leading-relaxed">Driver on-site inspection completed. Payload strapped and manifested.</p>
-              <span id="demoTime2" class="text-[11px] font-mono text-neutralMuted block pt-2">09:05 BST</span>
-            </div>
-
-            <div class="space-y-2 p-4 rounded bg-surfaceDark/50 border border-steel/50 bg-steel/5">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="text-steel font-bold">03. In Transit</span>
-                <span class="w-2 h-2 rounded-full bg-steel animate-ping"></span>
-              </div>
-              <h4 class="text-sm font-bold text-white">Direct Road Transit</h4>
-              <p class="text-xs text-neutralMuted leading-relaxed">Vehicle travelling via arterial highway corridor. No depot diversion.</p>
-              <span id="demoTime3" class="text-[11px] font-mono text-steel block pt-2">Current Milestone</span>
-            </div>
-
-            <div class="space-y-2 p-4 rounded bg-surfaceDark/30 hairline-border opacity-65">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="text-neutralMuted font-bold">04. Arrival</span>
-                <i class="fa-regular fa-clock text-neutralMuted"></i>
-              </div>
-              <h4 class="text-sm font-bold text-white">Delivery &amp; Sign-off</h4>
-              <p class="text-xs text-neutralMuted leading-relaxed">Recipient verification and electronic photographic POD generation.</p>
-              <span id="demoTime4" class="text-[11px] font-mono text-neutralMuted block pt-2">Estimated 10:45 BST</span>
-            </div>
-
-          </div>
-
-          <!-- Bottom Demonstration Ticker & Refresh Button -->
-          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 hairline-t text-xs font-mono text-neutralMuted">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid fa-circle-info text-steel"></i>
-              <span>Demonstration data rotates periodically. Live shipments receive direct tracking access upon dispatch.</span>
-            </div>
-            <button type="button" onclick="shuffleTrackingDemo()" class="px-3 py-1.5 bg-surfaceDark hover:bg-cardDark text-neutralLight hover:text-white rounded hairline-border transition-colors flex items-center gap-1.5">
-              <i class="fa-solid fa-rotate text-steel"></i>
-              <span>Cycle Example Journey</span>
+            <button type="button" onclick="randomizeTrackingDemo()" class="self-start sm:self-auto px-4 py-2 bg-cardDark hover:bg-borderDark text-neutralLight hover:text-white rounded text-xs font-mono transition-colors hairline-border flex items-center gap-2">
+              <i class="fa-solid fa-arrows-rotate text-steel"></i>
+              <span>Shuffle Demo Route</span>
             </button>
           </div>
 
+          <!-- Progress Bar -->
+          <div class="space-y-2 font-mono text-xs">
+            <div class="flex justify-between text-neutralMuted">
+              <span id="demoTrackOrigin" class="text-white font-bold">Manchester (OL8)</span>
+              <span id="demoTrackStatus" class="text-steel font-medium">In Direct Highway Transit</span>
+              <span id="demoTrackDest" class="text-white font-bold">Leeds (LS1)</span>
+            </div>
+            <div class="w-full h-2.5 bg-brandDarker rounded-full overflow-hidden p-0.5">
+              <div id="demoTrackBar" class="h-full bg-steel rounded-full transition-all duration-500 w-[68%]"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-neutralMuted pt-1">
+              <span id="demoTrackService">Same-Day Urgent · M62 Eastbound</span>
+              <span id="demoTrackProgress" class="text-steel font-bold">68%</span>
+            </div>
+          </div>
+
+          <!-- Detailed Telemetry Metrics -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 hairline-t text-xs font-mono">
+            <div>
+              <span class="text-neutralMuted block text-[10px]">HIGHWAY DISTANCE</span>
+              <span id="demoTrackMiles" class="text-white font-bold">42 miles</span>
+            </div>
+            <div>
+              <span class="text-neutralMuted block text-[10px]">ESTIMATED ARRIVAL</span>
+              <span id="demoTrackEta" class="text-white font-bold">25 mins</span>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+              <span class="text-neutralMuted block text-[10px]">CUSTODY STATUS</span>
+              <span class="text-emerald-400 font-bold">Direct Assigned Vehicle</span>
+            </div>
+          </div>
+
         </div>
 
       </div>
     </section>
 
-    <!-- SECTION 6: INDUSTRIES SERVED -->
-    <section id="industries" class="py-24 bg-brandDark">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
+    <!-- 10. INDUSTRIES -->
+    <section id="industries" class="py-24 bg-brandDarker hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="max-w-2xl space-y-2">
-          <span class="text-xs font-mono text-steel uppercase tracking-widest block">Commercial Sectors</span>
-          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Trusted by UK manufacturing, commercial and retail operations.
+          <span class="text-xs font-mono text-steel uppercase tracking-widest block">Sectors Served</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Industries that rely on direct UK courier transport.
           </h2>
-          <p class="text-sm text-neutralMuted leading-relaxed">
-            We adapt our vehicle allocation and handling protocols to match the strict requirements of your industry.
-          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">01. Manufacturing &amp; Engineering</span>
-            <h3 class="text-base font-bold text-white">Industrial Parts &amp; Assemblies</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Urgent CNC components, fabricated steel, replacement motor valves, and production-line breakdown items delivered directly to plant sites.
-            </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Manufacturing &amp; Engineering</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Factory breakdown tooling, replacement machining components, and precision parts delivered straight to assembly lines.</p>
           </div>
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">02. Automotive Supply Chain</span>
-            <h3 class="text-base font-bold text-white">Just-In-Time Spares &amp; Freight</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Direct hot-shot deliveries between parts suppliers, assembly hubs, and dealership service departments with time-critical windows.
-            </p>
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Legal, Finance &amp; Corporate</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Confidential court bundles, legal deeds, and tenders moved under direct unbroken chain of custody.</p>
           </div>
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">03. Commercial Retail &amp; E-Commerce</span>
-            <h3 class="text-base font-bold text-white">Stock Replenishment</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Store-to-store transfers, emergency warehouse restocks, and direct high-priority fulfillment deliveries across Great Britain.
-            </p>
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Medical &amp; Healthcare</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Urgent diagnostic equipment, optical assemblies, and clinical materials transported securely door-to-door.</p>
           </div>
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">04. Legal &amp; Professional Services</span>
-            <h3 class="text-base font-bold text-white">Confidential Documents &amp; Deeds</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Hand-carried, tamper-evident document envelopes, legal court bundles, and tenders with signed unbroken chain of custody.
-            </p>
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Automotive &amp; Aerospace</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Urgent component deliveries to prevent dealership and production line delays across the UK.</p>
           </div>
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">05. Construction &amp; Building Site</span>
-            <h3 class="text-base font-bold text-white">Architectural Tools &amp; Materials</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Direct site drop-offs of emergency building hardware, architectural samples, and specialised tools directly to site foremen.
-            </p>
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Commercial Wholesale &amp; Retail</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Store replenishment, point-of-sale displays, and priority pallets moved on tight delivery windows.</p>
           </div>
-
-          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-3">
-            <span class="text-xs font-mono text-steel block">06. Private Consignments</span>
-            <h3 class="text-base font-bold text-white">Valuable &amp; Awkward Items</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">
-              Reliable, courteous transport for non-commercial customers moving bespoke furniture, delicate equipment, or oversized personal goods.
-            </p>
+          <div class="p-6 rounded-xl bg-surfaceDark hairline-border space-y-2">
+            <h3 class="font-bold text-white">Private &amp; Specialist Transport</h3>
+            <p class="text-xs text-neutralMuted leading-relaxed">Direct transport for individuals requiring bespoke care for awkward, fragile, or high-value possessions.</p>
           </div>
-
         </div>
-
       </div>
     </section>
 
-    <!-- SECTION 7: WHY MFT (Practical Operational Benefits) -->
-    <section class="py-24 bg-brandDarker hairline-t hairline-b">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
+    <!-- 11. WHY MFT (Editorial Split Layout) -->
+    <section class="py-24 bg-brandDark hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <div class="lg:col-span-5 space-y-4">
+            <span class="text-xs font-mono text-steel uppercase tracking-widest block">The Difference</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              Why businesses choose a courier they can actually reach.
+            </h2>
+            <p class="text-sm text-neutralMuted leading-relaxed">
+              When a critical delivery is on the road, you need clear answers from the people managing the vehicle, not an automated chatbot or a queue on a generic call centre.
+            </p>
+          </div>
+
+          <div class="lg:col-span-7 divide-y divide-white/10 hairline-t hairline-b">
+            <div class="py-5 space-y-1">
+              <span class="text-xs font-mono text-steel">01. Direct Communication</span>
+              <h3 class="text-base font-bold text-white">Single point of contact with transport controllers</h3>
+              <p class="text-xs text-neutralMuted">Speak straight to our Manchester desk (+44 7501 419198) with zero phone tree redirects.</p>
+            </div>
+            <div class="py-5 space-y-1">
+              <span class="text-xs font-mono text-steel">02. Flexible Collections</span>
+              <h3 class="text-base font-bold text-white">Rapid mobilisation across Greater Manchester</h3>
+              <p class="text-xs text-neutralMuted">Vehicles dispatched on your schedule, including early morning and out-of-hours runs.</p>
+            </div>
+            <div class="py-5 space-y-1">
+              <span class="text-xs font-mono text-steel">03. Same-Day Capability</span>
+              <h3 class="text-base font-bold text-white">Direct point-to-point UK highway transit</h3>
+              <p class="text-xs text-neutralMuted">Your goods stay on the same vehicle from collection to delivery, protecting against hub damage.</p>
+            </div>
+            <div class="py-5 space-y-1">
+              <span class="text-xs font-mono text-steel">04. UK-Wide Reach</span>
+              <h3 class="text-base font-bold text-white">Serving all mainland Britain postcodes</h3>
+              <p class="text-xs text-neutralMuted">Direct transit from our Manchester OL8 base to Scotland, London, Wales, and regional commercial centres.</p>
+            </div>
+            <div class="py-5 space-y-1">
+              <span class="text-xs font-mono text-steel">05. Delivery Confirmation</span>
+              <h3 class="text-base font-bold text-white">Instant electronic Proof of Delivery (POD)</h3>
+              <p class="text-xs text-neutralMuted">Photographic and signature verification transmitted directly the moment your recipient signs.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. UK COVERAGE (Interactive Corridors) -->
+    <section id="coverage" class="py-24 bg-brandDarker hairline-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-b pb-8">
           <div class="space-y-2">
-            <span class="text-xs font-mono text-steel uppercase tracking-widest block">Operational Standards</span>
-            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Why commercial shippers choose MFT.
+            <span class="text-xs font-mono text-steel uppercase tracking-widest block">Geographic Reach</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              From OL8. Across the UK.
             </h2>
           </div>
           <p class="text-sm text-neutralMuted max-w-md leading-relaxed">
-            Practical transport commitments grounded in real road experience rather than empty marketing promises.
+            Click any UK destination corridor to preview typical highway transit distances and times from our Manchester OL8 hub:
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          <div class="space-y-3">
-            <div class="w-10 h-10 rounded bg-surfaceDark flex items-center justify-center text-steel hairline-border">
-              <i class="fa-solid fa-headset text-sm"></i>
-            </div>
-            <h3 class="text-base font-bold text-white">One direct point of contact</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Speak directly with experienced transport controllers in Manchester, never an offshore call centre or automated chatbot.</p>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+          <button type="button" onclick="selectCorridor('leeds')" class="corridor-btn p-4 rounded bg-steel text-white text-left transition-colors" data-id="leeds">
+            <span class="font-sans font-bold block text-sm">OL8 → Leeds</span>
+            <span class="text-neutralLight text-[11px] block mt-1">42 miles · ~55m via M62</span>
+          </button>
+          <button type="button" onclick="selectCorridor('liverpool')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="liverpool">
+            <span class="font-sans font-bold block text-sm">OL8 → Liverpool</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">38 miles · ~50m via M60/M62</span>
+          </button>
+          <button type="button" onclick="selectCorridor('birmingham')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="birmingham">
+            <span class="font-sans font-bold block text-sm">OL8 → Birmingham</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">88 miles · ~1h 45m via M6</span>
+          </button>
+          <button type="button" onclick="selectCorridor('london')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="london">
+            <span class="font-sans font-bold block text-sm">OL8 → London</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">205 miles · ~3h 50m via M1</span>
+          </button>
+          <button type="button" onclick="selectCorridor('sheffield')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="sheffield">
+            <span class="font-sans font-bold block text-sm">OL8 → Sheffield</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">44 miles · ~1h 10m via A628</span>
+          </button>
+          <button type="button" onclick="selectCorridor('newcastle')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="newcastle">
+            <span class="font-sans font-bold block text-sm">OL8 → Newcastle</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">135 miles · ~2h 30m via A1(M)</span>
+          </button>
+          <button type="button" onclick="selectCorridor('glasgow')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="glasgow">
+            <span class="font-sans font-bold block text-sm">OL8 → Glasgow</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">218 miles · ~3h 55m via M6</span>
+          </button>
+          <button type="button" onclick="selectCorridor('bristol')" class="corridor-btn p-4 rounded bg-cardDark hover:bg-borderDark text-white text-left transition-colors" data-id="bristol">
+            <span class="font-sans font-bold block text-sm">OL8 → Bristol</span>
+            <span class="text-neutralMuted text-[11px] block mt-1">168 miles · ~3h 15m via M5</span>
+          </button>
+        </div>
 
-          <div class="space-y-3">
-            <div class="w-10 h-10 rounded bg-surfaceDark flex items-center justify-center text-steel hairline-border">
-              <i class="fa-solid fa-route text-sm"></i>
-            </div>
-            <h3 class="text-base font-bold text-white">Direct point-to-point transit</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Your consignment remains in the collecting vehicle until it arrives at the destination. No sorting depot risk.</p>
+        <div class="p-6 rounded-xl bg-surfaceDark hairline-border max-w-3xl mx-auto text-xs font-mono space-y-2">
+          <div class="flex justify-between text-neutralMuted">
+            <span>Selected Corridor:</span>
+            <span id="infoRoute" class="text-white font-bold">OL8 Hub → Leeds &amp; West Yorkshire</span>
           </div>
-
-          <div class="space-y-3">
-            <div class="w-10 h-10 rounded bg-surfaceDark flex items-center justify-center text-steel hairline-border">
-              <i class="fa-solid fa-shield-halved text-sm"></i>
-            </div>
-            <h3 class="text-base font-bold text-white">Goods in transit protection</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">All consignments travel fully covered by comprehensive road haulage and courier insurance policies.</p>
+          <div class="flex justify-between text-neutralMuted">
+            <span>Direct Highway Distance:</span>
+            <span id="infoDist" class="text-white font-bold">42 highway miles</span>
           </div>
-
-          <div class="space-y-3">
-            <div class="w-10 h-10 rounded bg-surfaceDark flex items-center justify-center text-steel hairline-border">
-              <i class="fa-solid fa-signature text-sm"></i>
-            </div>
-            <h3 class="text-base font-bold text-white">Electronic proof of delivery</h3>
-            <p class="text-xs text-neutralMuted leading-relaxed">Recipient signature and photographic time-stamped confirmation transmitted immediately upon handover.</p>
+          <div class="flex justify-between text-neutralMuted">
+            <span>Typical Drive Time:</span>
+            <span id="infoTime" class="text-steel font-bold">~55 minutes</span>
           </div>
-
+          <div class="flex justify-between text-neutralMuted">
+            <span>Main Motorway:</span>
+            <span id="infoHighway" class="text-white font-bold">M62 Eastbound</span>
+          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- SECTION 8: QUOTE & BOOKING SECTION (Conversion Engine) -->
-    <section id="quote-section" class="py-24 bg-brandDark relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <!-- 13. LARGE QUOTE CTA & CONVERSION FORM -->
+    <section id="quote-section" class="py-24 bg-brandDarker relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        <div class="max-w-2xl space-y-2">
-          <span class="text-xs font-mono text-steel uppercase tracking-widest block">Instant Inquiries</span>
-          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Tell us what needs moving.
+        <div class="text-center space-y-3">
+          <span class="text-xs font-mono text-steel uppercase tracking-widest block">Direct Dispatch</span>
+          <h2 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+            What needs moving?
           </h2>
-          <p class="text-sm text-neutralMuted leading-relaxed">
-            Provide your collection and delivery postcodes below. Our Manchester dispatch desk will calculate the highway mileage and confirm your guaranteed rate within 15 minutes.
+          <p class="text-sm sm:text-base text-neutralMuted max-w-xl mx-auto leading-relaxed">
+            Tell us what you're sending, where it needs to go, and when you need it there. Our Manchester controllers confirm pricing and vehicle allocation directly.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          <!-- Booking / Quote Form -->
-          <div class="lg:col-span-8 bg-surfaceDark rounded-xl p-6 sm:p-10 hairline-border shadow-2xl">
-            <form id="quoteForm" onsubmit="handleQuoteSubmit(event)" class="space-y-6">
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label for="clientName" class="block text-xs font-mono uppercase text-neutralLight mb-2">Full Name *</label>
-                  <input type="text" id="clientName" name="name" required placeholder="John Smith" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white placeholder-neutralMuted focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-                <div>
-                  <label for="clientCompany" class="block text-xs font-mono uppercase text-neutralLight mb-2">Company Name (Optional)</label>
-                  <input type="text" id="clientCompany" name="company" placeholder="Acme Logistics Ltd" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white placeholder-neutralMuted focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label for="clientEmail" class="block text-xs font-mono uppercase text-neutralLight mb-2">Email Address *</label>
-                  <input type="email" id="clientEmail" name="email" required placeholder="john@example.co.uk" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white placeholder-neutralMuted focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-                <div>
-                  <label for="clientPhone" class="block text-xs font-mono uppercase text-neutralLight mb-2">Telephone Number *</label>
-                  <input type="tel" id="clientPhone" name="phone" required placeholder="07501 123456" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white placeholder-neutralMuted focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-              </div>
-
-              <!-- Journey Routing Postcodes -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 rounded bg-brandDark/60 hairline-border">
-                <div>
-                  <label for="pickupPostcode" class="block text-xs font-mono uppercase text-neutralLight mb-2">
-                    <i class="fa-solid fa-location-dot text-steel mr-1"></i> Collection Postcode *
-                  </label>
-                  <input type="text" id="pickupPostcode" name="pickupPostcode" required placeholder="e.g. OL8 1ER or M1 1AD" oninput="updateDistanceEstimate()" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm font-mono text-white placeholder-neutralMuted uppercase focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-                <div>
-                  <label for="dropPostcode" class="block text-xs font-mono uppercase text-neutralLight mb-2">
-                    <i class="fa-solid fa-flag-checkered text-steel mr-1"></i> Delivery Postcode *
-                  </label>
-                  <input type="text" id="dropPostcode" name="dropPostcode" required placeholder="e.g. LS1 1UR or B1 1BB" oninput="updateDistanceEstimate()" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm font-mono text-white placeholder-neutralMuted uppercase focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-              </div>
-
-              <!-- Consignment Details -->
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div>
-                  <label for="serviceType" class="block text-xs font-mono uppercase text-neutralLight mb-2">Required Service</label>
-                  <select id="serviceType" name="serviceType" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-steel">
-                    <option value="same-day">Same-Day Urgent Courier</option>
-                    <option value="next-day">Next-Day Scheduled Delivery</option>
-                    <option value="dedicated">Dedicated Exclusive Vehicle</option>
-                    <option value="pallet">Pallet &amp; Heavy Freight</option>
-                    <option value="private">Private / Awkward Consignment</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="consignmentDate" class="block text-xs font-mono uppercase text-neutralLight mb-2">Collection Date</label>
-                  <input type="date" id="consignmentDate" name="collectionDate" class="w-full bg-cardDark hairline-border rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-steel">
-                </div>
-                <div>
-                  <label for="consignmentTime" class="block text-xs font-mono uppercase text-neutralLight mb-2">Target Time</label>
-                  <select id="consignmentTime" name="collectionTime" class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-steel">
-                    <option value="immediate">Immediate (Next 60 Mins)</option>
-                    <option value="morning">Morning (08:00 - 12:00)</option>
-                    <option value="afternoon">Afternoon (12:00 - 17:00)</option>
-                    <option value="evening">Evening / Scheduled</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label for="consignmentDescription" class="block text-xs font-mono uppercase text-neutralLight mb-2">What are you sending? (Size, weight, number of items) *</label>
-                <textarea id="consignmentDescription" name="description" required rows="3" placeholder="e.g. 2 Euro pallets (450kg total), or 3 boxes of legal files, or machinery spare parts requiring careful handling..." class="w-full bg-cardDark hairline-border rounded px-4 py-3 text-sm text-white placeholder-neutralMuted focus:outline-none focus:ring-1 focus:ring-steel"></textarea>
-              </div>
-
-              <!-- Estimated Highway Mileage Box (Honest calculation disclosure) -->
-              <div id="estimatePreview" class="hidden p-4 rounded bg-cardDark hairline-border flex items-center justify-between text-xs font-mono">
-                <div>
-                  <span class="text-neutralMuted block">Calculated Direct Highway Distance:</span>
-                  <span id="calcMileageText" class="text-white font-bold text-sm">-- miles</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-steel font-semibold block">Rate Notice</span>
-                  <span class="text-neutralMuted text-[11px]">Exact rate confirmed in 15 mins</span>
-                </div>
-              </div>
-
-              <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
-                <button type="submit" id="btnSubmitQuote" class="w-full sm:w-auto px-8 py-3.5 bg-steel hover:bg-steelHover text-white font-semibold text-sm rounded-md transition-all duration-200 tracking-wide text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                  Submit Quote Request
-                </button>
-                <span class="text-xs text-neutralMuted font-mono">No obligation. Guaranteed response within 15 minutes.</span>
-              </div>
-
-            </form>
-          </div>
-
-          <!-- Direct Dispatch Contacts Aside -->
-          <div class="lg:col-span-4 space-y-6">
+        <!-- Form Card -->
+        <div class="bg-surfaceDark rounded-2xl p-6 sm:p-10 hairline-border shadow-2xl">
+          <form id="quoteForm" class="space-y-6">
             
-            <div class="bg-surfaceDark rounded-xl p-6 sm:p-8 hairline-border space-y-6">
-              <h3 class="text-lg font-bold text-white tracking-tight">Need immediate collection?</h3>
-              <p class="text-xs text-neutralMuted leading-relaxed">
-                For urgent same-day collections within the hour, speak directly with our dispatch controllers right now:
-              </p>
-
-              <div class="space-y-4">
-                <a href="tel:+447501419198" class="flex items-center gap-4 p-4 rounded-lg bg-cardDark hover:bg-borderDark hairline-border transition-colors group">
-                  <div class="w-10 h-10 rounded bg-steel/20 text-steel flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-phone text-base"></i>
-                  </div>
-                  <div>
-                    <span class="text-[11px] font-mono text-neutralMuted uppercase block">Telephone Dispatch</span>
-                    <span class="text-sm font-bold text-white group-hover:text-steel transition-colors font-mono">+44 7501 419198</span>
-                  </div>
-                </a>
-
-                <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20need%20an%20urgent%20same-day%20collection." target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 transition-colors group">
-                  <div class="w-10 h-10 rounded bg-[#25D366]/20 text-[#25D366] flex items-center justify-center shrink-0">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                  </div>
-                  <div>
-                    <span class="text-[11px] font-mono text-neutralMuted uppercase block">WhatsApp Express</span>
-                    <span class="text-sm font-bold text-white group-hover:text-[#25D366] transition-colors font-mono">Chat Direct on WhatsApp</span>
-                  </div>
-                </a>
-
-                <a href="mailto:info@mftcourier.co.uk" class="flex items-center gap-4 p-4 rounded-lg bg-cardDark hover:bg-borderDark hairline-border transition-colors group">
-                  <div class="w-10 h-10 rounded bg-surfaceDark text-neutralLight flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-envelope text-sm"></i>
-                  </div>
-                  <div>
-                    <span class="text-[11px] font-mono text-neutralMuted uppercase block">Email Booking Desk</span>
-                    <span class="text-xs font-bold text-white group-hover:text-steel transition-colors font-mono">info@mftcourier.co.uk</span>
-                  </div>
-                </a>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="qName" class="block text-xs font-mono uppercase text-neutralLight mb-2">Your Name / Company *</label>
+                <input type="text" id="qName" required placeholder="e.g. Acme Precision Ltd" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-steel">
               </div>
-
-              <div class="pt-4 hairline-t text-xs text-neutralMuted font-mono space-y-1">
-                <div>Base: Greater Manchester (OL8)</div>
-                <div>Coverage: 100% Great Britain &amp; Northern Ireland</div>
+              <div>
+                <label for="qPhone" class="block text-xs font-mono uppercase text-neutralLight mb-2">Telephone Number *</label>
+                <input type="tel" id="qPhone" required placeholder="07501 123456" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-steel">
               </div>
             </div>
 
-            <!-- Operational Guarantee Badge -->
-            <div class="p-6 rounded-xl bg-cardDark hairline-border space-y-2">
-              <span class="text-xs font-mono text-steel uppercase tracking-wider block">MFT Standards</span>
-              <h4 class="text-sm font-bold text-white">Direct Transit Guarantee</h4>
-              <p class="text-xs text-neutralMuted leading-relaxed">
-                When you book a dedicated courier with MFT, your goods are not consolidated into regional cross-docking centres. Point-to-point security from collection to delivery.
-              </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div>
+                <label for="qEmail" class="block text-xs font-mono uppercase text-neutralLight mb-2">Email Address *</label>
+                <input type="email" id="qEmail" required placeholder="transport@acme.co.uk" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-steel">
+              </div>
+              <div>
+                <label for="qPickup" class="block text-xs font-mono uppercase text-neutralLight mb-2">Collection Postcode *</label>
+                <input type="text" id="qPickup" required placeholder="e.g. OL8 1ER" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white uppercase focus:outline-none focus:border-steel">
+              </div>
+              <div>
+                <label for="qDrop" class="block text-xs font-mono uppercase text-neutralLight mb-2">Delivery Postcode *</label>
+                <input type="text" id="qDrop" required placeholder="e.g. LS1 1UR or EC1A" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white uppercase focus:outline-none focus:border-steel">
+              </div>
             </div>
 
-          </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="qService" class="block text-xs font-mono uppercase text-neutralLight mb-2">Required Service *</label>
+                <select id="qService" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-steel">
+                  <option value="same-day">Same-Day Urgent Courier</option>
+                  <option value="next-day">Next-Day Scheduled Delivery</option>
+                  <option value="dedicated">Dedicated Exclusive Vehicle</option>
+                  <option value="business">Business Contract Logistics</option>
+                  <option value="pallet">Pallet &amp; Heavy Commercial Freight</option>
+                  <option value="private">Private &amp; Awkward Consignment</option>
+                </select>
+              </div>
+              <div>
+                <label for="qDesc" class="block text-xs font-mono uppercase text-neutralLight mb-2">Consignment Description (Size / Weight)</label>
+                <input type="text" id="qDesc" placeholder="e.g. 2 boxes 25kg, or 1 Euro pallet" class="w-full bg-cardDark border border-white/10 rounded-md px-4 py-3 text-sm text-white focus:outline-none focus:border-steel">
+              </div>
+            </div>
 
+            <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
+              <button type="submit" id="btnSubmitQuote" class="w-full sm:w-auto px-8 py-4 bg-steel hover:bg-steelHover text-white font-semibold text-sm rounded-md transition-all duration-200 tracking-wide text-center">
+                Request Price &amp; Collection Time →
+              </button>
+              <a href="tel:+447501419198" class="w-full sm:w-auto px-6 py-4 bg-cardDark hover:bg-borderDark text-white text-xs font-mono rounded-md text-center transition-colors hairline-border">
+                <i class="fa-solid fa-phone text-steel mr-1.5"></i> Call MFT: 07501 419198
+              </a>
+              <a href="https://wa.me/447501419198?text=Hello%20MFT%20Courier,%20I%20would%20like%20to%20get%20a%20delivery%20quote." target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-4 bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] text-xs font-mono rounded-md text-center transition-colors border border-[#25D366]/40">
+                <i class="fa-brands fa-whatsapp mr-1.5"></i> WhatsApp
+              </a>
+            </div>
+
+          </form>
         </div>
 
       </div>
@@ -1234,383 +987,84 @@
 
   </main>
 
-  <!-- PROFESSIONAL UK BUSINESS FOOTER -->
-  <footer class="bg-brandDarker hairline-t text-neutralMuted text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+  <!-- 14. SUBSTANTIAL FOOTER -->
+  <footer class="bg-brandDarker border-t border-white/10 pt-16 pb-12 text-sm text-neutralMuted">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <!-- Large Final Statement -->
+      <div class="hairline-b pb-12">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Moving what matters.
+        </h2>
+        <p class="text-xs font-mono text-neutralMuted mt-2">MFT Courier · Greater Manchester (OL8) · Nationwide UK Logistics</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-xs">
         
-        <!-- Company Identity Column -->
         <div class="lg:col-span-2 space-y-4">
-          <div class="flex items-center gap-2 text-white font-bold text-base tracking-tight">
-            <div class="w-6 h-6 rounded bg-steel flex items-center justify-center text-white text-xs">MFT</div>
-            <span>MFT COURIER</span>
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded bg-steel flex items-center justify-center text-white font-bold text-xs">MFT</div>
+            <span class="text-base font-bold text-white tracking-tight">MFT COURIER</span>
           </div>
-          <p class="text-xs text-neutralMuted max-w-sm leading-relaxed">
-            Professional UK courier and transport service based in Greater Manchester (OL8). Dedicated, same-day, and scheduled transport for commercial freight, business logistics, and private consignments across Great Britain.
+          <p class="text-neutralMuted leading-relaxed max-w-sm">
+            Professional UK courier and transport company based at Greater Manchester (OL8). Dedicated to direct, safe, and efficient collection and delivery across Great Britain.
           </p>
-          <div class="font-mono text-xs text-neutralLight space-y-1 pt-2">
-            <div>Operational Base: Greater Manchester (OL8), UK</div>
-            <div>Direct Phone: <a href="tel:+447501419198" class="text-white hover:text-steel">+44 7501 419198</a></div>
-            <div>Inquiries: <a href="mailto:info@mftcourier.co.uk" class="text-white hover:text-steel">info@mftcourier.co.uk</a></div>
+          <div class="space-y-1 font-mono text-neutralLight">
+            <div>Telephone Dispatch: <a href="tel:+447501419198" class="text-steel hover:underline">+44 7501 419198</a></div>
+            <div>Inquiries: <a href="mailto:info@mftcourier.co.uk" class="text-steel hover:underline">info@mftcourier.co.uk</a></div>
+            <div>Operational Base: Oldham, Greater Manchester (OL8)</div>
           </div>
         </div>
 
-        <!-- Services Links -->
         <div class="space-y-3">
-          <h4 class="text-sm font-semibold text-white tracking-tight">Services</h4>
-          <ul class="space-y-2 text-xs">
+          <span class="font-mono uppercase text-white font-semibold block">Services</span>
+          <ul class="space-y-2">
             <li><a href="/pages/same-day-courier.html" class="hover:text-white transition-colors">Same-Day Courier</a></li>
             <li><a href="/pages/next-day-courier.html" class="hover:text-white transition-colors">Next-Day Delivery</a></li>
             <li><a href="/pages/dedicated-courier.html" class="hover:text-white transition-colors">Dedicated Courier</a></li>
             <li><a href="/pages/business-courier.html" class="hover:text-white transition-colors">Business Courier</a></li>
             <li><a href="/pages/pallet-delivery.html" class="hover:text-white transition-colors">Pallet &amp; Freight</a></li>
-            <li><a href="#quote-section" class="hover:text-white transition-colors">Bespoke Consignments</a></li>
           </ul>
         </div>
 
-        <!-- Regional Coverage Links -->
         <div class="space-y-3">
-          <h4 class="text-sm font-semibold text-white tracking-tight">Coverage Areas</h4>
-          <ul class="space-y-2 text-xs">
+          <span class="font-mono uppercase text-white font-semibold block">Coverage &amp; Base</span>
+          <ul class="space-y-2">
             <li><a href="/pages/courier-manchester.html" class="hover:text-white transition-colors">Manchester Courier</a></li>
-            <li><a href="/pages/courier-oldham.html" class="hover:text-white transition-colors">Oldham &amp; OL8 Hub</a></li>
-            <li><a href="#coverage" class="hover:text-white transition-colors">Leeds Corridor</a></li>
-            <li><a href="#coverage" class="hover:text-white transition-colors">Birmingham Corridor</a></li>
-            <li><a href="#coverage" class="hover:text-white transition-colors">London Express</a></li>
-            <li><a href="#coverage" class="hover:text-white transition-colors">All UK Postcodes</a></li>
+            <li><a href="/pages/courier-oldham.html" class="hover:text-white transition-colors">Oldham (OL8 Hub)</a></li>
+            <li><a href="#coverage" class="hover:text-white transition-colors">Leeds &amp; Yorkshire</a></li>
+            <li><a href="#coverage" class="hover:text-white transition-colors">Birmingham &amp; Midlands</a></li>
+            <li><a href="#coverage" class="hover:text-white transition-colors">London &amp; South East</a></li>
           </ul>
         </div>
 
-        <!-- Information & Legal Links -->
         <div class="space-y-3">
-          <h4 class="text-sm font-semibold text-white tracking-tight">Company &amp; Legal</h4>
-          <ul class="space-y-2 text-xs">
+          <span class="font-mono uppercase text-white font-semibold block">Company &amp; Legal</span>
+          <ul class="space-y-2">
             <li><a href="/pages/about.html" class="hover:text-white transition-colors">About MFT</a></li>
             <li><a href="/pages/contact.html" class="hover:text-white transition-colors">Contact Dispatch</a></li>
             <li><a href="/pages/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
             <li><a href="/pages/cookie-policy.html" class="hover:text-white transition-colors">Cookie Policy</a></li>
-            <li><a href="/pages/terms-and-conditions.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
-            <li><a href="/pages/accessibility.html" class="hover:text-white transition-colors">Accessibility Statement</a></li>
+            <li><a href="/pages/terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Carriage</a></li>
+            <li><a href="/pages/accessibility.html" class="hover:text-white transition-colors">Accessibility</a></li>
           </ul>
         </div>
 
       </div>
 
-      <!-- Bottom Disclaimer & Copyright (Clean, Unboxed) -->
       <div class="pt-8 hairline-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutralMuted">
-        <div>
-          &copy; <span id="currentYear">2026</span> MFT Courier. All rights reserved. Operating from Greater Manchester OL8.
-        </div>
-        <div class="flex items-center gap-4 text-neutralMuted">
-          <span>UK Logistics</span>
-          <span aria-hidden="true">·</span>
-          <span>Goods in Transit Insured</span>
-          <span aria-hidden="true">·</span>
-          <span>Point-to-Point Transport</span>
+        <div>&copy; 2026 MFT Courier. Manchester OL8 Hub. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="/sitemap.xml" class="hover:text-white">Sitemap</a>
+          <a href="/robots.txt" class="hover:text-white">Robots</a>
         </div>
       </div>
 
     </div>
   </footer>
 
-  <!-- CORE JAVASCRIPT: CORRIDOR CALCULATOR, CURSOR REVEAL, TRACKING SHUFFLE & TOAST -->
-  <script>
-    // Set dynamic current year in footer
-    document.getElementById('currentYear').innerText = new Date().getFullYear();
-
-    // 1. Mobile Navigation Toggle
-    const mobileNavToggle = document.getElementById('mobileNavToggle');
-    const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-    if (mobileNavToggle && mobileNavDrawer) {
-      mobileNavToggle.addEventListener('click', () => {
-        const isOpen = !mobileNavDrawer.classList.contains('hidden');
-        if (isOpen) {
-          mobileNavDrawer.classList.add('hidden');
-          mobileNavToggle.setAttribute('aria-expanded', 'false');
-        } else {
-          mobileNavDrawer.classList.remove('hidden');
-          mobileNavToggle.setAttribute('aria-expanded', 'true');
-        }
-      });
-      document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileNavDrawer.classList.add('hidden');
-          mobileNavToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
-
-    // 2. Header Scroll Backdrop Transition
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('siteHeader');
-      if (window.scrollY > 40) {
-        header.classList.add('bg-brandDark/95', 'shadow-lg');
-        header.classList.remove('bg-brandDark/85');
-      } else {
-        header.classList.add('bg-brandDark/85');
-        header.classList.remove('bg-brandDark/95', 'shadow-lg');
-      }
-    });
-
-    // 3. Hero Cursor Spotlight Reveal (Desktop Only)
-    const heroSection = document.getElementById('heroSection');
-    const heroCursorMask = document.getElementById('heroCursorMask');
-    if (heroSection && heroCursorMask && window.matchMedia('(min-width: 768px)').matches) {
-      let isInside = false;
-
-      heroSection.addEventListener('mouseenter', () => {
-        isInside = true;
-        heroCursorMask.classList.add('active');
-      });
-
-      heroSection.addEventListener('mouseleave', () => {
-        isInside = false;
-        heroCursorMask.classList.remove('active');
-      });
-
-      heroSection.addEventListener('mousemove', (e) => {
-        if (!isInside) return;
-        const rect = heroSection.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        heroCursorMask.style.setProperty('--mouse-x', `${x}px`);
-        heroCursorMask.style.setProperty('--mouse-y', `${y}px`);
-      });
-    }
-
-    // 4. UK Coverage Corridor Selector
-    const corridorData = {
-      leeds: {
-        route: 'OL8 Hub → Leeds & West Yorkshire',
-        dist: '42 highway miles',
-        time: '~55 mins',
-        highway: 'M62 Eastbound via Pennines',
-        pathId: 'path-leeds'
-      },
-      liverpool: {
-        route: 'OL8 Hub → Liverpool & Merseyside',
-        dist: '38 highway miles',
-        time: '~50 mins',
-        highway: 'M60 / M62 Westbound',
-        pathId: 'path-liverpool'
-      },
-      birmingham: {
-        route: 'OL8 Hub → Birmingham & West Midlands',
-        dist: '88 highway miles',
-        time: '~1h 45 mins',
-        highway: 'M60 / M6 Southbound',
-        pathId: 'path-birmingham'
-      },
-      sheffield: {
-        route: 'OL8 Hub → Sheffield & South Yorkshire',
-        dist: '44 highway miles',
-        time: '~1h 10 mins',
-        highway: 'A628 / Woodhead & M1',
-        pathId: 'path-sheffield'
-      },
-      london: {
-        route: 'OL8 Hub → Greater London & South East',
-        dist: '205 highway miles',
-        time: '~3h 50 mins',
-        highway: 'M60 / M6 / M1 Corridor',
-        pathId: 'path-london'
-      },
-      newcastle: {
-        route: 'OL8 Hub → Newcastle & North East',
-        dist: '135 highway miles',
-        time: '~2h 30 mins',
-        highway: 'M62 / A1(M) Northbound',
-        pathId: 'path-newcastle'
-      },
-      glasgow: {
-        route: 'OL8 Hub → Glasgow & Central Scotland',
-        dist: '218 highway miles',
-        time: '~3h 55 mins',
-        highway: 'M6 / M74 Northbound',
-        pathId: 'path-glasgow'
-      },
-      bristol: {
-        route: 'OL8 Hub → Bristol & South West',
-        dist: '168 highway miles',
-        time: '~3h 15 mins',
-        highway: 'M6 / M5 Southbound',
-        pathId: 'path-bristol'
-      }
-    };
-
-    function selectCorridor(id) {
-      const data = corridorData[id];
-      if (!data) return;
-
-      document.getElementById('infoRoute').innerText = data.route;
-      document.getElementById('infoDist').innerText = data.dist;
-      document.getElementById('infoTime').innerText = data.time;
-      document.getElementById('infoHighway').innerText = data.highway;
-
-      // Update button visual states
-      document.querySelectorAll('.corridor-btn').forEach(btn => {
-        if (btn.getAttribute('data-id') === id) {
-          btn.classList.add('bg-steel', 'text-white');
-          btn.classList.remove('bg-cardDark');
-        } else {
-          btn.classList.remove('bg-steel');
-          btn.classList.add('bg-cardDark');
-        }
-      });
-
-      // Update SVG path highlight
-      ['leeds', 'liverpool', 'birmingham', 'sheffield', 'london', 'newcastle', 'glasgow', 'bristol'].forEach(cId => {
-        const pathElem = document.getElementById(`path-${cId}`);
-        if (!pathElem) return;
-        if (cId === id) {
-          pathElem.setAttribute('stroke', '#2F6F8F');
-          pathElem.setAttribute('stroke-width', '2.5');
-          pathElem.classList.add('route-animated');
-        } else {
-          pathElem.setAttribute('stroke', '#283849');
-          pathElem.setAttribute('stroke-width', '1.5');
-          pathElem.classList.remove('route-animated');
-        }
-      });
-    }
-
-    // 5. Tracking Demonstration Shuffle Logic (Clearly Labeled Demo)
-    const demoJourneys = [
-      {
-        id: 'MFT-8821-OL8',
-        route: 'Manchester OL8 → West Yorkshire',
-        status: 'In Direct Transit',
-        time1: '08:15 BST',
-        time2: '09:05 BST',
-        time3: 'Current Milestone',
-        time4: 'Estimated 10:45 BST'
-      },
-      {
-        id: 'MFT-9403-OL8',
-        route: 'Manchester OL8 → Birmingham B3',
-        status: 'Out for Priority Delivery',
-        time1: '07:30 BST',
-        time2: '08:10 BST',
-        time3: '10:05 BST (Highway M6)',
-        time4: 'Estimated 10:50 BST'
-      },
-      {
-        id: 'MFT-7712-OL8',
-        route: 'Oldham Hub → Central London EC2',
-        status: 'Departed Greater Manchester',
-        time1: '06:45 BST',
-        time2: '07:20 BST',
-        time3: 'In Transit M1 South',
-        time4: 'Estimated 11:30 BST'
-      }
-    ];
-    let currentDemoIndex = 0;
-
-    function shuffleTrackingDemo() {
-      currentDemoIndex = (currentDemoIndex + 1) % demoJourneys.length;
-      const d = demoJourneys[currentDemoIndex];
-      document.getElementById('demoTrackingId').innerText = d.id;
-      document.getElementById('demoRouteLabel').innerText = d.route;
-      document.getElementById('demoStatusBadge').innerText = d.status;
-      document.getElementById('demoTime1').innerText = d.time1;
-      document.getElementById('demoTime2').innerText = d.time2;
-      document.getElementById('demoTime3').innerText = d.time3;
-      document.getElementById('demoTime4').innerText = d.time4;
-      showToast('Example Journey Cycled', `Now displaying tracking simulation for ${d.route}.`);
-    }
-
-    // 6. Interactive Distance Estimation in Quote Form
-    function updateDistanceEstimate() {
-      const p1 = document.getElementById('pickupPostcode').value.trim().toUpperCase();
-      const p2 = document.getElementById('dropPostcode').value.trim().toUpperCase();
-      const preview = document.getElementById('estimatePreview');
-      const calcText = document.getElementById('calcMileageText');
-
-      if (p1.length >= 2 && p2.length >= 2) {
-        // Simple deterministic calculation simulation based on characters
-        let charCodeSum = 0;
-        for (let i = 0; i < p1.length; i++) charCodeSum += p1.charCodeAt(i);
-        for (let i = 0; i < p2.length; i++) charCodeSum += p2.charCodeAt(i);
-        const estMiles = 35 + (charCodeSum % 170);
-
-        calcText.innerText = `~${estMiles} highway miles`;
-        preview.classList.remove('hidden');
-      } else {
-        preview.classList.add('hidden');
-      }
-    }
-
-    // 7. Toast Notification Handler (Non-blocking, iframe-safe)
-    let toastTimeout = null;
-    function showToast(title, message, isError = false) {
-      const toast = document.getElementById('appToast');
-      const toastTitle = document.getElementById('toastTitle');
-      const toastMsg = document.getElementById('toastMessage');
-      const toastIcon = document.getElementById('toastIcon');
-      if (!toast) return;
-
-      toastTitle.innerText = title;
-      toastMsg.innerText = message;
-      toastIcon.className = isError 
-        ? 'fa-solid fa-circle-exclamation text-amber-400 text-lg' 
-        : 'fa-solid fa-circle-check text-steel text-lg';
-
-      toast.classList.remove('-translate-y-24', 'opacity-0', 'pointer-events-none');
-      toast.classList.add('translate-y-0', 'opacity-100');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(dismissToast, 5000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('appToast');
-      if (!toast) return;
-      toast.classList.add('-translate-y-24', 'opacity-0', 'pointer-events-none');
-      toast.classList.remove('translate-y-0', 'opacity-100');
-    }
-
-    // 8. Quote Submission Handler
-    async function handleQuoteSubmit(e) {
-      e.preventDefault();
-      const btn = document.getElementById('btnSubmitQuote');
-      const origText = btn.innerText;
-      btn.disabled = true;
-      btn.innerText = 'Calculating & Submitting...';
-
-      const formData = {
-        name: document.getElementById('clientName').value,
-        company: document.getElementById('clientCompany').value,
-        email: document.getElementById('clientEmail').value,
-        phone: document.getElementById('clientPhone').value,
-        pickupPostcode: document.getElementById('pickupPostcode').value,
-        dropPostcode: document.getElementById('dropPostcode').value,
-        serviceType: document.getElementById('serviceType').value,
-        collectionDate: document.getElementById('consignmentDate').value,
-        collectionTime: document.getElementById('consignmentTime').value,
-        description: document.getElementById('consignmentDescription').value,
-        submittedAt: new Date().toISOString()
-      };
-
-      try {
-        const res = await fetch('/api/quote', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const json = await res.json();
-        
-        showToast('Quote Request Received', 'An MFT transport controller at our Manchester OL8 base will contact you with your confirmed rate within 15 minutes.');
-        document.getElementById('quoteForm').reset();
-        document.getElementById('estimatePreview').classList.add('hidden');
-      } catch (err) {
-        showToast('Inquiry Registered', 'Thank you. Your transport query has been recorded. Our Manchester desk will call you shortly on ' + formData.phone + '.');
-      } finally {
-        btn.disabled = false;
-        btn.innerText = origText;
-      }
-    }
-  </script>
+  <!-- Editorial Interaction Script -->
+  <script src="/src/js/app.js"></script>
 
 </body>
 </html>
