@@ -1,8 +1,6 @@
 {
-  "name": "MFT Courier - 3D Logistics & Delivery",
-  "description": "Premium nationwide same-day express courier with 3D interactive cargo simulation, instant rate calculator, and live telemetry dispatched from Greater Manchester Hub.",
-  "permissions": [],
-  "capabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "MFT Courier — Dedicated UK Logistics & Courier Services",
+  "description": "Courier and logistics solutions built around your delivery needs. From Greater Manchester (OL8) to destinations across the UK. Direct dedicated transport.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
