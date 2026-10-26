@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Monogram Mark -->
+  <g transform="translate(4, 8)">
+    <rect width="48" height="48" rx="10" fill="#141B24" stroke="#253241" stroke-width="1.5"/>
+    <path d="M12 36V16h6l5 10 5-10h6v20h-5V24l-4.5 8h-3l-4.5-8v12H12z" fill="#F4F4EE"/>
+    <rect x="29" y="16" width="9" height="4" fill="#22C55E"/>
+    <circle cx="34" cy="34" r="2.5" fill="#22C55E"/>
+  </g>
+  <!-- Typography -->
+  <text x="68" y="32" font-family="'Space Grotesk', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="20" fill="#FFFFFF" letter-spacing="2.5">MFT</text>
+  <text x="122" y="32" font-family="'Space Grotesk', 'Inter', -apple-system, sans-serif" font-weight="700" font-size="20" fill="#22C55E" letter-spacing="2.5">COURIER</text>
+  <text x="69" y="47" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#8E9AA8" letter-spacing="2.5">GREATER MANCHESTER · UK WIDE</text>
+</svg>

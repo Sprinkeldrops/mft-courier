@@ -1,0 +1,16 @@
+{
+  "name": "MFT Courier - Premium UK Logistics & Same-Day Express",
+  "short_name": "MFT Courier",
+  "description": "Professional UK courier and logistics services operating from Greater Manchester (OL8). Dedicated same-day, next-day, and scheduled transport.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0B0F15",
+  "theme_color": "#0B0F15",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

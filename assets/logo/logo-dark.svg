@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Dark on Light -->
+  <g transform="translate(4, 8)">
+    <rect width="48" height="48" rx="10" fill="#0D1117" stroke="#1F2833" stroke-width="1.5"/>
+    <path d="M12 36V16h6l5 10 5-10h6v20h-5V24l-4.5 8h-3l-4.5-8v12H12z" fill="#0D1117"/>
+    <rect x="29" y="16" width="9" height="4" fill="#16A34A"/>
+    <circle cx="34" cy="34" r="2.5" fill="#16A34A"/>
+  </g>
+  <text x="68" y="32" font-family="'Space Grotesk', sans-serif" font-weight="800" font-size="20" fill="#0D1117" letter-spacing="2.5">MFT</text>
+  <text x="122" y="32" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="20" fill="#16A34A" letter-spacing="2.5">COURIER</text>
+  <text x="69" y="47" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#4A5568" letter-spacing="2.5">GREATER MANCHESTER · UK WIDE</text>
+</svg>

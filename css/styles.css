@@ -1,0 +1,214 @@
+/* ==========================================================================
+   MFT COURIER — INDUSTRIAL LOGISTICS DESIGN SYSTEM
+   Active Theory Inspired · Editorial Typography · High Performance Motion
+   ========================================================================== */
+
+:root {
+  --bg-deep: #0B0F15;
+  --bg-surface: #121822;
+  --bg-surface-elevated: #18222E;
+  --bg-card: #141C27;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #22C55E;
+  --text-primary: #F5F4EE;
+  --text-muted: #8E9AA8;
+  --text-dim: #5B6876;
+  --accent-lime: #22C55E;
+  --accent-lime-glow: rgba(34, 197, 94, 0.35);
+  --accent-amber: #F59E0B;
+  --cursor-x: -999px;
+  --cursor-y: -999px;
+  --reveal-radius: 280px;
+}
+
+/* Base Reset & Typography */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Subtle Film Grain Texture Overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Precision Coordinate & Section Dividers */
+.section-marker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-lime);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-marker::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-lime);
+  border-radius: 1px;
+}
+
+/* High-Impact Hero Typography */
+.hero-title {
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+/* Minimal Custom Industrial Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #253344;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-lime);
+}
+
+/* Zero-Pill Restraint: Clean metadata rows without capsule pills */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.meta-separator {
+  color: var(--text-dim);
+  user-select: none;
+}
+
+/* Active Theory Interactive Three.js Canvas Container */
+.globe-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(24, 34, 46, 0.8) 0%, rgba(11, 15, 21, 0.95) 75%);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Architectural Grid Lines (Subtle Industrial Vibe) */
+.blueprint-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Hero Cursor Layer Mask */
+.hero-reveal-mask {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  mask-image: radial-gradient(circle var(--reveal-radius) at var(--cursor-x) var(--cursor-y), black 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle var(--reveal-radius) at var(--cursor-x) var(--cursor-y), black 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
+}
+
+.hero-reveal-mask.active {
+  opacity: 1;
+}
+
+/* Editorial Service Item Hover Interactions */
+.service-accordion-item {
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.service-accordion-item:hover {
+  border-color: rgba(34, 197, 94, 0.35);
+  background-color: rgba(24, 34, 46, 0.4);
+}
+
+/* Button & Action Glows */
+.btn-primary-action {
+  background-color: var(--accent-lime);
+  color: #070B0E;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px var(--accent-lime-glow);
+  background-color: #34D399;
+}
+
+.btn-secondary-action {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-action:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Pulse animation for node indicators */
+@keyframes pingSlow {
+  0% { transform: scale(1); opacity: 0.8; }
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.node-pulse {
+  animation: pingSlow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Focus Visible for Accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent-lime);
+  outline-offset: 3px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .node-pulse {
+    animation: none;
+  }
+}

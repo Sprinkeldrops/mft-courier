@@ -1,6 +1,7 @@
 {
-  "name": "M&F Courier | Premium Nationwide 3D Logistics & Delivery",
-  "description": "Premium Nationwide 3D Logistics & Delivery service platform based at Greater Manchester Hub (OL8 1ER), serving Great Britain & Northern Ireland with dedicated same-day express transport.",
+  "name": "MFT Courier - 3D Logistics & Delivery",
+  "description": "Premium nationwide same-day express courier with 3D interactive cargo simulation, instant rate calculator, and live telemetry dispatched from Greater Manchester Hub.",
+  "permissions": [],
   "capabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]
