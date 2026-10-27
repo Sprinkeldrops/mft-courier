@@ -5,9 +5,18 @@ import { COMPANY_DETAILS, VERIFIED_SERVICES } from '../data/courierData';
 interface FooterProps {
   onOpenPrivacy: () => void;
   onOpenTerms: () => void;
+  onOpenTrack?: () => void;
+  onOpenDriver?: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenTerms }) => {
+export const Footer: React.FC<FooterProps> = ({
+  onOpenPrivacy,
+  onOpenTerms,
+  onOpenTrack,
+  onOpenDriver,
+  onOpenAdmin,
+}) => {
   return (
     <footer className="bg-[#121316] text-[#A6ABB7] text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
@@ -86,6 +95,33 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenTerms }) =>
                 <a href="#quote" className="hover:text-white transition-colors">
                   Get a Quote
                 </a>
+              </li>
+              <li className="pt-2 border-t border-[#23252A]">
+                <button
+                  type="button"
+                  onClick={onOpenTrack}
+                  className="hover:text-white text-[#84CC16] font-mono text-left transition-colors cursor-pointer"
+                >
+                  &bull; Track Consignment (Live Map)
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenDriver}
+                  className="hover:text-white text-left transition-colors cursor-pointer"
+                >
+                  &bull; Driver Portal
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="hover:text-white text-left transition-colors cursor-pointer"
+                >
+                  &bull; Dispatch Desk (Admin)
+                </button>
               </li>
             </ul>
           </div>

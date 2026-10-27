@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny all unlisted paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (request.auth.token.email != null && request.auth.token.email.matches('.*@mftcourier\\.co\\.uk$') && request.auth.token.email_verified == true)
+      );
+    }
+
+    // Drivers collection (strictly maximum 10 drivers)
+    match /drivers/{driverId} {
+      allow get: if isValidId(driverId) && (isAdmin() || isSignedIn());
+      allow list: if isAdmin();
+      
+      // Admin can create if driver ceiling (10) is respected
+      allow create: if isAdmin() && isValidId(driverId) &&
+        request.resource.data.numericId is string &&
+        request.resource.data.numericId.matches('^[0-9]{7}$') &&
+        request.resource.data.status in ['active', 'inactive'];
+
+      // Driver can update their own lastActiveAt and isBroadcasting flag, admin can update all
+      allow update: if isValidId(driverId) && (
+        isAdmin() ||
+        (isSignedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastActiveAt', 'isBroadcasting', 'pairedDeviceId']))
+      );
+
+      allow delete: if isAdmin() && isValidId(driverId);
+    }
+
+    // Tracking Sessions (Consignments with 5-day expiry)
+    match /tracking_sessions/{code} {
+      // Customers: strictly read-only for exact matching code, cannot enumerate all sessions
+      // Expired sessions (after 5 days) are unreadable
+      allow get: if isValidId(code) && (
+        resource.data.expiresAt > request.time || isAdmin()
+      );
+      allow list: if isAdmin();
+
+      // Only Admin dispatch can create delivery tracking sessions
+      allow create: if isAdmin() && isValidId(code) &&
+        request.resource.data.code == code &&
+        request.resource.data.status in ['Dispatched', 'In Transit', 'Approaching', 'Delivered'] &&
+        request.resource.data.createdAt == request.time;
+
+      // Drivers can update location and status, Admin can update everything
+      allow update: if isValidId(code) && (
+        isAdmin() ||
+        (
+          // Assigned driver status & location update
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['driverLocation', 'status', 'eta']) &&
+          request.resource.data.status in ['Dispatched', 'In Transit', 'Approaching', 'Delivered']
+        )
+      );
+
+      allow delete: if isAdmin() && isValidId(code);
+    }
+
+    // System configuration (driver count, etc.)
+    match /config/{configId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

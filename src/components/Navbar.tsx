@@ -1,17 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Phone, ArrowUpRight, Menu, X, ChevronDown, Truck, Clock, ShieldCheck, Box, MapPin, Calendar, Zap, MessageSquare } from 'lucide-react';
+import { Phone, ArrowUpRight, Menu, X, ChevronDown, Truck, Clock, ShieldCheck, Box, MapPin, Calendar, Zap, MessageSquare, Radio, Navigation, ShieldAlert, Key } from 'lucide-react';
 import { COMPANY_DETAILS, VERIFIED_SERVICES, FLEET_VEHICLES } from '../data/courierData';
 
-export const Navbar: React.FC = () => {
+export interface NavbarProps {
+  onOpenTrack?: () => void;
+  onOpenDriver?: () => void;
+  onOpenAdmin?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenTrack,
+  onOpenDriver,
+  onOpenAdmin,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [fleetDropdownOpen, setFleetDropdownOpen] = useState(false);
   const [coverageDropdownOpen, setCoverageDropdownOpen] = useState(false);
+  const [trackingDropdownOpen, setTrackingDropdownOpen] = useState(false);
 
   // Mobile accordion toggles
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileFleetOpen, setMobileFleetOpen] = useState(false);
   const [mobileCoverageOpen, setMobileCoverageOpen] = useState(false);
+  const [mobileTrackingOpen, setMobileTrackingOpen] = useState(false);
 
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +34,7 @@ export const Navbar: React.FC = () => {
         setServicesDropdownOpen(false);
         setFleetDropdownOpen(false);
         setCoverageDropdownOpen(false);
+        setTrackingDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -286,6 +299,94 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
+          {/* Live GPS Tracking Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                setTrackingDropdownOpen(!trackingDropdownOpen);
+                setServicesDropdownOpen(false);
+                setFleetDropdownOpen(false);
+                setCoverageDropdownOpen(false);
+              }}
+              onMouseEnter={() => setTrackingDropdownOpen(true)}
+              className="flex items-center gap-1.5 py-2 hover:text-[#121316] transition-colors cursor-pointer text-[#121316] font-bold"
+              aria-expanded={trackingDropdownOpen}
+            >
+              <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse" />
+              <span>Live Tracking</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${trackingDropdownOpen ? 'rotate-180 text-[#84CC16]' : ''}`} />
+            </button>
+
+            {trackingDropdownOpen && (
+              <div
+                onMouseLeave={() => setTrackingDropdownOpen(false)}
+                className="absolute top-full left-0 w-80 p-3 bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-xl space-y-1 animate-in fade-in slide-in-from-top-2 duration-150"
+              >
+                <div className="px-3 py-1.5 text-[10px] font-bold text-[#84CC16] uppercase font-mono tracking-wider border-b border-[#E8E2D8]">
+                  Telemetry &amp; Fleet Operations
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTrackingDropdownOpen(false);
+                    onOpenTrack?.();
+                  }}
+                  className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F4EFE6] transition-colors group cursor-pointer"
+                >
+                  <Navigation className="w-4 h-4 text-[#84CC16] mt-0.5 shrink-0" />
+                  <div>
+                    <div className="text-xs font-bold text-[#121316] group-hover:text-[#65A30D] flex items-center gap-1.5">
+                      <span>Track Consignment</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#84CC16]/20 text-[#65A30D] font-mono">Live</span>
+                    </div>
+                    <div className="text-[11px] text-[#7A808C] font-sans">
+                      Public customer map &bull; Real-time GPS &bull; 5-day lifespan
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTrackingDropdownOpen(false);
+                    onOpenDriver?.();
+                  }}
+                  className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F4EFE6] transition-colors group cursor-pointer"
+                >
+                  <Key className="w-4 h-4 text-[#84CC16] mt-0.5 shrink-0" />
+                  <div>
+                    <div className="text-xs font-bold text-[#121316] group-hover:text-[#65A30D]">
+                      Driver Portal
+                    </div>
+                    <div className="text-[11px] text-[#7A808C] font-sans">
+                      Secure mobile console &bull; Persistent auto-broadcast
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTrackingDropdownOpen(false);
+                    onOpenAdmin?.();
+                  }}
+                  className="w-full text-left flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F4EFE6] transition-colors group cursor-pointer"
+                >
+                  <ShieldAlert className="w-4 h-4 text-[#84CC16] mt-0.5 shrink-0" />
+                  <div>
+                    <div className="text-xs font-bold text-[#121316] group-hover:text-[#65A30D]">
+                      Dispatch Operations
+                    </div>
+                    <div className="text-[11px] text-[#7A808C] font-sans">
+                      Driver management &bull; Create tracking links
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
+
           <a href="#difference" className="hover:text-[#121316] transition-colors whitespace-nowrap shrink-0 py-2">
             The Difference
           </a>
@@ -470,6 +571,57 @@ export const Navbar: React.FC = () => {
                 >
                   &bull; Scotland Gateway (M6 / M74)
                 </a>
+              </div>
+            )}
+          </div>
+
+          {/* Live Tracking Mobile Accordion */}
+          <div className="border-b border-[#E8E2D8] pb-3">
+            <button
+              onClick={() => setMobileTrackingOpen(!mobileTrackingOpen)}
+              className="w-full flex items-center justify-between text-sm font-bold text-[#121316] py-1"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse" />
+                <span>Live GPS Tracking &amp; Portals</span>
+              </div>
+              <ChevronDown className={`w-4 h-4 transition-transform ${mobileTrackingOpen ? 'rotate-180 text-[#84CC16]' : ''}`} />
+            </button>
+            {mobileTrackingOpen && (
+              <div className="pl-3 pt-2 space-y-2 text-xs font-mono text-[#5C616D]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenTrack?.();
+                  }}
+                  className="w-full text-left py-1 text-[#121316] font-bold hover:text-[#65A30D] flex items-center gap-1.5"
+                >
+                  <Navigation className="w-3.5 h-3.5 text-[#84CC16]" />
+                  <span>Track Consignment (Public Map)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenDriver?.();
+                  }}
+                  className="w-full text-left py-1 hover:text-[#121316] flex items-center gap-1.5"
+                >
+                  <Key className="w-3.5 h-3.5 text-[#84CC16]" />
+                  <span>Driver Portal</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenAdmin?.();
+                  }}
+                  className="w-full text-left py-1 hover:text-[#121316] flex items-center gap-1.5"
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-[#84CC16]" />
+                  <span>Dispatch Operations</span>
+                </button>
               </div>
             )}
           </div>

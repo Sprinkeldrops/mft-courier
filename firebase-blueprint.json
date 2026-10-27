@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "Driver": {
+      "title": "Driver",
+      "description": "Authorized courier driver profile with 7-digit numeric ID and device binding",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "numericId": { "type": "string", "pattern": "^[0-9]{7}$", "maxLength": 7, "description": "Strict 7-digit numeric Driver ID" },
+        "name": { "type": "string", "maxLength": 80 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "vehicleType": { "type": "string", "maxLength": 60 },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "pairedDeviceId": { "type": "string", "maxLength": 128 },
+        "isBroadcasting": { "type": "boolean" },
+        "lastActiveAt": { "type": "string", "maxLength": 40 },
+        "createdAt": { "type": "string", "maxLength": 40 }
+      },
+      "required": ["id", "numericId", "name", "status"]
+    },
+    "TrackingSession": {
+      "title": "TrackingSession",
+      "description": "Real-time delivery consignment with live GPS coordinates and 5-day expiry",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[a-zA-Z0-9_-]{4,20}$", "maxLength": 20 },
+        "sender": { "type": "string", "maxLength": 100 },
+        "recipient": { "type": "string", "maxLength": 100 },
+        "originAddress": { "type": "string", "maxLength": 200 },
+        "originPostcode": { "type": "string", "maxLength": 12 },
+        "destinationAddress": { "type": "string", "maxLength": 200 },
+        "destinationPostcode": { "type": "string", "maxLength": 12 },
+        "originCoords": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "destinationCoords": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "assignedDriverId": { "type": "string", "maxLength": 64 },
+        "driverNumericId": { "type": "string", "pattern": "^[0-9]{7}$" },
+        "driverName": { "type": "string", "maxLength": 80 },
+        "vehicleType": { "type": "string", "maxLength": 60 },
+        "status": { "type": "string", "enum": ["Dispatched", "In Transit", "Approaching", "Delivered"] },
+        "driverLocation": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "accuracyMeters": { "type": "number" },
+            "speedMph": { "type": "number" },
+            "heading": { "type": "number" },
+            "updatedAt": { "type": "string", "maxLength": 40 }
+          }
+        },
+        "packageDescription": { "type": "string", "maxLength": 200 },
+        "eta": { "type": "string", "maxLength": 60 },
+        "createdAt": { "type": "string", "maxLength": 40 },
+        "expiresAt": { "type": "string", "maxLength": 40 }
+      },
+      "required": ["code", "destinationAddress", "status", "createdAt", "expiresAt"]
+    },
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "Global system state including driver count limits (max 10)",
+      "type": "object",
+      "properties": {
+        "driverCount": { "type": "number" },
+        "maxDrivers": { "type": "number" },
+        "updatedAt": { "type": "string", "maxLength": 40 }
+      },
+      "required": ["driverCount", "maxDrivers"]
+    }
+  },
+  "firestore": {
+    "/drivers/{driverId}": {
+      "schema": "Driver",
+      "description": "Authorized courier driver accounts capped at 10 total"
+    },
+    "/tracking_sessions/{code}": {
+      "schema": "TrackingSession",
+      "description": "Active delivery tracking sessions with live GPS location and 5-day automatic expiration"
+    },
+    "/config/{configId}": {
+      "schema": "SystemConfig",
+      "description": "System configuration and driver ceiling enforcement"
+    }
+  }
+}
