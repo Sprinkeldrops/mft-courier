@@ -26,7 +26,7 @@ export default function App() {
   const [customerTrackOpen, setCustomerTrackOpen] = useState(false);
   const [driverPortalOpen, setDriverPortalOpen] = useState(false);
   const [adminPortalOpen, setAdminPortalOpen] = useState(false);
-  const [activeTrackingCode, setActiveTrackingCode] = useState<string>('MFT-84920');
+  const [activeTrackingCode, setActiveTrackingCode] = useState<string>('');
 
   // Check URL query parameters on load (e.g. ?track=MFT-84920, ?driver=1, ?admin=1)
   useEffect(() => {

@@ -1,5 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Truck, LogOut, Radio, Navigation, CheckCircle2, AlertTriangle, ShieldCheck, Phone, RefreshCw, Smartphone, Key } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  X,
+  Truck,
+  LogOut,
+  Radio,
+  AlertTriangle,
+  ShieldCheck,
+  RefreshCw,
+  Key,
+  Compass,
+  CheckCircle2,
+  HelpCircle,
+  ExternalLink,
+} from 'lucide-react';
 import { DriverAccount, DeliveryTrackingSession, GPSCoordinate } from '../../types/tracking';
 import { TrackingService } from '../../lib/trackingService';
 import { useDriverLocation } from '../../hooks/useDriverLocation';
@@ -23,8 +36,7 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
-  const [simulationActive, setSimulationActive] = useState(false);
-  const simIntervalRef = useRef<any>(null);
+  const [showPermissionHelp, setShowPermissionHelp] = useState(false);
 
   // Auto-resume persistent driver session on mount
   useEffect(() => {
@@ -47,16 +59,20 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
     }
   };
 
-  // Live Location Watcher hook
+  // Real Hardware GPS Location Watcher hook
   const {
     isWatching,
     currentCoord,
     error: gpsError,
+    permissionStatus,
     wakeLockActive,
+    lastUpdatedSecondsAgo,
+    isStale,
+    requestBrowserPermission,
     startWatching,
     stopWatching,
   } = useDriverLocation({
-    throttleIntervalMs: 12000,
+    minIntervalMs: 1000,
     onLocationUpdate: (coord: GPSCoordinate) => {
       if (activeDriver && activeDelivery) {
         TrackingService.updateDriverLocation(activeDelivery.code, activeDriver.id, coord);
@@ -64,11 +80,10 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
     },
   });
 
-  // Handle GPS watch toggle
+  // Handle GPS broadcast toggle
   const toggleBroadcasting = () => {
     if (isBroadcasting) {
       stopWatching();
-      stopSimulation();
       setIsBroadcasting(false);
       if (activeDriver) {
         TrackingService.updateDriver(activeDriver.id, { isBroadcasting: false });
@@ -81,53 +96,6 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
       }
     }
   };
-
-  // Highway simulation helper for stationary testing or desktop verification
-  const startSimulation = () => {
-    if (!activeDelivery || !activeDriver) return;
-    setSimulationActive(true);
-    setIsBroadcasting(true);
-
-    let step = 0;
-    // Route waypoints along M6 corridor from Manchester towards Birmingham
-    const waypoints = [
-      { lat: 53.4808, lng: -2.2426, speed: 45, heading: 180 },
-      { lat: 53.2590, lng: -2.3580, speed: 62, heading: 175 },
-      { lat: 53.0033, lng: -2.1856, speed: 65, heading: 170 },
-      { lat: 52.8066, lng: -2.1158, speed: 58, heading: 168 },
-      { lat: 52.5113, lng: -1.8227, speed: 30, heading: 140 },
-    ];
-
-    simIntervalRef.current = setInterval(() => {
-      step = (step + 1) % waypoints.length;
-      const wp = waypoints[step];
-      const coord: GPSCoordinate = {
-        lat: wp.lat,
-        lng: wp.lng,
-        speedMph: wp.speed,
-        heading: wp.heading,
-        accuracyMeters: 5,
-        updatedAt: new Date().toISOString(),
-      };
-      TrackingService.updateDriverLocation(activeDelivery.code, activeDriver.id, coord);
-    }, 4000);
-  };
-
-  const stopSimulation = () => {
-    if (simIntervalRef.current) {
-      clearInterval(simIntervalRef.current);
-      simIntervalRef.current = null;
-    }
-    setSimulationActive(false);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (simIntervalRef.current) {
-        clearInterval(simIntervalRef.current);
-      }
-    };
-  }, []);
 
   // One-input 7-digit Login Form submit
   const handleLoginSubmit = (e: React.FormEvent) => {
@@ -150,7 +118,6 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
   // Manual Logout
   const handleLogout = () => {
     stopWatching();
-    stopSimulation();
     setIsBroadcasting(false);
     TrackingService.clearActiveDriverSession();
     setActiveDriver(null);
@@ -163,6 +130,10 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
     TrackingService.updateDeliveryStatus(activeDelivery.code, status, `Driver updated status to ${status}`);
     const { session } = TrackingService.getTrackingSession(activeDelivery.code);
     setActiveDelivery(session);
+    if (status === 'Delivered') {
+      stopWatching();
+      setIsBroadcasting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -170,7 +141,6 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#121316]/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-xl bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-[#121316]">
-        
         {/* Header */}
         <div className="px-6 py-4 bg-[#121316] text-white flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
@@ -187,7 +157,7 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                 )}
               </div>
               <p className="text-[11px] text-[#8A909E] font-mono">
-                Point-to-point UK courier navigation &bull; MFT Logistics
+                Real hardware GPS navigation &bull; MFT Dedicated Fleet
               </p>
             </div>
           </div>
@@ -203,25 +173,26 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
 
         {/* Modal Content */}
         <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
-          
           {/* STATE 1: Simple 7-Digit Numeric Login Screen */}
           {!activeDriver ? (
             <div className="space-y-6">
-              
               <div className="p-4 rounded-2xl bg-[#F4EFE6] border border-[#E8E2D8] text-xs text-[#525763] space-y-2">
                 <div className="font-bold text-[#121316] flex items-center gap-2">
                   <Key className="w-4 h-4 text-[#84CC16]" />
                   <span>Authorized Driver Sign-In</span>
                 </div>
                 <p>
-                  Enter your unique <strong>7-digit numeric Driver ID</strong> issued by MFT Courier Dispatch. Your verified session will automatically persist on this handset.
+                  Enter your assigned <strong>7-digit numeric Driver ID</strong>. Your session is securely bound to this device for persistent automatic login.
                 </p>
               </div>
 
               {/* 1-Input Form */}
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="driverNumericId" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#121316]">
+                  <label
+                    htmlFor="driverNumericId"
+                    className="block text-xs font-mono font-bold uppercase tracking-wider text-[#121316]"
+                  >
                     Driver ID (7 Digits)
                   </label>
                   <input
@@ -236,7 +207,7 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                       const val = e.target.value.replace(/\D/g, '').slice(0, 7);
                       setDriverNumericId(val);
                     }}
-                    placeholder="e.g. 7492015"
+                    placeholder="Enter 7-Digit ID"
                     className="w-full px-4 py-3.5 text-center text-2xl font-mono font-extrabold tracking-widest bg-white border-2 border-[#D5CEC2] rounded-2xl focus:border-[#84CC16] focus:ring-4 focus:ring-[#84CC16]/20 transition-all outline-none"
                     autoFocus
                   />
@@ -263,17 +234,15 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
               </form>
 
               <div className="text-center text-[11px] text-[#7B808B]">
-                Need ID assistance or device re-pairing? Telephone dispatch desk:{' '}
+                Need ID assistance or device pairing reset? Telephone dispatch desk:{' '}
                 <a href={`tel:${COMPANY_DETAILS.phoneInternational}`} className="underline font-bold text-[#121316]">
                   {COMPANY_DETAILS.phone}
                 </a>
               </div>
             </div>
           ) : (
-            
             /* STATE 2: Authenticated Driver Dashboard */
             <div className="space-y-6">
-              
               {/* Driver Identity Card */}
               <div className="p-4 rounded-2xl bg-white border border-[#E8E2D8] flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -302,17 +271,27 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                 </button>
               </div>
 
-              {/* Live GPS Broadcast Control */}
+              {/* Real Live GPS Broadcast Control */}
               <div className="p-5 rounded-2xl bg-[#121316] text-white space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <div className="text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2">
-                      <Radio className={`w-4 h-4 ${isBroadcasting ? 'text-[#84CC16] animate-pulse' : 'text-[#7B808B]'}`} />
-                      <span>Live GPS Telemetry Broadcast</span>
+                      <Radio
+                        className={`w-4 h-4 ${
+                          isBroadcasting && !isStale
+                            ? 'text-[#84CC16] animate-pulse'
+                            : isStale
+                            ? 'text-amber-400'
+                            : 'text-[#7B808B]'
+                        }`}
+                      />
+                      <span>Hardware GPS Broadcast</span>
                     </div>
                     <p className="text-[11px] text-[#8A909E]">
                       {isBroadcasting
-                        ? 'Transmitting live coordinates to customer tracking map'
+                        ? isStale
+                          ? 'Satellite signal degraded. Reacquiring fresh coordinates...'
+                          : 'Broadcasting live coordinates directly to customer tracking map'
                         : 'Broadcasting paused. Tap below to activate transit GPS.'}
                     </p>
                   </div>
@@ -335,54 +314,82 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                   <div className="p-3 rounded-xl bg-[#23252A] border border-[#333742] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
                     <div>
                       <div className="text-[10px] font-mono text-[#8A909E]">STATUS</div>
-                      <div className="font-bold text-[#84CC16] font-mono">LIVE</div>
+                      <div
+                        className={`font-bold font-mono ${
+                          isStale ? 'text-amber-400' : 'text-[#84CC16]'
+                        }`}
+                      >
+                        {isStale ? 'STALE FIX' : 'LIVE'}
+                      </div>
                     </div>
                     <div>
-                      <div className="text-[10px] font-mono text-[#8A909E]">SPEED</div>
-                      <div className="font-bold font-mono">
-                        {currentCoord?.speedMph !== undefined ? `${currentCoord.speedMph} mph` : '0 mph'}
+                      <div className="text-[10px] font-mono text-[#8A909E]">LAST UPDATE</div>
+                      <div className="font-bold font-mono text-white">
+                        {currentCoord ? `${lastUpdatedSecondsAgo}s ago` : 'Acquiring...'}
                       </div>
                     </div>
                     <div>
                       <div className="text-[10px] font-mono text-[#8A909E]">ACCURACY</div>
-                      <div className="font-bold font-mono">
-                        {currentCoord?.accuracyMeters ? `±${currentCoord.accuracyMeters}m` : '±8m'}
+                      <div className="font-bold font-mono text-white">
+                        {currentCoord?.accuracyMeters ? `±${currentCoord.accuracyMeters}m` : 'Measuring'}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] font-mono text-[#8A909E]">WAKE LOCK</div>
+                      <div className="text-[10px] font-mono text-[#8A909E]">SPEED</div>
                       <div className="font-bold font-mono text-[#84CC16]">
-                        {wakeLockActive ? 'ACTIVE' : 'STANDARD'}
+                        {currentCoord?.speedMph !== undefined ? `${currentCoord.speedMph} mph` : '0 mph'}
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* GPS Notice / Warning */}
+                {/* GPS Permission Prompt / Error Guidance */}
                 {gpsError && (
-                  <div className="p-3 rounded-xl bg-amber-950/60 border border-amber-800 text-amber-200 text-xs flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>{gpsError}</span>
+                  <div className="p-3.5 rounded-xl bg-amber-950/70 border border-amber-700/80 text-amber-200 text-xs space-y-2">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <div className="font-bold text-amber-100">GPS Hardware Notice</div>
+                        <div>{gpsError}</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-1 border-t border-amber-800/60">
+                      <button
+                        type="button"
+                        onClick={requestBrowserPermission}
+                        className="px-3 py-1.5 rounded-lg bg-amber-400 text-[#121316] font-mono font-bold text-[11px] hover:bg-amber-300 transition-colors cursor-pointer"
+                      >
+                        Prompt Browser Location Permission
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowPermissionHelp(!showPermissionHelp)}
+                        className="text-[11px] underline text-amber-300 hover:text-white"
+                      >
+                        {showPermissionHelp ? 'Hide Help' : 'How to enable on mobile'}
+                      </button>
+                    </div>
                   </div>
                 )}
 
-                {/* Simulation Mode Toggle (For easy demo & testing) */}
-                <div className="pt-2 border-t border-[#23252A] flex items-center justify-between text-xs">
-                  <span className="text-[11px] text-[#8A909E]">Desktop / Highway Simulation:</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (simulationActive) {
-                        stopSimulation();
-                      } else {
-                        startSimulation();
-                      }
-                    }}
-                    className="px-2.5 py-1 rounded-lg bg-[#23252A] hover:bg-[#2D313A] border border-[#3A3F4B] text-[11px] font-mono text-[#84CC16] transition-colors"
-                  >
-                    {simulationActive ? 'Stop Simulation' : 'Run M6 Highway Simulation'}
-                  </button>
-                </div>
+                {/* Mobile Browser Permission Guide */}
+                {showPermissionHelp && (
+                  <div className="p-4 rounded-xl bg-[#1C1E24] border border-[#2E323D] text-[11px] space-y-2 text-[#A0A6B5]">
+                    <div className="font-bold text-white flex items-center gap-1.5">
+                      <HelpCircle className="w-3.5 h-3.5 text-[#84CC16]" />
+                      <span>Enabling GPS on Mobile Handsets:</span>
+                    </div>
+                    <div className="space-y-1.5 pl-1">
+                      <p>
+                        <strong>Apple iOS Safari:</strong> Tap the <em>aA</em> icon in the URL bar &rarr; <em>Website Settings</em> &rarr; <em>Location</em> &rarr; select <strong>Allow</strong>. Ensure iOS Settings &rarr; Privacy & Security &rarr; Location Services is active.
+                      </p>
+                      <p>
+                        <strong>Android Chrome:</strong> Tap the padlock/tune icon to the left of the URL &rarr; <em>Permissions</em> &rarr; <em>Location</em> &rarr; tap <strong>Allow</strong>.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Active Delivery Consignment Card */}
@@ -398,7 +405,13 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                       </div>
                     </div>
 
-                    <div className="px-3 py-1 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] text-xs font-mono font-bold text-[#121316]">
+                    <div
+                      className={`px-3 py-1 rounded-xl text-xs font-mono font-bold border ${
+                        activeDelivery.status === 'Delivered'
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                          : 'bg-[#FAF8F5] border-[#E8E2D8] text-[#121316]'
+                      }`}
+                    >
                       {activeDelivery.status}
                     </div>
                   </div>
@@ -406,7 +419,9 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                   <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-2 text-xs">
                     <div>
                       <span className="font-semibold text-[#121316]">Destination: </span>
-                      <span className="text-[#525763]">{activeDelivery.destinationAddress} ({activeDelivery.destinationPostcode})</span>
+                      <span className="text-[#525763]">
+                        {activeDelivery.destinationAddress} ({activeDelivery.destinationPostcode})
+                      </span>
                     </div>
                     <div>
                       <span className="font-semibold text-[#121316]">Consignment: </span>
@@ -414,58 +429,61 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                     </div>
                   </div>
 
-                  {/* Quick Milestone Progress Buttons */}
-                  <div className="space-y-1.5">
-                    <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7B808B]">
-                      Update Delivery Milestone:
+                  {/* Milestone Progress Buttons */}
+                  {activeDelivery.status !== 'Delivered' ? (
+                    <div className="space-y-1.5">
+                      <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7B808B]">
+                        Update Delivery Milestone:
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleStatusUpdate('In Transit')}
+                          className={`py-2 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
+                            activeDelivery.status === 'In Transit'
+                              ? 'bg-[#121316] text-[#84CC16] border-[#121316]'
+                              : 'bg-white border-[#D5CEC2] text-[#121316] hover:bg-[#F4EFE6]'
+                          }`}
+                        >
+                          In Transit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleStatusUpdate('Approaching')}
+                          className={`py-2 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
+                            activeDelivery.status === 'Approaching'
+                              ? 'bg-[#121316] text-[#84CC16] border-[#121316]'
+                              : 'bg-white border-[#D5CEC2] text-[#121316] hover:bg-[#F4EFE6]'
+                          }`}
+                        >
+                          Approaching
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleStatusUpdate('Delivered')}
+                          className="py-2 rounded-xl text-xs font-mono font-bold border bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600 transition-colors cursor-pointer"
+                        >
+                          Delivered &bull; Handover
+                        </button>
+                      </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleStatusUpdate('In Transit')}
-                        className={`py-2 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
-                          activeDelivery.status === 'In Transit'
-                            ? 'bg-[#121316] text-[#84CC16] border-[#121316]'
-                            : 'bg-white border-[#D5CEC2] text-[#121316] hover:bg-[#F4EFE6]'
-                        }`}
-                      >
-                        In Transit
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleStatusUpdate('Approaching')}
-                        className={`py-2 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
-                          activeDelivery.status === 'Approaching'
-                            ? 'bg-[#121316] text-[#84CC16] border-[#121316]'
-                            : 'bg-white border-[#D5CEC2] text-[#121316] hover:bg-[#F4EFE6]'
-                        }`}
-                      >
-                        Approaching
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleStatusUpdate('Delivered')}
-                        className={`py-2 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
-                          activeDelivery.status === 'Delivered'
-                            ? 'bg-emerald-600 text-white border-emerald-600'
-                            : 'bg-white border-[#D5CEC2] text-[#121316] hover:bg-[#F4EFE6]'
-                        }`}
-                      >
-                        Delivered
-                      </button>
+                  ) : (
+                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>Consignment delivered & signed. GPS broadcast concluded.</span>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Preview as Customer */}
+                  {/* Customer Tracking link */}
                   <div className="pt-2 border-t border-[#E8E2D8] flex items-center justify-between text-xs">
-                    <span className="text-[11px] text-[#7B808B]">Customer tracking map:</span>
+                    <span className="text-[11px] text-[#7B808B]">Customer map view:</span>
                     <button
                       type="button"
                       onClick={() => {
                         onClose();
                         onOpenCustomerTracking?.(activeDelivery.code);
                       }}
-                      className="text-xs font-mono font-bold text-[#65A30D] hover:underline"
+                      className="text-xs font-mono font-bold text-[#65A30D] hover:underline cursor-pointer"
                     >
                       View Live Customer Map &rarr;
                     </button>
@@ -478,7 +496,7 @@ export const DriverPortalModal: React.FC<DriverPortalModalProps> = ({
                   </div>
                   <div className="text-xs font-bold text-[#121316]">No Active Consignments Assigned</div>
                   <p className="text-[11px] text-[#7B808B]">
-                    Dispatch will assign your next road delivery manifest.
+                    Dispatch will allocate your next road manifest.
                   </p>
                 </div>
               )}

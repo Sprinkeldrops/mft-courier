@@ -130,10 +130,24 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
     };
   }, [originCoords.lat, originCoords.lng, destinationCoords.lat, destinationCoords.lng]);
 
-  // Update or create live driver marker when driverLocation changes
+  // Update, create or remove live driver marker when driverLocation changes
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || !driverLocation) return;
+    if (!map) return;
+
+    if (!driverLocation) {
+      if (driverMarkerRef.current) {
+        driverMarkerRef.current.remove();
+        driverMarkerRef.current = null;
+      }
+      if (routeLineRef.current) {
+        routeLineRef.current.setLatLngs([
+          [originCoords.lat, originCoords.lng],
+          [destinationCoords.lat, destinationCoords.lng],
+        ]);
+      }
+      return;
+    }
 
     const latLng: [number, number] = [driverLocation.lat, driverLocation.lng];
 

@@ -1,116 +1,33 @@
 import { DeliveryTrackingSession, DriverAccount, GPSCoordinate, DeliveryStatus } from '../types/tracking';
 
 const STORAGE_KEYS = {
-  DRIVERS: 'mft_courier_drivers_v1',
-  SESSIONS: 'mft_courier_sessions_v1',
-  ACTIVE_DRIVER_SESSION: 'mft_active_driver_session_v1',
-  DEVICE_ID: 'mft_device_token_v1',
-};
-
-// Default seed drivers (Manchester Hub)
-const SEED_DRIVERS: DriverAccount[] = [
-  {
-    id: 'drv_7492015',
-    numericId: '7492015',
-    name: 'David K.',
-    phone: '07501 419198',
-    vehicleType: 'Mercedes Sprinter LWB (High Roof)',
-    status: 'active',
-    pairedDeviceId: null,
-    isBroadcasting: true,
-    lastActiveAt: new Date().toISOString(),
-    createdAt: new Date(Date.now() - 86400000 * 10).toISOString(),
-    currentDeliveryCode: 'MFT-84920',
-  },
-  {
-    id: 'drv_8301942',
-    numericId: '8301942',
-    name: 'Marcus T.',
-    phone: '07501 419198',
-    vehicleType: 'Luton Box Van with 500kg Tail-Lift',
-    status: 'active',
-    pairedDeviceId: null,
-    isBroadcasting: false,
-    lastActiveAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-    createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-    currentDeliveryCode: null,
-  },
-];
-
-// Default seed active consignment (Manchester to Birmingham transit corridor)
-const now = new Date();
-const fiveDaysFromNow = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
-
-const SEED_SESSIONS: Record<string, DeliveryTrackingSession> = {
-  'MFT-84920': {
-    code: 'MFT-84920',
-    sender: 'Precision Engineering Ltd (Oldham)',
-    recipient: 'Advanced Aero Components (Birmingham)',
-    originAddress: 'MFT Central Hub, Vulcan Street, Oldham',
-    originPostcode: 'OL8 1EZ',
-    destinationAddress: 'Fort Dunlop Industrial Park, Birmingham',
-    destinationPostcode: 'B24 8HX',
-    originCoords: { lat: 53.5409, lng: -2.1114 },
-    destinationCoords: { lat: 52.5113, lng: -1.8227 },
-    assignedDriverId: 'drv_7492015',
-    driverNumericId: '7492015',
-    driverName: 'David K.',
-    vehicleType: 'Mercedes Sprinter LWB',
-    status: 'In Transit',
-    driverLocation: {
-      lat: 52.8845,
-      lng: -2.1382, // Near Stafford on M6
-      speedMph: 56,
-      heading: 172,
-      accuracyMeters: 8,
-      updatedAt: new Date().toISOString(),
-    },
-    packageDescription: 'Dedicated High-Value Aerospace Tooling (2 Pallets, 480kg)',
-    eta: '45 mins (Direct Dedicated Road Transit)',
-    createdAt: now.toISOString(),
-    expiresAt: fiveDaysFromNow.toISOString(),
-    checkpoints: [
-      {
-        time: '08:15',
-        status: 'Collected & Secured',
-        location: 'Oldham Commercial Facility (OL8 1EZ)',
-        completed: true,
-        notes: 'Secured with heavy load ratchet straps and weather sealing.',
-      },
-      {
-        time: '08:45',
-        status: 'Departed Greater Manchester',
-        location: 'M60 J22 -> M6 Southbound',
-        completed: true,
-        notes: 'Transit uninterrupted, live telemetry active.',
-      },
-      {
-        time: '09:30',
-        status: 'In Transit (Stafford Corridor)',
-        location: 'M6 Junction 14',
-        completed: true,
-        notes: 'Average speed 56 mph, traffic smooth.',
-      },
-      {
-        time: '10:45',
-        status: 'Approaching Destination',
-        location: 'Fort Dunlop Logistics Gate, Birmingham',
-        completed: false,
-        notes: 'Recipient notified for immediate ground ramp reception.',
-      },
-      {
-        time: '11:00',
-        status: 'Delivered & Signed',
-        location: 'B24 8HX Goods In',
-        completed: false,
-        notes: 'Electronic proof of delivery (ePOD) handover.',
-      },
-    ],
-  },
+  DRIVERS: 'mft_courier_drivers_v2',
+  SESSIONS: 'mft_courier_sessions_v2',
+  ACTIVE_DRIVER_SESSION: 'mft_active_driver_session_v2',
+  DEVICE_ID: 'mft_device_token_v2',
+  ADMIN_PASSCODE: 'mft_admin_passcode_v2',
+  ADMIN_SESSION: 'mft_admin_auth_v2',
 };
 
 // Cross-tab real-time sync broadcaster
-const channel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('mft_tracking_bus') : null;
+const channel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('mft_tracking_bus_v2') : null;
+
+// Clean up legacy v1 simulated data from localStorage on first run
+if (typeof window !== 'undefined') {
+  try {
+    const legacyKeys = [
+      'mft_courier_drivers_v1',
+      'mft_courier_sessions_v1',
+      'mft_active_driver_session_v1',
+      'mft_device_token_v1',
+      'mft_admin_auth_v1',
+      'mft_admin_passcode',
+    ];
+    legacyKeys.forEach(k => localStorage.removeItem(k));
+  } catch {
+    // Ignore storage restrictions
+  }
+}
 
 export class TrackingService {
   private static getDeviceId(): string {
@@ -129,10 +46,9 @@ export class TrackingService {
       if (stored) {
         return JSON.parse(stored);
       }
-      localStorage.setItem(STORAGE_KEYS.DRIVERS, JSON.stringify(SEED_DRIVERS));
-      return SEED_DRIVERS;
+      return [];
     } catch {
-      return SEED_DRIVERS;
+      return [];
     }
   }
 
@@ -146,22 +62,28 @@ export class TrackingService {
     return drivers.find(d => d.id === id) || null;
   }
 
+  static getDriverByNumericId(numericId: string): DriverAccount | null {
+    const clean = numericId.trim();
+    const drivers = this.getDrivers();
+    return drivers.find(d => d.numericId === clean) || null;
+  }
+
   // Pure 7-digit numeric login verification
   static verifyDriverLogin(numericId: string): { success: boolean; driver?: DriverAccount; error?: string } {
     const cleanId = numericId.trim();
     if (!/^\d{7}$/.test(cleanId)) {
-      return { success: false, error: 'Driver ID must be exactly 7 numeric digits (e.g. 7492015)' };
+      return { success: false, error: 'Driver ID must be exactly 7 numeric digits.' };
     }
 
     const drivers = this.getDrivers();
     const driver = drivers.find(d => d.numericId === cleanId);
 
     if (!driver) {
-      return { success: false, error: 'Driver ID not recognised. Please verify with MFT Courier Dispatch (07501 419198)' };
+      return { success: false, error: 'Driver ID not recognised. Please verify with MFT Courier Dispatch.' };
     }
 
     if (driver.status !== 'active') {
-      return { success: false, error: 'This Driver account has been set to inactive by dispatch.' };
+      return { success: false, error: 'This Driver account has been deactivated by dispatch operations.' };
     }
 
     const currentDeviceId = this.getDeviceId();
@@ -172,10 +94,9 @@ export class TrackingService {
       driver.lastActiveAt = new Date().toISOString();
       this.saveDrivers(drivers);
     } else if (driver.pairedDeviceId !== currentDeviceId) {
-      // Re-pairing option or block
       return {
         success: false,
-        error: `Driver ID is bound to another device. If you changed your smartphone or cleared cookies, contact dispatch to reset device pairing.`,
+        error: 'Driver ID is paired with another device. Contact dispatch to reset hardware binding.',
       };
     }
 
@@ -217,25 +138,29 @@ export class TrackingService {
   }
 
   // Maximum 10 drivers enforcement
-  static createDriver(data: { name: string; phone: string; vehicleType: string; numericId?: string }): { success: boolean; driver?: DriverAccount; error?: string } {
+  static createDriver(data: { name: string; phone: string; vehicleType: string; numericId?: string }): {
+    success: boolean;
+    driver?: DriverAccount;
+    error?: string;
+  } {
     const drivers = this.getDrivers();
     if (drivers.length >= 10) {
       return {
         success: false,
-        error: 'Driver limit reached (Maximum 10 authorized drivers allowed on this operational tier). Remove or deactivate an existing driver first.',
+        error: 'Driver limit reached (Maximum 10 active drivers allowed). Deactivate or delete an existing driver first.',
       };
     }
 
     let numericId = data.numericId ? data.numericId.trim() : '';
     if (!numericId) {
-      // Auto-generate random 7-digit ID that doesn't collide
+      // Generate clean unique 7-digit ID
       do {
         numericId = Math.floor(1000000 + Math.random() * 9000000).toString();
       } while (drivers.some(d => d.numericId === numericId));
     } else if (!/^\d{7}$/.test(numericId)) {
       return { success: false, error: 'Custom Driver ID must be exactly 7 numeric digits' };
     } else if (drivers.some(d => d.numericId === numericId)) {
-      return { success: false, error: 'A driver with this 7-digit ID already exists' };
+      return { success: false, error: 'A driver with this 7-digit ID is already registered' };
     }
 
     const newDriver: DriverAccount = {
@@ -271,13 +196,21 @@ export class TrackingService {
     return true;
   }
 
+  /**
+   * Driver Deletion:
+   * Completely purges the driver, their device pairings, active session,
+   * AND all associated consignments, GPS records, and telemetry sessions.
+   * Enables the same 7-digit ID to be safely reused without data bleed.
+   */
   static deleteDriver(driverId: string): boolean {
     const drivers = this.getDrivers();
-    const filtered = drivers.filter(d => d.id !== driverId);
-    if (filtered.length === drivers.length) return false;
-    this.saveDrivers(filtered);
+    const targetDriver = drivers.find(d => d.id === driverId);
+    if (!targetDriver) return false;
 
-    // If deleted driver was active on this device, clear the active session
+    const filteredDrivers = drivers.filter(d => d.id !== driverId);
+    this.saveDrivers(filteredDrivers);
+
+    // 1. Invalidate and clear active driver session on this device
     try {
       const activeId = localStorage.getItem(STORAGE_KEYS.ACTIVE_DRIVER_SESSION);
       if (activeId === driverId) {
@@ -287,19 +220,20 @@ export class TrackingService {
       // ignore
     }
 
-    // Clean up or unassign any consignments assigned to this driver
+    // 2. Remove all consignments, GPS logs, and tracking sessions associated with this driver
     try {
       const sessions = this.getSessions();
-      let hasUpdates = false;
+      let modified = false;
       for (const code of Object.keys(sessions)) {
-        if (sessions[code].assignedDriverId === driverId) {
-          sessions[code].assignedDriverId = '';
-          sessions[code].driverNumericId = '';
-          sessions[code].driverName = 'Unassigned';
-          hasUpdates = true;
+        if (
+          sessions[code].assignedDriverId === driverId ||
+          sessions[code].driverNumericId === targetDriver.numericId
+        ) {
+          delete sessions[code];
+          modified = true;
         }
       }
-      if (hasUpdates) {
+      if (modified) {
         this.saveSessions(sessions);
       }
     } catch {
@@ -310,10 +244,19 @@ export class TrackingService {
   }
 
   // --- ADMIN PASSCODE VERIFICATION ---
+  static isAdminPasscodeConfigured(): boolean {
+    const current = localStorage.getItem(STORAGE_KEYS.ADMIN_PASSCODE);
+    return Boolean(current && current.trim().length >= 6);
+  }
+
   static verifyAdminPasscode(passcode: string): boolean {
     const clean = passcode.trim();
     if (!clean) return false;
-    const currentPasscode = localStorage.getItem('mft_admin_passcode') || 'MFT2026';
+    const currentPasscode = localStorage.getItem(STORAGE_KEYS.ADMIN_PASSCODE);
+    // If not yet configured, first-time setup handles initialization
+    if (!currentPasscode) {
+      return false;
+    }
     return clean === currentPasscode;
   }
 
@@ -322,8 +265,20 @@ export class TrackingService {
     if (clean.length < 6) {
       return { success: false, error: 'Passcode must be at least 6 characters long' };
     }
-    localStorage.setItem('mft_admin_passcode', clean);
+    localStorage.setItem(STORAGE_KEYS.ADMIN_PASSCODE, clean);
     return { success: true };
+  }
+
+  static getAdminSession(): boolean {
+    return localStorage.getItem(STORAGE_KEYS.ADMIN_SESSION) === 'true';
+  }
+
+  static setAdminSession(authenticated: boolean) {
+    if (authenticated) {
+      localStorage.setItem(STORAGE_KEYS.ADMIN_SESSION, 'true');
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.ADMIN_SESSION);
+    }
   }
 
   // --- TRACKING SESSIONS (CONSIGNMENTS) ---
@@ -343,10 +298,9 @@ export class TrackingService {
       if (stored) {
         return JSON.parse(stored);
       }
-      localStorage.setItem(STORAGE_KEYS.SESSIONS, JSON.stringify(SEED_SESSIONS));
-      return SEED_SESSIONS;
+      return {};
     } catch {
-      return SEED_SESSIONS;
+      return {};
     }
   }
 
@@ -359,19 +313,32 @@ export class TrackingService {
     if (!code) return { session: null, isExpired: false };
     const cleanCode = code.trim().toUpperCase();
     const sessions = this.getSessions();
-    
-    // Look up exact or case-insensitive match
+
     const matchedKey = Object.keys(sessions).find(k => k.toUpperCase() === cleanCode);
     const session = matchedKey ? sessions[matchedKey] : null;
 
     if (!session) {
-      return { session: null, isExpired: false, error: `Consignment reference "${cleanCode}" was not found.` };
+      return {
+        session: null,
+        isExpired: false,
+        error: `Consignment reference "${cleanCode}" was not found or has concluded.`,
+      };
     }
 
+    // 5-day expiration enforcement
     const expiresAt = new Date(session.expiresAt).getTime();
-    const isExpired = Date.now() > expiresAt;
+    if (Date.now() > expiresAt) {
+      // Purge expired session from store
+      delete sessions[matchedKey!];
+      this.saveSessions(sessions);
+      return {
+        session: null,
+        isExpired: true,
+        error: 'This tracking link has concluded after its 5-day security lifespan.',
+      };
+    }
 
-    return { session, isExpired };
+    return { session, isExpired: false };
   }
 
   static createTrackingSession(params: {
@@ -382,13 +349,13 @@ export class TrackingService {
     originPostcode: string;
     destinationAddress: string;
     destinationPostcode: string;
+    originCoords: { lat: number; lng: number };
+    destinationCoords: { lat: number; lng: number };
     assignedDriverId: string;
     packageDescription: string;
-    originCoords?: { lat: number; lng: number };
-    destinationCoords?: { lat: number; lng: number };
   }): { success: boolean; session?: DeliveryTrackingSession; error?: string } {
     const code = params.code.trim().toUpperCase();
-    if (!code) return { success: false, error: 'Tracking code is required' };
+    if (!code) return { success: false, error: 'Tracking reference code is required' };
 
     const sessions = this.getSessions();
     if (sessions[code]) {
@@ -398,6 +365,10 @@ export class TrackingService {
     const driver = this.getDriverById(params.assignedDriverId);
     if (!driver) {
       return { success: false, error: 'Assigned driver not found' };
+    }
+
+    if (!params.originCoords || !params.destinationCoords) {
+      return { success: false, error: 'Pickup and delivery coordinates are required from valid postcodes.' };
     }
 
     const createdAt = new Date().toISOString();
@@ -411,8 +382,8 @@ export class TrackingService {
       originPostcode: params.originPostcode.toUpperCase(),
       destinationAddress: params.destinationAddress,
       destinationPostcode: params.destinationPostcode.toUpperCase(),
-      originCoords: params.originCoords || { lat: 53.5409, lng: -2.1114 }, // Default Manchester Hub
-      destinationCoords: params.destinationCoords || { lat: 52.4862, lng: -1.8904 },
+      originCoords: params.originCoords,
+      destinationCoords: params.destinationCoords,
       assignedDriverId: driver.id,
       driverNumericId: driver.numericId,
       driverName: driver.name,
@@ -426,7 +397,7 @@ export class TrackingService {
         {
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           status: 'Dispatched from Hub',
-          location: `${params.originAddress} (${params.originPostcode})`,
+          location: `${params.originAddress} (${params.originPostcode.toUpperCase()})`,
           completed: true,
           notes: 'Consignment allocated to dedicated driver.',
         },
@@ -442,13 +413,12 @@ export class TrackingService {
     return { success: true, session: newSession };
   }
 
-  // Driver GPS location update (throttled broadcast)
+  // Real Driver GPS location update
   static updateDriverLocation(code: string, driverId: string, location: GPSCoordinate) {
     const sessions = this.getSessions();
     const session = sessions[code];
-    if (session && session.assignedDriverId === driverId) {
+    if (session && session.assignedDriverId === driverId && session.status !== 'Delivered') {
       session.driverLocation = location;
-      // Calculate dynamic progress status if approaching
       if (session.status === 'Dispatched') {
         session.status = 'In Transit';
       }
@@ -472,14 +442,15 @@ export class TrackingService {
       session.checkpoints.push({
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         status,
-        location: status === 'Delivered' ? `${session.destinationAddress}` : 'In Transit Route',
+        location: status === 'Delivered' ? `${session.destinationAddress} (${session.destinationPostcode})` : 'In Dedicated Transit',
         completed: true,
         notes: note,
       });
     }
 
     if (status === 'Delivered') {
-      // Clear driver's active delivery assignment
+      // Clear driver's active delivery assignment and cease location broadcast
+      session.driverLocation = undefined;
       const driver = this.getDriverById(session.assignedDriverId);
       if (driver) {
         this.updateDriver(driver.id, { currentDeliveryCode: null, isBroadcasting: false });

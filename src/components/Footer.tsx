@@ -120,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={onOpenAdmin}
                   className="hover:text-white text-left transition-colors cursor-pointer"
                 >
-                  &bull; Dispatch Desk (Admin)
+                  &bull; Dispatch Desk
                 </button>
               </li>
             </ul>
