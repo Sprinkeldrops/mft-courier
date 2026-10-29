@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowDown, MessageSquare, ArrowRight, MapPin, Compass } from 'lucide-react';
-import { LogisticsGlobe3D } from './LogisticsGlobe3D';
+import { UkCourierNetworkMap } from './UkCourierNetworkMap';
 import { AntiGravityCanvas } from './AntiGravityCanvas';
 import { COMPANY_DETAILS } from '../data/courierData';
 
@@ -81,14 +81,12 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D MFT Logistics Globe */}
+          {/* Right Column: Interactive Animated UK Courier Network Map */}
           <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#F7F4ED] to-[#EFECE5] border border-[#E4DDD2] shadow-xl">
-              <LogisticsGlobe3D
-                activeDestinationId={selectedDestination}
-                onSelectDestination={(dest) => setSelectedDestination(dest.id)}
-              />
-            </div>
+            <UkCourierNetworkMap
+              activeDestinationId={selectedDestination}
+              onSelectDestination={(dest) => setSelectedDestination(dest.id)}
+            />
           </div>
         </div>
       </div>
