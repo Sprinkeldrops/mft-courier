@@ -292,7 +292,7 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] bg-[#08090C] rounded-3xl overflow-hidden border border-[#232730] shadow-2xl flex flex-col justify-between select-none ${className}`}
+      className={`relative w-full h-[320px] sm:h-[350px] lg:h-[380px] bg-[#08090C] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#232730] shadow-2xl flex flex-col justify-between select-none ${className}`}
     >
       {/* 1. Galaxy Cosmic Particle Background (Smoothly animated stars + mouse repulsion) */}
       <Galaxy
@@ -316,17 +316,17 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
       />
 
       {/* 2. Top Header HUD Bar */}
-      <div className="relative z-20 px-5 sm:px-6 pt-5 pb-3 flex items-center justify-between gap-3 border-b border-[#1E232D]/70 bg-[#0B0E14]/60 backdrop-blur-md">
-        <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] animate-pulse shadow-[0_0_8px_#84CC16]" />
+      <div className="relative z-20 px-3.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-3 border-b border-[#1E232D]/70 bg-[#0B0E14]/70 backdrop-blur-md">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse shadow-[0_0_8px_#84CC16]" />
           <div>
-            <div className="text-[11px] font-mono font-bold tracking-wider uppercase text-white flex items-center gap-2">
+            <div className="text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase text-white flex items-center gap-1.5">
               <span>MFT UK COURIER NETWORK</span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#84CC16]/20 text-[#84CC16] font-mono border border-[#84CC16]/30">
+              <span className="text-[8px] sm:text-[9px] px-1.5 py-0.2 rounded bg-[#84CC16]/20 text-[#84CC16] font-mono border border-[#84CC16]/30">
                 LIVE ARTERIES
               </span>
             </div>
-            <div className="text-[10px] text-[#7A8291] font-mono">
+            <div className="text-[9px] text-[#7A8291] font-mono hidden sm:block">
               Central Dispatch Hub: Manchester (OL8) &bull; Nationwide Coverage
             </div>
           </div>
@@ -337,19 +337,19 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
           <button
             type="button"
             onClick={() => setIsPaused(!isPaused)}
-            className="px-2.5 py-1.5 rounded-xl bg-[#141822] hover:bg-[#1C2230] border border-[#2B3242] text-white text-[11px] font-mono flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+            className="px-2 py-1 rounded-lg bg-[#141822] hover:bg-[#1C2230] border border-[#2B3242] text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95"
             title={isPaused ? 'Resume live network motion' : 'Pause animation motion'}
             aria-label={isPaused ? 'Resume animation' : 'Pause animation'}
           >
             {isPaused ? (
               <>
-                <Play className="w-3 h-3 text-[#84CC16] fill-[#84CC16]" />
-                <span className="hidden sm:inline">Resume</span>
+                <Play className="w-2.5 h-2.5 text-[#84CC16] fill-[#84CC16]" />
+                <span>Resume</span>
               </>
             ) : (
               <>
-                <Pause className="w-3 h-3 text-[#84CC16]" />
-                <span className="hidden sm:inline">Pause</span>
+                <Pause className="w-2.5 h-2.5 text-[#84CC16]" />
+                <span>Pause</span>
               </>
             )}
           </button>
@@ -357,10 +357,10 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
       </div>
 
       {/* 3. Center Interactive Vector UK Map Viewport */}
-      <div className="relative z-10 flex-1 w-full flex items-center justify-center p-2 sm:p-4 overflow-hidden">
+      <div className="relative z-10 flex-1 w-full min-h-0 flex items-center justify-center p-1 sm:p-2 overflow-hidden">
         <svg
           viewBox="0 0 620 740"
-          className="w-full h-full max-h-[500px] sm:max-h-[540px] lg:max-h-[560px] object-contain drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]"
+          className="w-full h-full max-h-[210px] sm:max-h-[230px] lg:max-h-[250px] object-contain drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]"
           preserveAspectRatio="xMidYMid meet"
           role="img"
           aria-label="Interactive animated UK logistics network map showing routes from Manchester to all major UK destinations"
@@ -820,40 +820,39 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
       </div>
 
       {/* 4. Bottom Interactive Route Telemetry Card (Active Corridor Details) */}
-      <div className="relative z-20 p-4 sm:p-5 bg-gradient-to-t from-[#090C12] via-[#0E121A]/95 to-[#131822]/90 border-t border-[#232938] backdrop-blur-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="relative z-20 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-t from-[#090C12] via-[#0E121A]/95 to-[#131822]/90 border-t border-[#232938] backdrop-blur-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           {/* Active Corridor Summary */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-[#84CC16] uppercase tracking-wider font-bold flex items-center gap-1.5">
-                <Zap className="w-3 h-3 text-[#84CC16]" />
-                <span>PRIMARY DEDICATED ARTERY</span>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-1.5 text-[9px] font-mono">
+              <span className="text-[#84CC16] uppercase tracking-wider font-bold flex items-center gap-1">
+                <Zap className="w-2.5 h-2.5 text-[#84CC16]" />
+                <span>PRIMARY ARTERY</span>
               </span>
               <span className="text-white/20">&bull;</span>
-              <span className="text-[10px] font-mono text-[#A0AEC0]">
-                DIRECT POINT-TO-POINT TRANSIT
+              <span className="text-[#A0AEC0]">
+                DIRECT TRANSIT
               </span>
             </div>
 
-            <div className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2 tracking-tight">
+            <div className="text-sm sm:text-base font-extrabold text-white flex items-center gap-1.5 tracking-tight leading-tight">
               <span>Manchester OL8</span>
-              <ArrowRight className="w-4 h-4 text-[#84CC16] shrink-0" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#84CC16] shrink-0" />
               <span className="text-[#84CC16]">{activeCity.name}</span>
+              {activeCity.approxMiles > 0 && (
+                <span className="text-xs font-mono font-normal text-[#84CC16]/90 ml-1">
+                  (~{activeCity.approxMiles} mi)
+                </span>
+              )}
             </div>
 
-            <div className="text-xs font-mono text-[#94A3B8] flex flex-wrap items-center gap-3">
-              <span>Highway Artery: <strong className="text-white font-semibold">{activeCity.corridor}</strong></span>
-              {activeCity.approxMiles > 0 && (
-                <>
-                  <span className="text-white/20">&bull;</span>
-                  <span>Direct Distance: <strong className="text-[#84CC16] font-bold">~{activeCity.approxMiles} miles</strong></span>
-                </>
-              )}
+            <div className="text-[11px] font-mono text-[#94A3B8]">
+              Artery: <strong className="text-white font-medium">{activeCity.corridor}</strong>
             </div>
           </div>
 
           {/* Quick Select Buttons for Key Trunks */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          <div className="flex items-center gap-1 overflow-x-auto pb-0.5 sm:pb-0 scrollbar-none">
             {['london', 'birmingham', 'leeds', 'glasgow', 'bristol'].map((id) => {
               const c = UK_NETWORK_CITIES.find((item) => item.id === id);
               if (!c) return null;
@@ -864,9 +863,9 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
                   key={c.id}
                   type="button"
                   onClick={() => handleSelectCity(c)}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
+                  className={`px-2 py-1 rounded text-[10px] font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
                     isCurr
-                      ? 'bg-[#84CC16] text-[#121316] shadow-[0_0_12px_rgba(132,204,22,0.4)]'
+                      ? 'bg-[#84CC16] text-[#121316] shadow-[0_0_10px_rgba(132,204,22,0.4)]'
                       : 'bg-[#181E29] hover:bg-[#222A38] text-[#94A3B8] hover:text-white border border-[#2B3444]'
                   }`}
                 >
@@ -877,20 +876,15 @@ export const UkCourierNetworkMap: React.FC<UkCourierNetworkMapProps> = ({
           </div>
         </div>
 
-        {/* Connected Sub-branches and Regional Hubs */}
+        {/* Connected Sub-branches on desktop */}
         {activeCity.subBranches && activeCity.subBranches.length > 0 && (
-          <div className="mt-3 pt-2.5 border-t border-[#1F2636] flex flex-wrap items-center gap-2 text-[11px] font-mono">
-            <span className="text-[#64748B] uppercase tracking-wider text-[10px] font-semibold">
-              Connected Hubs:
+          <div className="hidden md:flex items-center gap-1.5 text-[9px] font-mono text-[#94A3B8] truncate pt-1 border-t border-[#1F2636]/60 mt-1">
+            <span className="text-[#64748B] shrink-0 uppercase tracking-wider font-semibold">
+              Hubs:
             </span>
-            {activeCity.subBranches.map((branch, i) => (
-              <span
-                key={i}
-                className="text-[#CBD5E1] bg-[#141A24] px-2 py-0.5 rounded border border-[#252E40]"
-              >
-                {branch}
-              </span>
-            ))}
+            <span className="truncate text-[#CBD5E1]">
+              {activeCity.subBranches.join(' · ')}
+            </span>
           </div>
         )}
       </div>
